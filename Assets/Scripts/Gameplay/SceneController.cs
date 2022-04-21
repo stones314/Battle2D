@@ -8,7 +8,7 @@ public class SceneController : MonoBehaviour
     float startTime;
     bool inBattle = false;
 
-    Shop shop;
+    ShopSlot shop;
     CursorControl cursor;
     Player player;
     Player opponent;
@@ -18,7 +18,7 @@ public class SceneController : MonoBehaviour
 
     private void Awake()
     {
-        shop = GameObject.FindGameObjectWithTag("Shop").GetComponent<Shop>();
+        shop = GameObject.FindGameObjectWithTag("Shop").GetComponent<ShopSlot>();
         cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<CursorControl>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 

@@ -59,5 +59,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship2Slot
       objectReference: {fileID: 0}
+    - target: {fileID: 4915441837646150386, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915441837646150386, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618543421441002290, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618543421441002290, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}

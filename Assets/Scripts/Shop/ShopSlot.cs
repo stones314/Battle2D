@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shop : Slot
+public class ShopSlot : Slot
 {
 
     ShopPool pool;
@@ -15,18 +15,6 @@ public class Shop : Slot
 
     Color originalDefault;
 
-    private void Awake()
-    {
-        GameObject[] objs = GameObject.FindGameObjectsWithTag(this.gameObject.tag);
-
-        if (objs.Length > 1)
-        {
-            Destroy(this.gameObject);
-        }
-
-        DontDestroyOnLoad(this.gameObject);
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +23,7 @@ public class Shop : Slot
         pool = GetComponent<ShopPool>();
         originalDefault = defaultColor;
 
-        maxItems = pool.GetShopSize(0);
+        maxItems = pool.GetShopSize(1);
 
         Roll(false);
     }
@@ -61,17 +49,14 @@ public class Shop : Slot
     public void ReturnUnboughtItems()
     {
         Draggable[] items = GetComponentsInChildren<Draggable>();
-        List<PoolItem> returnItems = new List<PoolItem>();
         foreach (var item in items)
         {
             if (item.transform.parent == this.transform)
             {
-                returnItems.Add(item.prefabInfo);
                 RemovedDraggable(item.transform);
                 Object.Destroy(item.gameObject);
             }
         }
-        pool.ReturnItems(returnItems);
     }
 
     public void FetchNewItems()
@@ -129,9 +114,6 @@ public class Shop : Slot
 
     public void Sell(Transform item)
     {
-        List<PoolItem> returnItems = new List<PoolItem>();
-        returnItems.Add(item.GetComponent<Draggable>().prefabInfo);
-        pool.ReturnItems(returnItems);
         Object.Destroy(item.gameObject);
 
         player.IncreaseBalance(1000);

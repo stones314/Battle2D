@@ -110,7 +110,8 @@ public class CursorControl : MonoBehaviour
         draggable = null;
         if (button.tag == "Roll")
         {
-            if(player.money >= 1000) button.GetComponentInParent<Shop>().Roll();
+            if(player.money >= 1000)
+                shop.Roll();
         }
         if (button.tag == "Freeze")
         {

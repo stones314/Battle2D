@@ -204,14 +204,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4391070605673720609}
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.78125, y: 0.78125, z: 1}
   m_Children:
   - {fileID: 3417682790148359079}
   m_Father: {fileID: 1447937895745505412}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2952294138356600503
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: c8e81781f3f6b5f48b4abc1b5166b95b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.49474904, g: 0.57173043, b: 0.9622642, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -277,11 +277,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzel: {fileID: 3417682790148359079}
   rotationSpeed: 40
-  reloadTime: 1
+  reloadTime: 3
   munitionPrefab: Prefabs/Munitions/MunitionBase
-  burstSize: 1
+  burstSize: 5
   burstDeltaTime: 0.2
-  munitionSpeed: 7
+  munitionSpeed: 10
   accuracy: 0.3
   lockTarget: 0
   enemyPlayer: {fileID: 0}
@@ -405,10 +405,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 392670803361029026, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 1505741514919327707, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -443,7 +439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333865, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: prefabInfo.path
-      value: Prefabs/TechTiles/Level1/L1Cannon
+      value: Prefabs/TechTiles/Level1/L1Laser
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333865, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: prefabInfo.level
@@ -451,15 +447,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333866, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_Color.b
-      value: 0.19134924
+      value: 0.94509804
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333866, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_Color.g
-      value: 0.8736212
+      value: 0.9300421
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333866, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_Color.r
-      value: 0.9433962
+      value: 0.19215685
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333866, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_Enabled
@@ -467,7 +463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333871, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_Name
-      value: L1Cannon
+      value: L1Laser
       objectReference: {fileID: 0}
     - target: {fileID: 3265110967411210161, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_Size.x
@@ -502,4 +498,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed7adcc18fa6424a80f14c67ece283b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  singleUse: 0
   weaponType: 0

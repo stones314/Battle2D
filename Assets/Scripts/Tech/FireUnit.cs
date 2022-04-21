@@ -36,9 +36,6 @@ public class FireUnit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GetComponentInParent<Player>().tag == "Opponent")
-            battle = battle;//For ability to break - sometimes enemy ship does not fire back
-
         if (!battle) return;
         if (!enemyPlayer) return;
 

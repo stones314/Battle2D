@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public int round = 0;
     public int level = 1;
     public int money;
+    public int health;
 
     private void Awake()
     {
