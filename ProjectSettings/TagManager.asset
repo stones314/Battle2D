@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Battle Field
+  - Player Field
+  - Ship
+  - Tech Tile
+  - Tech Slot
+  - Inventory
+  - Cursor
+  - Ship Slot
+  - Ship Centre
+  - Tech Tile Centre
+  - Draggable Centre
+  - Freeze
+  - Roll
+  - Start Battle
+  - Shop
+  - Scene Controller
+  - Fire Unit
+  - Ammo
+  - Opponent
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Battle Field
+  - Player Field
+  - Ship
+  - Tech Grid
+  - Tech Tile
+  - Inventory
+  - Cursor
+  - UI Button
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
