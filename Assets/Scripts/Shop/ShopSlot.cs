@@ -146,7 +146,7 @@ public class ShopSlot : Slot
         if (enable)
         {
             if (frozen)
-                ToggleFreeze(); 
+                ToggleFreeze();
             else
                 Roll(false);
         }

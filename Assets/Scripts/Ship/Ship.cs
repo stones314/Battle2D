@@ -104,9 +104,9 @@ public class Ship : MonoBehaviour
         int row = (int)r;
         HullElement hullElement = Instantiate<HullElement>(Resources.Load<HullElement>("Prefabs/Ships/HullElement"));
         hullElement.transform.SetParent(this.transform);
-        hullElement.transform.localPosition = new Vector3(-hullElement.transform.localScale.x * 4.5f * 2.56f, -1.0f, 0);
+        hullElement.transform.localPosition = new Vector3(-hullElement.transform.localScale.x * 5.5f * 2.56f, -1.0f, 0);
         hullElement.transform.position += Vector3.right * hullElement.transform.lossyScale.x * col * 2.56f;
-        hullElement.transform.position += Vector3.down * 3.1f + Vector3.down * hullElement.transform.lossyScale.y * row * 2.56f;
+        hullElement.transform.position += Vector3.down * 2.1f + Vector3.down * hullElement.transform.lossyScale.y * row * 2.56f;
         hullElement.InitHull(layerStrength);
         hullElements.Add(hullElement);
 

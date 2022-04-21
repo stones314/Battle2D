@@ -42,4 +42,15 @@ public class Shop : MonoBehaviour
             shopSlot.ToggleFreeze();
         }
     }
+
+    public void SetEnableShop(bool enable)
+    {
+        this.gameObject.SetActive(enable);
+
+        foreach (var shopSlot in GetComponentsInChildren<ShopSlot>(true))
+        {
+            shopSlot.SetEnableShop(enable);
+        }
+    }
+
 }

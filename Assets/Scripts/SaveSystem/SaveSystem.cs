@@ -113,7 +113,7 @@ public class SaveSystem : MonoBehaviour
 
         player.transform.rotation = new Quaternion(0, 0, 180, 0);
 
-        player.transform.position = new Vector3(0,6,0);
+        player.transform.position = new Vector3(10,0,0);
 
         player.tag = "Opponent";
 

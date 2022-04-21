@@ -439,7 +439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333865, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: prefabInfo.path
-      value: Prefabs/TechTiles/Level1/L1Laser
+      value: Prefabs/Equipments/Level1/L1Laser
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333865, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: prefabInfo.level
