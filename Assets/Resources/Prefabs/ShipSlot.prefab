@@ -109,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.4, y: 2.4}
   m_EdgeRadius: 0
 --- !u!50 &4961172360862122439
 Rigidbody2D:
@@ -148,3 +148,4 @@ MonoBehaviour:
   slotType: 1
   itemCount: 0
   animateSpeed: 1
+  alignVertical: 0
