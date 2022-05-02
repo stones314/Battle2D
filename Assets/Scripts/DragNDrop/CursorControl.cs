@@ -23,6 +23,8 @@ public class CursorControl : MonoBehaviour
 
     bool _enableDrag;
 
+    Ray mouseRay;
+
     private void Awake()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag(this.gameObject.tag);
@@ -45,6 +47,7 @@ public class CursorControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HoverOver();
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -62,47 +65,65 @@ public class CursorControl : MonoBehaviour
         }
     }
 
-    private void Click()
+    private void HoverOver()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Skip this if we are dragging an object, as it is not needed in that case,
+        //and fast drag would make the ray miss and we "drop" the dragged object
+        if (draggable && draggable.isDragged) return;
+
+        mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (!_enableDrag)//For now this means we are in battle!
+        if (Physics.Raycast(mouseRay.origin, mouseRay.direction, out hit, 300.0f, LayerMask.GetMask("Tech Tile")))
         {
-            
+            HoverOverDraggable(hit.collider.transform);
         }
-        else if (Physics.Raycast(ray.origin, ray.direction, out hit, 1000.0f, LayerMask.GetMask("Tech Tile")))
+        else if (Physics.Raycast(mouseRay.origin, mouseRay.direction, out hit, 300.0f, LayerMask.GetMask("Ship")))
         {
-            TechClicked(hit.collider.transform, ray);
-        }
-        else if (Physics.Raycast(ray.origin, ray.direction, out hit, 500.0f, LayerMask.GetMask("Ship")))
-        {
-            ShipClicked(hit.collider.transform, ray);
-        }
-        else if (Physics.Raycast(ray.origin, ray.direction, out hit, 500.0f, LayerMask.GetMask("UI Button")))
-        {
-            ButtonClicked(hit.collider.transform);
+            HoverOverDraggable(hit.collider.transform);
         }
         else if (draggable)
         {
+            draggable.HoverOverExit();
             draggable = null;
         }
     }
 
-    private void TechClicked(Transform tech, Ray ray)
+    private void HoverOverDraggable(Transform target)
     {
-        DraggableClicked(tech, ray);
+        if (!draggable)
+        {
+            draggable = target.GetComponent<Draggable>();
+            draggable.HoverOverEnter();
+        }
+        else if (draggable.transform != target)
+        {
+            draggable.HoverOverExit();
+            draggable = target.GetComponent<Draggable>();
+            draggable.HoverOverEnter();
+        }
     }
 
-    private void ShipClicked(Transform ship, Ray ray)
+    private void Click()
     {
-        DraggableClicked(ship, ray);
+        RaycastHit hit;
+        if (!_enableDrag)//For now this means we are in battle!
+        {
+            
+        }
+        else if (draggable)
+        {
+            DraggableClicked();
+        }
+        else if (Physics.Raycast(mouseRay.origin, mouseRay.direction, out hit, 300.0f, LayerMask.GetMask("UI Button")))
+        {
+            ButtonClicked(hit.collider.transform);
+        }
     }
 
-    private void DraggableClicked(Transform target, Ray ray)
+    private void DraggableClicked()
     {
-        draggable = target.GetComponent<Draggable>();
-        draggable.Clicked(target.position - ray.origin);
+        draggable.Clicked(draggable.transform.position - mouseRay.origin);
     }
 
 
@@ -129,7 +150,7 @@ public class CursorControl : MonoBehaviour
         if (draggable && draggable.isDragged)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = -10;
+            mousePos.z = 0;
             draggable.DragTo(mousePos);
         }
     }

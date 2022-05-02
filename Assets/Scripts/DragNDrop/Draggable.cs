@@ -12,6 +12,7 @@ public class Draggable : MonoBehaviour
     public int dropCost;
     Vector3 initialPosition;
     Vector2 clickOffset;
+    int initialSortingOrder;
 
     public PoolItem prefabInfo;
 
@@ -50,6 +51,16 @@ public class Draggable : MonoBehaviour
         return currentSlot;
     }
 
+    public void HoverOverEnter()
+    {
+        transform.localScale *= 1.1f;
+    }
+
+    public void HoverOverExit()
+    {
+        transform.localScale /= 1.1f;
+    }
+
     public void Clicked(Vector2 offset)
     {
         isDragged = true;
@@ -57,6 +68,8 @@ public class Draggable : MonoBehaviour
         initialPosition = transform.position;
         clickOffset = offset;
         dropCost = 0;
+
+        ChangeSortOrder(20);
     }
 
     public void DragTo(Vector3 mousePos)
@@ -68,6 +81,8 @@ public class Draggable : MonoBehaviour
     {
         isDragged = false;
 
+        ChangeSortOrder(-20);
+
         if (dropCost <= playerMoney && transform.parent != newSlot)
         {
             newSlot.GetComponent<Slot>().PlaceDraggable(transform);
@@ -76,6 +91,18 @@ public class Draggable : MonoBehaviour
         
         transform.position = initialPosition;
         return 0;
+    }
+
+    private void ChangeSortOrder(int amount)
+    {
+        foreach (var sr in GetComponentsInChildren<SpriteRenderer>())
+        {
+            sr.sortingOrder += amount;
+        }
+        foreach (var c in GetComponentsInChildren<Canvas>())
+        {
+            c.sortingOrder += amount;
+        }
     }
 
     private int CalculateDropCost()
