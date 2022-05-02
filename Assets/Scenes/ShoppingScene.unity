@@ -446,6 +446,7 @@ MonoBehaviour:
   slotType: 2
   itemCount: 0
   animateSpeed: 1
+  alignVertical: 0
   techScale: 2.2
   shipScale: 1.8
 --- !u!114 &330789305
@@ -733,6 +734,7 @@ MonoBehaviour:
   slotType: 2
   itemCount: 0
   animateSpeed: 1
+  alignVertical: 0
   techScale: 2.5
   shipScale: 1.8
 --- !u!114 &882053285
@@ -962,6 +964,7 @@ MonoBehaviour:
   slotType: 2
   itemCount: 0
   animateSpeed: 1
+  alignVertical: 0
   techScale: 1
   shipScale: 1.5
 --- !u!114 &1117930077

@@ -74,15 +74,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.6132076, g: 0.39225549, b: 0.17644179, a: 1}
+  m_Sprite: {fileID: -6200892421980029770, guid: 22d8a5833ca4926489b591ac0d023110, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.95, y: 0.95}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &3449717051415502070
@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  owningPlayer: {fileID: 0}
   speedVector: {x: 0, y: 0, z: 0}
+  explosionPrefab: {fileID: 3571034017086880950, guid: 430b7dba7dcb4c34aacbc1858631b4d0, type: 3}
 --- !u!65 &2675531066212874689
 BoxCollider:
   m_ObjectHideFlags: 0

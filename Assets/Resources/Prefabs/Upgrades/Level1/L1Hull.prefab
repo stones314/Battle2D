@@ -103,5 +103,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   singleUse: 1
+  techName: Hull Bonus Level 1
+  description: Improves the ships hull so that it can withstand more damage.
+  cost: 1000
   layerBonus: 2
   strengthBonus: 0

@@ -257,6 +257,7 @@ MonoBehaviour:
   layerStrength: 1
   shieldStrength: 0
   startAccuracy: 30
+  explosionPrefab: {fileID: 3571034017086880950, guid: 430b7dba7dcb4c34aacbc1858631b4d0, type: 3}
 --- !u!54 &6409849262522965165
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -445,6 +446,14 @@ PrefabInstance:
     - target: {fileID: 8205759256163050214, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205759256163050214, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205759256163050214, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 8205759256163050214, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
       propertyPath: m_LocalPosition.z

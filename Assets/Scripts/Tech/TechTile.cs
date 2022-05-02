@@ -6,6 +6,9 @@ using UnityEngine;
 public abstract class TechTile : MonoBehaviour
 {
     public bool singleUse = false;
+    public string techName = "";
+    public string description = "";
+    public int cost = 1000;
 
     public abstract void GenerateTile();
 

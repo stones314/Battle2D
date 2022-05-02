@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FireUnit : MonoBehaviour
 {
@@ -9,14 +10,19 @@ public class FireUnit : MonoBehaviour
     Transform muzzel;
     public float rotationSpeed = 40f;   //Degees turned per second
     public float reloadTime = 5f;       //Time between each fire
-    public string munitionPrefab;       //The munition fired
+    [SerializeField]
+    GameObject munitionPrefab;          //The munition fired
     public int burstSize = 1;           //Each Fire will be a burst of this many munitions fired
     public float burstDeltaTime = 0.2f; //Time between each munition in a burst
     public float munitionSpeed = 5f;    //How fast the mnition flies
-    public float accuracy = 0.3f;       //Probablity of hitting the target
+    float accuracy = 0.3f;       //Probablity of hitting the target
     public bool lockTarget = false;     //If fireUnit can lock on to a target
 
-    public Player enemyPlayer;
+    Animator reloadAnimator;
+    Sprite reloadStartSprite;
+    SpriteRenderer reloadRenderer;
+
+    private Player enemyPlayer;
 
     private Quaternion wantedRotation;
     Ship targetShip;
@@ -27,10 +33,13 @@ public class FireUnit : MonoBehaviour
     int burstCounter;
     Vector3 targetDirection;
 
+    private Text munitionIndicatorText;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        AddMunitionIndicator();
+        InitilaizeReloadAnimator();
     }
 
     // Update is called once per frame
@@ -44,6 +53,23 @@ public class FireUnit : MonoBehaviour
         FireWhenReady();
     }
 
+    public void InitilaizeReloadAnimator()
+    {
+        if (reloadAnimator) return;
+        reloadAnimator = GetComponentInChildren<Reload>().GetComponent<Animator>();
+        reloadAnimator.SetBool("battleStarted", false);
+        reloadAnimator.SetBool("firing", false);
+    }
+
+    private void StartReloadAnimation()
+    {
+    }
+
+    private void StopReloadAnimation()
+    {
+    }
+
+
     public void BattleStarted(Player opponent)
     {
         battle = true;
@@ -53,6 +79,10 @@ public class FireUnit : MonoBehaviour
         burstCounter = 0;
         lastBurstTime = Time.time;
         accuracy = ((float)GetComponentInParent<Ship>().GetAccuracy())/100f;
+        
+        InitilaizeReloadAnimator();//in case this is the opponent it seems to not be initialized, so do it here
+        reloadAnimator.speed = 2.083f / reloadTime;  //Animation lasts 2 sec by default. We want it to last reloadTime instead
+        reloadAnimator.SetBool("battleStarted", true);
     }
 
     public void BattleEnded()
@@ -60,6 +90,7 @@ public class FireUnit : MonoBehaviour
         this.gameObject.SetActive(true);
         battle = false;
         enemyPlayer = null;
+        reloadAnimator.SetBool("battleStarted", false);
     }
 
     private void GetTarget()
@@ -105,6 +136,9 @@ public class FireUnit : MonoBehaviour
         if (angleDiff > 0.01f) return;
         if (Time.time - lastFireTime < reloadTime) return;
 
+        //ready to fire:
+        reloadAnimator.SetBool("firing", true);
+
         if (burstCounter < burstSize)
             FireNextInBurst();
         else
@@ -116,6 +150,7 @@ public class FireUnit : MonoBehaviour
         lastFireTime = Time.time;
         hasTarget = lockTarget;
         burstCounter = 0;
+        reloadAnimator.SetBool("firing", false);
     }
 
     private void FireNextInBurst()
@@ -125,14 +160,77 @@ public class FireUnit : MonoBehaviour
         lastBurstTime = Time.time;
         burstCounter++;
 
-        GameObject projectile = Instantiate(Resources.Load<GameObject>(munitionPrefab));
-        Munition m = projectile.GetComponent<Munition>();
-        m.speedVector = new Vector3(targetDirection.x, targetDirection.y, 0f) * munitionSpeed;
-        m.owningPlayer = this.GetComponentInParent<Player>();
-        projectile.transform.rotation = this.transform.rotation;
+        GameObject projectile = Instantiate(munitionPrefab);
+        Quaternion rot = this.transform.rotation;
+        rot.eulerAngles -= new Vector3(0,0,90);
+        projectile.transform.rotation = rot;
         projectile.transform.position = muzzel.transform.position;
         projectile.transform.localScale *= 0.4f;
+        Munition m = projectile.GetComponent<Munition>();
+        m.speedVector = new Vector3(targetDirection.x, targetDirection.y, 0f) * munitionSpeed;
+        m.SetOwningPlayer(this.GetComponentInParent<Player>());
+        m.SetBattle(true);
 
         if (Random.value > accuracy) projectile.transform.position += 50 * Vector3.back;
+    }
+
+    public void AddMunitionIndicator()
+    {
+        //Create Munition Game Object
+        GameObject munitionObj = Instantiate(munitionPrefab);
+        munitionObj.transform.parent = this.transform;
+        munitionObj.transform.rotation = this.transform.rotation;
+        munitionObj.transform.localPosition = new Vector3(-0.8f, -0.8f, 0);
+        munitionObj.transform.localScale *= 1f;
+        munitionObj.GetComponent<Rigidbody>().freezeRotation = true;
+        Munition munition = munitionObj.GetComponent<Munition>();
+        munition.SetBattle(false);
+        munition.SetInitialRotation(munitionObj.transform.rotation);
+
+        // Load the Arial font from the Unity Resources folder.
+        Font arial;
+        arial = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+
+        // Create Canvas GameObject.
+        GameObject canvasGO = new GameObject();
+        canvasGO.transform.parent = munitionObj.transform;
+        canvasGO.name = "Canvas";
+        canvasGO.AddComponent<Canvas>();
+        canvasGO.AddComponent<CanvasScaler>();
+        canvasGO.AddComponent<GraphicRaycaster>();
+
+        RectTransform CrectTransform;
+        CrectTransform = canvasGO.GetComponent<RectTransform>();
+        CrectTransform.localPosition = new Vector3(0, 0, 0);
+        CrectTransform.sizeDelta = new Vector2(100, 100);
+        CrectTransform.localScale = new Vector3(0.01f, 0.01f, 1f);
+
+        // Get canvas from the GameObject.
+        Canvas canvas;
+        canvas = canvasGO.GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.sortingOrder = 11;
+
+
+        // Create the Text GameObject.
+        GameObject textGO = new GameObject();
+        textGO.transform.parent = canvasGO.transform;
+        textGO.name = "Damage";
+        textGO.AddComponent<Text>();
+
+        // Set Text component properties.
+        munitionIndicatorText = textGO.GetComponent<Text>();
+        munitionIndicatorText.font = arial;
+        munitionIndicatorText.text = "" + munition.damage;
+        munitionIndicatorText.fontSize = 80;
+        munitionIndicatorText.alignment = TextAnchor.LowerCenter;
+        munitionIndicatorText.color = Color.black;
+
+        // Provide Text position and size using RectTransform.
+        RectTransform rectTransform;
+        rectTransform = munitionIndicatorText.GetComponent<RectTransform>();
+        rectTransform.localPosition = new Vector3(0, 0, 0);
+        rectTransform.sizeDelta = new Vector2(100, 100);
+        rectTransform.localScale = new Vector3(1, 1, 1);
     }
 }

@@ -11,6 +11,9 @@ public class Ship : MonoBehaviour
 
     public int startAccuracy;
 
+    [SerializeField]
+    GameObject explosionPrefab;
+
     List<HullElement> hullElements = new List<HullElement>();
 
     Accuracy accuracyIndicator;
@@ -38,6 +41,8 @@ public class Ship : MonoBehaviour
         {
             tech.BattleStarted(opponent);
         }
+
+        GetComponent<CapsuleCollider>().radius /= 3f;
     }
 
     public void BattleEnded()
@@ -49,6 +54,8 @@ public class Ship : MonoBehaviour
             tech.BattleEnded();
         }
         RestoreHull();
+
+        GetComponent<CapsuleCollider>().radius *= 3f;
     }
 
     public void HitByProjectile(float damage)
@@ -63,10 +70,21 @@ public class Ship : MonoBehaviour
             hullElements[i].DamageHull(damageToElement);
 
             if (i == 0 && hullElements[i].strength <= 0)
-                this.gameObject.SetActive(false);
+                DestroyShip();
 
             if(remainingDamage <= 0) break;
         }
+    }
+
+    public void DestroyShip()
+    {
+        this.gameObject.SetActive(false);
+
+        if (!explosionPrefab) return;
+
+        GameObject explosion = Instantiate(explosionPrefab);
+        explosion.transform.position = this.transform.position;
+        explosion.transform.localScale *= 4;
     }
 
     public void GenerateHullMeter()

@@ -19,6 +19,7 @@ public class Slot : MonoBehaviour
     protected Player player;
     public int itemCount;
     public float animateSpeed = 1f;
+    public bool alignVertical = false;
 
     Animator m_Animator;
     Sprite m_initial_Sprite;
@@ -28,6 +29,7 @@ public class Slot : MonoBehaviour
     {
         BaseStart();
     }
+
     protected void BaseStart()//Add this so that I can override and call base.BaseStart in inherited classes
     {
         defaultColor = GetComponent<SpriteRenderer>().color;
@@ -52,6 +54,7 @@ public class Slot : MonoBehaviour
     {
         
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!ValidCollision(collision)) return;
@@ -107,17 +110,21 @@ public class Slot : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = m_initial_Sprite;
 
     }
+
     protected void AlignItems()
     {
-        float slotWidth = 1.0f / maxItems;
-        float nextX = -0.5f + slotWidth / 2;
+        float slotDimension = 1.0f / maxItems;
+        float nextPos = -0.5f + slotDimension / 2;
         Draggable[] items = GetComponentsInChildren<Draggable>();
         foreach (Draggable d in items)
         {
             if (d.transform.parent == this.transform)
             {
-                d.transform.localPosition = new Vector3(nextX, 0.0f, 0.0f);
-                nextX += slotWidth;
+                if(alignVertical)
+                    d.transform.localPosition = new Vector3(0, nextPos, 0.0f);
+                else
+                    d.transform.localPosition = new Vector3(nextPos, 0.0f, 0.0f);
+                nextPos += slotDimension;
             }
         }
     }
@@ -126,8 +133,8 @@ public class Slot : MonoBehaviour
     {
         itemCount++;
         Slot oldParent = dragged.GetComponentInParent<Slot>();
+        if (oldParent) oldParent.RemovedDraggable(dragged);
         dragged.parent = this.transform;
-        if(oldParent) oldParent.RemovedDraggable(dragged);
         GetComponent<SpriteRenderer>().color = defaultColor;
         AlignItems();
 

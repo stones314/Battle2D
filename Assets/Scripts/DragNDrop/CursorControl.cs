@@ -93,6 +93,7 @@ public class CursorControl : MonoBehaviour
     {
         DraggableClicked(tech, ray);
     }
+
     private void ShipClicked(Transform ship, Ray ray)
     {
         DraggableClicked(ship, ray);
@@ -128,7 +129,7 @@ public class CursorControl : MonoBehaviour
         if (draggable && draggable.isDragged)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
+            mousePos.z = -10;
             draggable.DragTo(mousePos);
         }
     }

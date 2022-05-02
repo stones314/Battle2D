@@ -684,6 +684,7 @@ MonoBehaviour:
   slotType: 3
   itemCount: 0
   animateSpeed: 1
+  alignVertical: 1
 --- !u!1 &8811755526070094485
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,6 +998,7 @@ MonoBehaviour:
   round: 0
   level: 1
   money: 100000
+  health: 0
 --- !u!1001 &4508168153246622234
 PrefabInstance:
   m_ObjectHideFlags: 0
