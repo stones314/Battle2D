@@ -83,7 +83,7 @@ public class ShopPool : MonoBehaviour
     {
         if (itemType == ItemType.Ships)
             return SlotType.Ship;
-        return SlotType.Tech;
+        return SlotType.Equipment;
     }
 
     public int GetShopSize(int level)

@@ -681,7 +681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxItems: 10
-  slotType: 3
+  slotType: 5
   itemCount: 0
   animateSpeed: 1
   alignVertical: 1

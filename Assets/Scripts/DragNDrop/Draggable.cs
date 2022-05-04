@@ -4,41 +4,43 @@ using UnityEngine;
 
 public class Draggable : MonoBehaviour
 {
-
+    public string displayName;
+    public string description;
     public SlotType slotsInto;
-    public SlotType currentSlot;
+    public int cost;
     Transform newSlot;
-    public bool isDragged;
-    public int dropCost;
+    private bool isDragged;
     Vector3 initialPosition;
     Vector2 clickOffset;
-    int initialSortingOrder;
 
     public PoolItem prefabInfo;
 
     // Start is called before the first frame update
     void Start()
     {
-        newSlot = this.transform.parent;
-        currentSlot = GetComponentInParent<Slot>().slotType;
-        isDragged = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    public void Initialize(Slot startSlot)
+    {
+        newSlot = startSlot.transform;
+        isDragged = false;
     }
 
     public void OverSlot(Transform slot) {
         newSlot = slot;
-        dropCost = CalculateDropCost();
+        cost = CalculateDropCost();
     }
 
     public void LeftSlot()
     {
         newSlot = this.transform.parent;
-        dropCost = 0;
+        cost = 0;
     }
 
     public Transform GetNewSlot()
@@ -46,28 +48,32 @@ public class Draggable : MonoBehaviour
         return newSlot;
     }
 
-    public SlotType CurrentSlot()
+    public Slot GetCurrentSlot()
     {
-        return currentSlot;
+        return transform.parent.GetComponent<Slot>();
+    }
+
+    public SlotType CurrentSlotType()
+    {
+        return GetCurrentSlot().slotType;
     }
 
     public void HoverOverEnter()
     {
-        transform.localScale *= 1.1f;
+        //transform.localScale *= 1.1f;
     }
 
     public void HoverOverExit()
     {
-        transform.localScale /= 1.1f;
+        //transform.localScale /= 1.1f;
     }
 
     public void Clicked(Vector2 offset)
     {
         isDragged = true;
-        currentSlot = GetComponentInParent<Slot>().slotType;
         initialPosition = transform.position;
         clickOffset = offset;
-        dropCost = 0;
+        cost = 0;
 
         ChangeSortOrder(20);
     }
@@ -83,10 +89,10 @@ public class Draggable : MonoBehaviour
 
         ChangeSortOrder(-20);
 
-        if (dropCost <= playerMoney && transform.parent != newSlot)
+        if (cost <= playerMoney && transform.parent != newSlot)
         {
-            newSlot.GetComponent<Slot>().PlaceDraggable(transform);
-            return dropCost;
+            newSlot.GetComponent<Slot>().PlaceDraggable(this);
+            return cost;
         }
         
         transform.position = initialPosition;
@@ -116,7 +122,7 @@ public class Draggable : MonoBehaviour
         }
 
         //Buy from shop costs 3000 (regardless of where it is placed):
-        if (currentSlot == SlotType.Shop)
+        if (CurrentSlotType() == SlotType.Shop)
         {
             return 3000;
         }
@@ -129,5 +135,10 @@ public class Draggable : MonoBehaviour
 
         //Remaining option is to reconfigurie battlefield, which costs 500:
         return 500;
+    }
+
+    public bool IsDragged()
+    {
+        return isDragged;
     }
 }

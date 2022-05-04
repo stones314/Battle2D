@@ -140,7 +140,7 @@ public class SaveSystem : MonoBehaviour
             go.transform.position = slot.transform.position;
             ship.hullLayers = shipData.hullLayers;
             ship.layerStrength = shipData.layerStrength;
-            ship.SetAccuracy(shipData.accuracy);
+            //ship.SetAccuracy(shipData.accuracy);
             ship.GenerateHullMeter();
 
             AddTechTiles(ship, shipData.techTiles);

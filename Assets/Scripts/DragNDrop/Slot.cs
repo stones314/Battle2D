@@ -4,8 +4,10 @@ using UnityEngine;
 
 public enum SlotType
 {
-    Tech,
+    Equipment,
+    EquipmentUpgrade,
     Ship,
+    ShipUpgrade,
     Shop,
     Inventory
 }
@@ -14,15 +16,11 @@ public class Slot : MonoBehaviour
 {
     public int maxItems;
     public SlotType slotType;
-    protected Draggable dragged;
-    protected Color defaultColor;
+    protected Draggable m_dragged;
+    protected Color defaultColor = Color.white;
     protected Player player;
     public int itemCount;
-    public float animateSpeed = 1f;
     public bool alignVertical = false;
-
-    Animator m_Animator;
-    Sprite m_initial_Sprite;
 
     // Start is called before the first frame update
     void Start()
@@ -32,16 +30,8 @@ public class Slot : MonoBehaviour
 
     protected void BaseStart()//Add this so that I can override and call base.BaseStart in inherited classes
     {
-        defaultColor = GetComponent<SpriteRenderer>().color;
+        defaultColor = GetComponentInParent<SpriteRenderer>().color;
         FetchPlayer();
-        m_initial_Sprite = GetComponent<SpriteRenderer>().sprite;
-
-        m_Animator = GetComponent<Animator>();
-        if (m_Animator)
-        {
-            m_Animator.speed = animateSpeed;
-            m_Animator.enabled = false;
-        }
     }
 
     protected virtual void FetchPlayer()
@@ -57,61 +47,69 @@ public class Slot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!ValidCollision(collision)) return;
+        if (!ValidCollision(collision.gameObject)) return;
 
-        dragged.OverSlot(this.transform);
+        m_dragged = collision.gameObject.GetComponentInParent<Draggable>();
+        m_dragged.OverSlot(this.transform);
 
-        if (dragged.dropCost <= player.money)
+        if (m_dragged.cost <= player.money)
         {
-            GetComponent<SpriteRenderer>().color = Color.green;
-            //StartAnimation();
+            SetIndication();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!ValidCollision(collision)) return;
+        if (!ValidCollision(collision.gameObject)) return;
 
-        dragged.LeftSlot();
+        RemoveIndication();
 
-        if (GetComponent<SpriteRenderer>().color == Color.green && m_Animator)
-            StopAnimation();
-
-        GetComponent<SpriteRenderer>().color = defaultColor;
+        m_dragged.LeftSlot();
+        m_dragged = null;
     }
 
-    protected virtual bool ValidCollision(Collider2D collision)
+    protected virtual void SetIndication()
+    {
+        GetComponentInParent<SpriteRenderer>().color = Color.green;
+    }
+
+    protected virtual void RemoveIndication()
+    {
+        GetComponentInParent<SpriteRenderer>().color = defaultColor;
+    }
+
+    protected virtual bool ValidCollision(GameObject other)
     {
         if (IsFilled()) return false;
-        if (collision.gameObject.tag != "Draggable Centre") return false;
+        if (other.tag != "Draggable Centre") return false;
         
-        dragged = collision.gameObject.GetComponentInParent<Draggable>();
+        Draggable dragged = other.GetComponentInParent<Draggable>();
 
+        //only a draggable dragged over slot can slot into it:
         if (!dragged) return false;
-        if (dragged.transform.parent == this.transform) return false;
-        if (!dragged.isDragged) return false;
-        if (slotType != SlotType.Shop
-            && slotType != SlotType.Inventory
-            && dragged.slotsInto != slotType) return false;
+        if (!dragged.IsDragged()) return false;
+
+        //must move to a new slot:
+        if (dragged.GetCurrentSlot() == this) return false;
+
+        //Can not move from shop to shop:
+        if (dragged.GetCurrentSlot().slotType == SlotType.Shop && slotType == SlotType.Shop) return false;
+
+        //check that the draggable can slot into this type of slot:
+        //everything matches Shop and Inventory:
+        if (slotType == SlotType.Shop) return true;
+        if (slotType == SlotType.Inventory) return true;
+
+        //Can not move onto an item in the shop:
+        if (GetComponentInParent<Shop>()) return false;
+
+        //Not shop or inventory: must match exactly:
+        if (dragged.slotsInto != slotType) return false;
 
         return true;
     }
 
-    private void StartAnimation()
-    {
-        if (!m_Animator) return;
-        m_Animator.enabled = true;
-    }
-
-    private void StopAnimation()
-    {
-        if (!m_Animator) return;
-        m_Animator.enabled = false;
-        GetComponent<SpriteRenderer>().sprite = m_initial_Sprite;
-
-    }
-
-    protected void AlignItems()
+    protected virtual void AlignItems()
     {
         float slotDimension = 1.0f / maxItems;
         float nextPos = -0.5f + slotDimension / 2;
@@ -129,32 +127,34 @@ public class Slot : MonoBehaviour
         }
     }
 
-    public virtual void PlaceDraggable(Transform dragged)
+    protected virtual Transform GetNewParent()
     {
-        itemCount++;
-        Slot oldParent = dragged.GetComponentInParent<Slot>();
-        if (oldParent) oldParent.RemovedDraggable(dragged);
-        dragged.parent = this.transform;
-        GetComponent<SpriteRenderer>().color = defaultColor;
-        AlignItems();
-
-        if (slotType == SlotType.Tech)
-            dragged.GetComponent<TechTile>().PlacedOnShip(this);
-
-        if (itemCount > 0)
-            StartAnimation();
+        return this.transform;
     }
 
-    public virtual void RemovedDraggable(Transform dragged)
+    public virtual void PlaceDraggable(Draggable dragged)
+    {
+        itemCount++;
+
+        Slot oldSlot = dragged.GetCurrentSlot();
+        if (oldSlot) oldSlot.RemovedDraggable(dragged);
+
+        dragged.transform.parent = GetNewParent();
+
+        RemoveIndication();
+        AlignItems();
+        
+        if (dragged.transform.parent.tag == "Ship")
+            dragged.GetComponent<TechTile>().PlacedOnShip(this);
+    }
+
+    public virtual void RemovedDraggable(Draggable dragged)
     {
         itemCount--;
-        GetComponent<SpriteRenderer>().color = defaultColor;
+        RemoveIndication();
 
-        if (slotType == SlotType.Tech)
+        if (slotType == SlotType.Equipment)
             dragged.GetComponent<TechTile>().RemovedFromShip(GetComponentInParent<Ship>());
-
-        if (itemCount == 0)
-            StopAnimation();
     }
 
     public virtual bool IsFilled()

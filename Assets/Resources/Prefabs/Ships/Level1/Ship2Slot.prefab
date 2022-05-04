@@ -11,6 +11,18 @@ PrefabInstance:
       propertyPath: hullLayers
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+      propertyPath: prefabInfo.path
+      value: Prefabs/Equipments/Level1/L1Bomber
+      objectReference: {fileID: 0}
+    - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+      propertyPath: prefabInfo.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+      propertyPath: prefabInfo.level
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 631664595609270600, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_RootOrder
       value: 0

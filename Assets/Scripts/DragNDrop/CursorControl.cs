@@ -19,6 +19,9 @@ public class CursorControl : MonoBehaviour
     [SerializeField]
     Shop shop;
 
+    [SerializeField]
+    HoverOverInfo hoverOverInfo;
+
     Draggable draggable;
 
     bool _enableDrag;
@@ -69,7 +72,7 @@ public class CursorControl : MonoBehaviour
     {
         //Skip this if we are dragging an object, as it is not needed in that case,
         //and fast drag would make the ray miss and we "drop" the dragged object
-        if (draggable && draggable.isDragged) return;
+        if (draggable && draggable.IsDragged()) return;
 
         mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -86,6 +89,7 @@ public class CursorControl : MonoBehaviour
         {
             draggable.HoverOverExit();
             draggable = null;
+            HideHoverInfo();
         }
     }
 
@@ -95,13 +99,26 @@ public class CursorControl : MonoBehaviour
         {
             draggable = target.GetComponent<Draggable>();
             draggable.HoverOverEnter();
+            ShowHoverInfo();
         }
         else if (draggable.transform != target)
         {
             draggable.HoverOverExit();
             draggable = target.GetComponent<Draggable>();
             draggable.HoverOverEnter();
+            ShowHoverInfo();
         }
+    }
+
+    private void ShowHoverInfo()
+    {
+        hoverOverInfo.gameObject.SetActive(true);
+        hoverOverInfo.SetDescription(draggable.name);
+    }
+
+    private void HideHoverInfo()
+    {
+        hoverOverInfo.gameObject.SetActive(false);
     }
 
     private void Click()
@@ -147,7 +164,7 @@ public class CursorControl : MonoBehaviour
 
     private void Drag()
     {
-        if (draggable && draggable.isDragged)
+        if (draggable && draggable.IsDragged())
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;

@@ -6,17 +6,38 @@ using UnityEngine.UI;
 public class FireUnit : MonoBehaviour
 {
 
+    [Tooltip("")]
     [SerializeField]
     Transform muzzel;
-    public float rotationSpeed = 40f;   //Degees turned per second
-    public float reloadTime = 5f;       //Time between each fire
+
+    [Tooltip("Degees turned per second")]
+    public float rotationSpeed = 40f;
+
+    [Tooltip("Time between each fire")]
+    public float reloadTime = 5f;
+
+    [Tooltip("The munition fired")]
     [SerializeField]
-    GameObject munitionPrefab;          //The munition fired
-    public int burstSize = 1;           //Each Fire will be a burst of this many munitions fired
-    public float burstDeltaTime = 0.2f; //Time between each munition in a burst
-    public float munitionSpeed = 5f;    //How fast the mnition flies
-    float accuracy = 0.3f;       //Probablity of hitting the target
-    public bool lockTarget = false;     //If fireUnit can lock on to a target
+    GameObject munitionPrefab;
+
+    [Tooltip("Each Fire will be a burst of this many munitions fired")]
+    public int burstSize = 1;
+
+    [Tooltip("Time between each munition in a burst")]
+    public float burstDeltaTime = 0.2f;
+
+    [Tooltip("How fast the mnition flies")]
+    public float munitionSpeed = 5f;
+
+    [Tooltip("Probablity of hitting the target")]
+    public int accuracy = 30;
+
+    [Tooltip("If fireUnit can lock on to a target")]
+    public bool lockTarget = false;
+
+    [Tooltip("Prefab for accuracy indicator")]
+    [SerializeField]
+    GameObject accuracyIndicatorPrefab;
 
     Animator reloadAnimator;
     Sprite reloadStartSprite;
@@ -39,6 +60,7 @@ public class FireUnit : MonoBehaviour
     void Start()
     {
         AddMunitionIndicator();
+        AddAccuracyIndicator();
         InitilaizeReloadAnimator();
     }
 
@@ -78,7 +100,6 @@ public class FireUnit : MonoBehaviour
         lastFireTime = Time.time;
         burstCounter = 0;
         lastBurstTime = Time.time;
-        accuracy = ((float)GetComponentInParent<Ship>().GetAccuracy())/100f;
         
         InitilaizeReloadAnimator();//in case this is the opponent it seems to not be initialized, so do it here
         reloadAnimator.speed = 2.083f / reloadTime;  //Animation lasts 2 sec by default. We want it to last reloadTime instead
@@ -171,7 +192,7 @@ public class FireUnit : MonoBehaviour
         m.SetOwningPlayer(this.GetComponentInParent<Player>());
         m.SetBattle(true);
 
-        if (Random.value > accuracy) projectile.transform.position += 50 * Vector3.back;
+        if (Random.value > (float)accuracy/100f) projectile.transform.position += 50 * Vector3.back;
     }
 
     public void AddMunitionIndicator()
@@ -232,5 +253,17 @@ public class FireUnit : MonoBehaviour
         rectTransform.localPosition = new Vector3(0, 0, 0);
         rectTransform.sizeDelta = new Vector2(100, 100);
         rectTransform.localScale = new Vector3(1, 1, 1);
+    }
+
+    public void AddAccuracyIndicator()
+    {
+        //Create Accuracy Indicator Game Object
+        GameObject accuracyIndicatorObj = Instantiate(accuracyIndicatorPrefab);
+        accuracyIndicatorObj.transform.parent = this.transform;
+        accuracyIndicatorObj.transform.rotation = this.transform.rotation;
+        accuracyIndicatorObj.transform.localPosition = new Vector3(-1.5f, -0.8f, 0);
+        accuracyIndicatorObj.transform.localScale *= 0.4f;
+        Accuracy acc = accuracyIndicatorObj.GetComponent<Accuracy>();
+        acc.SetAccuracy(accuracy);
     }
 }

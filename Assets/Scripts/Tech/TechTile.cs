@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class TechTile : MonoBehaviour
+public abstract class TechTile : Draggable
 {
     public bool singleUse = false;
-    public string techName = "";
-    public string description = "";
-    public int cost = 1000;
 
     public abstract void GenerateTile();
 
@@ -21,7 +18,7 @@ public abstract class TechTile : MonoBehaviour
         ApplyBonusesToShip();
         if (singleUse)
         {
-            slot.RemovedDraggable(this.transform);
+            slot.RemovedDraggable(this);
             Destroy(this.gameObject);
         }
     }

@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333864, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333864, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -47,22 +47,6 @@ PrefabInstance:
       propertyPath: prefabInfo.level
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1505741515216333866, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
-      propertyPath: m_Color.b
-      value: 0.94509804
-      objectReference: {fileID: 0}
-    - target: {fileID: 1505741515216333866, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
-      propertyPath: m_Color.g
-      value: 0.9300421
-      objectReference: {fileID: 0}
-    - target: {fileID: 1505741515216333866, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
-      propertyPath: m_Color.r
-      value: 0.19215685
-      objectReference: {fileID: 0}
-    - target: {fileID: 1505741515216333866, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333871, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_Name
       value: L1Bomber
@@ -75,8 +59,7 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1505741515216333861, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
 --- !u!1 &1447937895745505411 stripped
 GameObject:
@@ -100,6 +83,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed7adcc18fa6424a80f14c67ece283b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: 
+  description: A basic cannon that fire bombs
+  slotsInto: 0
+  cost: 1000
+  prefabInfo:
+    level: 1
+    type: 0
+    path: Prefabs/Equipments/Level1/L1Bomber
   singleUse: 0
   weaponType: 0
 --- !u!1001 &93261306036033780

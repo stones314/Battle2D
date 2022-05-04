@@ -102,9 +102,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1357494189b5b3d4bb25ee18092b536e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singleUse: 1
-  techName: Hull Bonus Level 1
+  displayName: 
   description: Improves the ships hull so that it can withstand more damage.
+  slotsInto: 3
   cost: 1000
+  prefabInfo:
+    level: 1
+    type: 3
+    path: Prefabs/Upgradess/Level1/L1Hull
+  singleUse: 1
   layerBonus: 2
   strengthBonus: 0

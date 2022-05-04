@@ -30,23 +30,58 @@ public class Munition : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isBattle) return;
-        if (other.gameObject.tag != "Ship") return;
+        if (IgnoreThisCollision(other)) return;
 
-        Ship target = other.gameObject.GetComponent<Ship>();
-        Player targetOwner = target.GetComponentInParent<Player>();
 
-        if (targetOwner == owningPlayer) return;
+        if (other.gameObject.tag == "Shield")
+            HitShield(other);
+        else if (other.gameObject.tag == "Ship")
+            HitShip(other);
+    }
 
-        target.HitByProjectile(damage);
+    private bool IgnoreThisCollision(Collider other)
+    {
+        //Ignore all collisions outside battle
+        if (!isBattle) return true;
+
+        Player targetOwner = other.gameObject.GetComponentInParent<Player>();
+
+        //Ignore collision with targets that has no owner
+        if (!targetOwner) return true;
+
+        //Ignore friendly fire
+        if (targetOwner == owningPlayer) return true;
+
+        return false;
+    }
+
+    private void Explode()
+    {
         Destroy(this.gameObject);
 
-        //Explosion:
         if (explosionPrefab)
         {
             GameObject explosion = Instantiate(explosionPrefab);
             explosion.transform.position = this.transform.position;
         }
+    }
+
+    private void HitShield(Collider other)
+    {
+        Shield target = other.gameObject.GetComponent<Shield>();
+
+        target.HitByProjectile(damage);
+
+        Explode();
+    }
+
+    private void HitShip(Collider other)
+    {
+        Ship target = other.gameObject.GetComponent<Ship>();
+
+        target.HitByProjectile(damage);
+
+        Explode();
     }
 
     public void SetOwningPlayer(Player player)

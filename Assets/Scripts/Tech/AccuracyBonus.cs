@@ -37,7 +37,7 @@ public class AccuracyBonus : TechTile
 
     public override void ApplyBonusesToShip()
     {
-        GetComponentInParent<Ship>().AddAccuracy(accuracyBonus);
+        //GetComponentInParent<Ship>().AddAccuracy(accuracyBonus);
     }
 
     public override void RemovedFromShip(Ship oldParent)

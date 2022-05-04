@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109561539854764853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 0.390625, y: 0.390625, z: 1}
   m_Children:
   - {fileID: 1304643885053748147}
@@ -104,7 +104,9 @@ MonoBehaviour:
   burstSize: 1
   burstDeltaTime: 0.2
   munitionSpeed: 2
+  accuracy: 30
   lockTarget: 0
+  accuracyIndicatorPrefab: {fileID: 5217222717079708301, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
 --- !u!1 &6675674768613285959
 GameObject:
   m_ObjectHideFlags: 0

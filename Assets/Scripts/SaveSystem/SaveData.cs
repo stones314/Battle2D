@@ -69,7 +69,7 @@ public class ShipData
         slotName = ship.GetComponentInParent<Slot>().name;
         hullLayers = ship.hullLayers;
         layerStrength = (int)ship.layerStrength;
-        accuracy = ship.GetAccuracy();
+        //accuracy = ship.GetAccuracy();
 
         TechTile[] shipTech = ship.GetComponentsInChildren<TechTile>();
         numTechTiles = shipTech.Length;

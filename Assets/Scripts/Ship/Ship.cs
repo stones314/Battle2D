@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ship : MonoBehaviour
+public class Ship : Draggable
 {
     public int hullLayers = 1;
     public float layerStrength = 10;
@@ -16,22 +16,20 @@ public class Ship : MonoBehaviour
 
     List<HullElement> hullElements = new List<HullElement>();
 
-    Accuracy accuracyIndicator;
-
     // Start is called before the first frame update
     void Start()
     {
-        if (!accuracyIndicator)
-        {
-            accuracyIndicator = GetComponentInChildren<Accuracy>();
-            accuracyIndicator.SetAccuracy(startAccuracy);
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Here?");
     }
 
     public void BattleStarted(Player opponent)
@@ -138,27 +136,4 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void AddAccuracy(int accuracy)
-    {
-        accuracyIndicator.AddAccuracy(accuracy);
-    }
-
-    public void SetAccuracy(int accuracy)
-    {
-        if (!accuracyIndicator)
-        {
-            accuracyIndicator = GetComponentInChildren<Accuracy>();
-        }
-        accuracyIndicator.SetAccuracy(accuracy);
-    }
-
-    public void RemoveAccuracy(int accuracy)
-    {
-        accuracyIndicator.AddAccuracy(-accuracy);
-    }
-
-    public int GetAccuracy()
-    {
-        return accuracyIndicator.GetAccuracy();
-    }
 }

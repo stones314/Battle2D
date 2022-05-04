@@ -33,7 +33,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333864, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333864, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -127,10 +127,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c548bc1eea572346914e320b87f9151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singleUse: 1
-  techName: Accuracy Bonus Level 1
+  displayName: 
   description: Hit probability is increased
+  slotsInto: 1
   cost: 1000
+  prefabInfo:
+    level: 1
+    type: 1
+    path: Prefabs/Upgradess/Level1/L1Laser
+  singleUse: 1
   accuracyBonus: 10
   font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &8142151754395533285

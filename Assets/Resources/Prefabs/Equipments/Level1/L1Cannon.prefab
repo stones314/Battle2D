@@ -25,7 +25,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333864, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333864, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -104,10 +104,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed7adcc18fa6424a80f14c67ece283b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singleUse: 0
-  techName: Basic Cannon
+  displayName: 
   description: A basic weapon that fire bullets
+  slotsInto: 0
   cost: 1000
+  prefabInfo:
+    level: 1
+    type: 0
+    path: Prefabs/Equipments/Level1/L1Cannon
+  singleUse: 0
   weaponType: 0
 --- !u!1001 &4744295425971938533
 PrefabInstance:

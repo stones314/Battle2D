@@ -15,6 +15,8 @@ public class ShopSlot : Slot
 
     Color originalDefault;
 
+    Color m_draggedDefaultColor = Color.white;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,21 @@ public class ShopSlot : Slot
         player = FindObjectOfType<Player>();
     }
 
+    protected override void SetIndication()
+    {
+        if (!m_dragged) return;
+
+        m_draggedDefaultColor = m_dragged.GetComponentInChildren<SpriteRenderer>().color;
+        m_dragged.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+    }
+
+    protected override void RemoveIndication()
+    {
+        if (!m_dragged) return;
+
+        m_dragged.GetComponentInChildren<SpriteRenderer>().color = m_draggedDefaultColor;
+    }
+
     public void ReturnUnboughtItems()
     {
         Draggable[] items = GetComponentsInChildren<Draggable>();
@@ -53,7 +70,7 @@ public class ShopSlot : Slot
         {
             if (item.transform.parent == this.transform)
             {
-                RemovedDraggable(item.transform);
+                RemovedDraggable(item);
                 Object.Destroy(item.gameObject);
             }
         }
@@ -69,14 +86,14 @@ public class ShopSlot : Slot
             try
             {
                 gameObject = Instantiate(Resources.Load<GameObject>(item.path));
+                gameObject.transform.parent = this.transform;
             }
             catch
             {
                 Debug.LogError("Null when instantiating?");
             }
-            
 
-            if (item.type == SlotType.Tech)
+            if (item.type == SlotType.Equipment || item.type == SlotType.ShipUpgrade || item.type == SlotType.EquipmentUpgrade)
             {
                 gameObject.transform.localScale *= techScale;
                 gameObject.GetComponent<TechTile>().GenerateTile();
@@ -88,7 +105,10 @@ public class ShopSlot : Slot
                 gameObject.GetComponent<Ship>().GenerateHullMeter();//Must be done after rescale
             }
 
-            PlaceDraggable(gameObject.transform);
+            Draggable dragged = gameObject.GetComponent<Draggable>();
+            dragged.Initialize(this);
+
+            PlaceDraggable(dragged);
         }
         AlignItems();
     }
@@ -119,7 +139,7 @@ public class ShopSlot : Slot
         player.IncreaseBalance(1000);
     }
 
-    public override void PlaceDraggable(Transform dragged)
+    public override void PlaceDraggable(Draggable dragged)
     {
         if (pendingFetch > 0)
         {
@@ -127,10 +147,10 @@ public class ShopSlot : Slot
         }
         else
         {
-            Slot oldParent = dragged.GetComponentInParent<Slot>();
-            if (oldParent) oldParent.RemovedDraggable(dragged);
-            GetComponent<SpriteRenderer>().color = defaultColor;
-            Sell(dragged);
+            Slot oldSlot = dragged.GetCurrentSlot();
+            if (oldSlot) oldSlot.RemovedDraggable(dragged);
+            RemoveIndication();
+            Sell(dragged.transform);
         }
     }
 
