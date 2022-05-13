@@ -30,7 +30,7 @@ public class FireUnit : MonoBehaviour
     public float munitionSpeed = 5f;
 
     [Tooltip("Probablity of hitting the target")]
-    public int accuracy = 30;
+    public int m_accuracy = 30;
 
     [Tooltip("If fireUnit can lock on to a target")]
     public bool lockTarget = false;
@@ -40,8 +40,8 @@ public class FireUnit : MonoBehaviour
     GameObject accuracyIndicatorPrefab;
 
     Animator reloadAnimator;
-    Sprite reloadStartSprite;
-    SpriteRenderer reloadRenderer;
+    //Sprite reloadStartSprite;
+    //SpriteRenderer reloadRenderer;
 
     private Player enemyPlayer;
 
@@ -79,18 +79,9 @@ public class FireUnit : MonoBehaviour
     {
         if (reloadAnimator) return;
         reloadAnimator = GetComponentInChildren<Reload>().GetComponent<Animator>();
-        reloadAnimator.SetBool("battleStarted", false);
-        reloadAnimator.SetBool("firing", false);
+        reloadAnimator.SetBool("reloading", false);
+        reloadAnimator.SetBool("active", false);
     }
-
-    private void StartReloadAnimation()
-    {
-    }
-
-    private void StopReloadAnimation()
-    {
-    }
-
 
     public void BattleStarted(Player opponent)
     {
@@ -103,7 +94,7 @@ public class FireUnit : MonoBehaviour
         
         InitilaizeReloadAnimator();//in case this is the opponent it seems to not be initialized, so do it here
         reloadAnimator.speed = 2.083f / reloadTime;  //Animation lasts 2 sec by default. We want it to last reloadTime instead
-        reloadAnimator.SetBool("battleStarted", true);
+        reloadAnimator.SetBool("reloading", true);
     }
 
     public void BattleEnded()
@@ -111,7 +102,7 @@ public class FireUnit : MonoBehaviour
         this.gameObject.SetActive(true);
         battle = false;
         enemyPlayer = null;
-        reloadAnimator.SetBool("battleStarted", false);
+        reloadAnimator.SetBool("reloading", false);
     }
 
     private void GetTarget()
@@ -158,7 +149,7 @@ public class FireUnit : MonoBehaviour
         if (Time.time - lastFireTime < reloadTime) return;
 
         //ready to fire:
-        reloadAnimator.SetBool("firing", true);
+        reloadAnimator.SetBool("active", true);
 
         if (burstCounter < burstSize)
             FireNextInBurst();
@@ -171,7 +162,7 @@ public class FireUnit : MonoBehaviour
         lastFireTime = Time.time;
         hasTarget = lockTarget;
         burstCounter = 0;
-        reloadAnimator.SetBool("firing", false);
+        reloadAnimator.SetBool("active", false);
     }
 
     private void FireNextInBurst()
@@ -192,7 +183,7 @@ public class FireUnit : MonoBehaviour
         m.SetOwningPlayer(this.GetComponentInParent<Player>());
         m.SetBattle(true);
 
-        if (Random.value > (float)accuracy/100f) projectile.transform.position += 50 * Vector3.back;
+        if (Random.value > (float)m_accuracy/100f) projectile.transform.position += 50 * Vector3.back;
     }
 
     public void AddMunitionIndicator()
@@ -264,6 +255,39 @@ public class FireUnit : MonoBehaviour
         accuracyIndicatorObj.transform.localPosition = new Vector3(-1.5f, -0.8f, 0);
         accuracyIndicatorObj.transform.localScale *= 0.4f;
         Accuracy acc = accuracyIndicatorObj.GetComponent<Accuracy>();
-        acc.SetAccuracy(accuracy);
+        acc.SetAccuracy(m_accuracy);
+    }
+
+    public void AddAccuracy(int accuracy)
+    {
+        m_accuracy += accuracy;
+        GetComponentInChildren<Accuracy>().SetAccuracy(m_accuracy);
+    }
+
+    public void AddSpeedBonus(int speedBonus)
+    {
+        reloadTime *= (100f - (float)speedBonus) / 100f;
+    }
+
+    public float GetDamagePerSec()
+    {
+        float ds = munitionPrefab.GetComponent<Munition>().damage;
+        float acc = (float)m_accuracy/100f;
+        ds *= acc;
+        ds *= burstSize;
+        ds /= (reloadTime + burstDeltaTime*(burstSize-1));
+        return ds;
+    }
+
+    public string StatsToString()
+    {
+        Munition m = munitionPrefab.GetComponent<Munition>();
+
+        return
+            "Reload Time: " + reloadTime + " sec\n" +
+            "Accuracy:    " + m_accuracy + " %\n" +
+            "Burst Size:  " + burstSize + "\n" +
+            "Munition:    " + m.name + " (" + m.damage +" damage)\n" +
+            "Sell Value:  " + GetComponentInParent<Draggable>().cost/3;
     }
 }

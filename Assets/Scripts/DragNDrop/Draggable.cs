@@ -8,12 +8,15 @@ public class Draggable : MonoBehaviour
     public string description;
     public SlotType slotsInto;
     public int cost;
-    Transform newSlot;
+    Slot newSlot;
+    Slot currentSlot;
     private bool isDragged;
     Vector3 initialPosition;
     Vector2 clickOffset;
 
-    public PoolItem prefabInfo;
+    PoolItem prefabInfo;
+
+    private bool ignoreNextIndicationReset = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,31 +29,36 @@ public class Draggable : MonoBehaviour
     {
     }
 
-    public void Initialize(Slot startSlot)
+    public void Initialize(Slot startSlot, PoolItem item)
     {
-        newSlot = startSlot.transform;
+        newSlot = startSlot;
+        currentSlot = startSlot;
         isDragged = false;
+        prefabInfo = item;
     }
 
-    public void OverSlot(Transform slot) {
+    public string GetPrefabPath()
+    {
+        return prefabInfo.path;
+    }
+
+    public void OverSlot(Slot slot) {
         newSlot = slot;
-        cost = CalculateDropCost();
     }
 
     public void LeftSlot()
     {
-        newSlot = this.transform.parent;
-        cost = 0;
+        newSlot = currentSlot;
     }
 
-    public Transform GetNewSlot()
+    public Slot GetNewSlot()
     {
         return newSlot;
     }
 
     public Slot GetCurrentSlot()
     {
-        return transform.parent.GetComponent<Slot>();
+        return currentSlot;
     }
 
     public SlotType CurrentSlotType()
@@ -68,12 +76,11 @@ public class Draggable : MonoBehaviour
         //transform.localScale /= 1.1f;
     }
 
-    public void Clicked(Vector2 offset)
+    public virtual void Clicked(Vector2 offset)
     {
         isDragged = true;
         initialPosition = transform.position;
         clickOffset = offset;
-        cost = 0;
 
         ChangeSortOrder(20);
     }
@@ -83,16 +90,19 @@ public class Draggable : MonoBehaviour
         transform.position = mousePos + (Vector3)clickOffset;
     }
 
-    public int Dropped(int playerMoney)
+    public virtual int Dropped(int playerMoney)
     {
         isDragged = false;
 
         ChangeSortOrder(-20);
 
-        if (cost <= playerMoney && transform.parent != newSlot)
+        int dc = CalculateDropCost();
+
+        if (dc <= playerMoney && currentSlot != newSlot)
         {
-            newSlot.GetComponent<Slot>().PlaceDraggable(this);
-            return cost;
+            newSlot.PlaceDraggable(this);
+            currentSlot = newSlot;
+            return dc;
         }
         
         transform.position = initialPosition;
@@ -113,18 +123,24 @@ public class Draggable : MonoBehaviour
 
     private int CalculateDropCost()
     {
-        SlotType toSlot = newSlot.GetComponent<Slot>().slotType;
+        SlotType toSlot = newSlot.slotType;
 
         //Sell is free:
         if (toSlot == SlotType.Shop)
         {
-            return 0;
+            int c = 0;
+            foreach(var d in GetComponentsInChildren<Draggable>())
+            {
+                c += d.cost;
+            }
+
+            return -c/3;
         }
 
         //Buy from shop costs 3000 (regardless of where it is placed):
         if (CurrentSlotType() == SlotType.Shop)
         {
-            return 3000;
+            return cost;
         }
 
         //Move to inventory is free:
@@ -133,12 +149,33 @@ public class Draggable : MonoBehaviour
             return 0;
         }
 
-        //Remaining option is to reconfigurie battlefield, which costs 500:
-        return 500;
+        //Remaining option is to reconfigurie battlefield, which costs 0:
+        return 0;
     }
 
     public bool IsDragged()
     {
         return isDragged;
+    }
+
+    public void SetIgnoreNextIndicationReset()
+    {
+        ignoreNextIndicationReset = true;
+    }
+    public bool GetIgnoreNextIndicationReset()
+    {
+        bool doit = ignoreNextIndicationReset;
+        ignoreNextIndicationReset = false;
+        return doit;
+    }
+
+    public virtual string GetDescription()
+    {
+        return description;
+    }
+
+    public virtual string GetHoverOverStats()
+    {
+        return "";
     }
 }

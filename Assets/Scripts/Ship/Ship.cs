@@ -7,12 +7,12 @@ public class Ship : Draggable
     public int hullLayers = 1;
     public float layerStrength = 10;
 
-    public float shieldStrength = 0;
-
-    public int startAccuracy;
+    public int shieldCount = 0;
 
     [SerializeField]
     GameObject explosionPrefab;
+    [SerializeField]
+    Transform hullArea;
 
     List<HullElement> hullElements = new List<HullElement>();
 
@@ -115,17 +115,15 @@ public class Ship : Draggable
 
     private void AddHullLayer(int layerNumber)
     {
-        int col = layerNumber % 10;
-        float r = layerNumber / 10f;
-        int row = (int)r;
+        int row = layerNumber % 10;
+        float c = layerNumber / 10f;
+        int col = (int)c;
         HullElement hullElement = Instantiate<HullElement>(Resources.Load<HullElement>("Prefabs/Ships/HullElement"));
-        hullElement.transform.SetParent(this.transform);
-        hullElement.transform.localPosition = new Vector3(-hullElement.transform.localScale.x * 5.5f * 2.56f, -1.0f, 0);
-        hullElement.transform.position += Vector3.right * hullElement.transform.lossyScale.x * col * 2.56f;
-        hullElement.transform.position += Vector3.down * 2.1f + Vector3.down * hullElement.transform.lossyScale.y * row * 2.56f;
+        hullElement.transform.SetParent(hullArea);
+        hullElement.transform.localPosition = new Vector3(0.25f - 0.25f*col, -0.45f + 0.1f*row, 0)*2.56f;
+        hullElement.transform.localScale = new Vector3(0.25f, 0.1f, 0);
         hullElement.InitHull(layerStrength);
         hullElements.Add(hullElement);
-
     }
 
     public void RestoreHull()
@@ -136,4 +134,28 @@ public class Ship : Draggable
         }
     }
 
+    public float GetDamagePerSec()
+    {
+        float ds = 0.0f;
+        foreach(var weapon in GetComponentsInChildren<Weapon>())
+        {
+            ds += weapon.GetDamagePerSec();
+        }
+        return ds;
+    }
+
+    public override string GetHoverOverStats()
+    {
+        int c = 0;
+        foreach(var d in GetComponentsInChildren<Draggable>())
+        {
+            c += d.cost;
+        }
+
+        return
+            "Hull:    " + hullLayers + "\n" +
+            "Shields: " + shieldCount + "\n" + 
+            "Damage/sec: " + GetDamagePerSec() + "\n" +
+            "Sell Value:  " + c / 3;
+    }
 }

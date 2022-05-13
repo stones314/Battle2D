@@ -77,7 +77,11 @@ public class CursorControl : MonoBehaviour
         mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(mouseRay.origin, mouseRay.direction, out hit, 300.0f, LayerMask.GetMask("Tech Tile")))
+        if (!_enableDrag)//For now this means we are in battle!
+        {
+
+        }
+        else if (Physics.Raycast(mouseRay.origin, mouseRay.direction, out hit, 300.0f, LayerMask.GetMask("Tech Tile")))
         {
             HoverOverDraggable(hit.collider.transform);
         }
@@ -113,7 +117,8 @@ public class CursorControl : MonoBehaviour
     private void ShowHoverInfo()
     {
         hoverOverInfo.gameObject.SetActive(true);
-        hoverOverInfo.SetDescription(draggable.name);
+        hoverOverInfo.SetDescription(draggable.GetDescription());
+        hoverOverInfo.SetStats(draggable.GetHoverOverStats());
     }
 
     private void HideHoverInfo()

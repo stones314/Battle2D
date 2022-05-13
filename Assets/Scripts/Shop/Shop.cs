@@ -34,6 +34,7 @@ public class Shop : MonoBehaviour
         {
             shopSlot.Roll();
         }
+        FindObjectOfType<Player>().TryDecreeseBalance(1000);
     }
     public void ToggleFreeze()
     {

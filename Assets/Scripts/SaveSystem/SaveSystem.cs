@@ -111,7 +111,7 @@ public class SaveSystem : MonoBehaviour
 
         AddShips(player, data.fleet.ships);
 
-        player.transform.rotation = new Quaternion(0, 0, 180, 0);
+        //player.transform.rotation = new Quaternion(0, 0, 180, 0);
 
         player.transform.position = new Vector3(10,0,0);
 
@@ -140,11 +140,11 @@ public class SaveSystem : MonoBehaviour
             go.transform.position = slot.transform.position;
             ship.hullLayers = shipData.hullLayers;
             ship.layerStrength = shipData.layerStrength;
-            //ship.SetAccuracy(shipData.accuracy);
             ship.GenerateHullMeter();
 
             AddTechTiles(ship, shipData.techTiles);
 
+            go.transform.rotation = new Quaternion(0, 0, 180, 0);
         }
     }
 
@@ -165,6 +165,21 @@ public class SaveSystem : MonoBehaviour
             go.transform.parent = slot.transform;
             go.transform.position = slot.transform.position;
             go.transform.localScale *= 2.2f;
+
+            FireUnit fu = go.GetComponentInChildren<FireUnit>();
+            if (fu)
+            {
+                fu.m_accuracy = techData.accuracy;
+                fu.reloadTime = techData.reloadTime;
+            }
+
+            ShieldGenerator sg = go.GetComponentInChildren<ShieldGenerator>();
+            if (sg)
+            {
+                sg.shieldStrength = techData.shieldStrength;
+                sg.rechargeTime = techData.rechargeTime;
+                sg.PlacedOnTarget(slot);
+            }
         }
     }
 

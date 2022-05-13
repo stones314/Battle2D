@@ -52,7 +52,7 @@ public class Weapon : TechTile
 
     }
 
-    public override void ApplyBonusesToShip()
+    public override void ApplyBonusesToTarget(Slot slot)
     {
         
     }
@@ -62,4 +62,13 @@ public class Weapon : TechTile
         
     }
 
+    public override string GetHoverOverStats()
+    {
+        return fireUnit.StatsToString();
+    }
+
+    public float GetDamagePerSec()
+    {
+        return fireUnit.GetDamagePerSec();
+    }
 }

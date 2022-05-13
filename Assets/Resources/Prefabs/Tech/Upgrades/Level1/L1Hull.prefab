@@ -102,14 +102,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1357494189b5b3d4bb25ee18092b536e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: 
-  description: Improves the ships hull so that it can withstand more damage.
+  displayName: Hull Upgrade 1
+  description: Adds an additional layer of hull to a ship so that it can withstand
+    more damage.
   slotsInto: 3
   cost: 1000
-  prefabInfo:
-    level: 1
-    type: 3
-    path: Prefabs/Upgradess/Level1/L1Hull
   singleUse: 1
-  layerBonus: 2
+  layerBonus: 1
   strengthBonus: 0

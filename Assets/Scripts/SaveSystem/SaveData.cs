@@ -59,17 +59,15 @@ public class ShipData
     public string slotName;         //slot where ship is placed
     public int hullLayers;          //number of hull layers
     public int layerStrength;       //strenght of each layer
-    public int accuracy;            //accuracy
     public int numTechTiles;        //nuber of tech tiles attached
     public TechTileData[] techTiles;//list of tech tiles attached
 
     public ShipData(Ship ship)
     {
-        prefabName = ship.GetComponent<Draggable>().prefabInfo.path;
+        prefabName = ship.GetPrefabPath();
         slotName = ship.GetComponentInParent<Slot>().name;
         hullLayers = ship.hullLayers;
         layerStrength = (int)ship.layerStrength;
-        //accuracy = ship.GetAccuracy();
 
         TechTile[] shipTech = ship.GetComponentsInChildren<TechTile>();
         numTechTiles = shipTech.Length;
@@ -88,9 +86,31 @@ public class TechTileData
     public string prefabName;       //name of tech prefab
     public string slotName;         //name of slot where tech is attached
 
+    //fire unit params:
+    public int accuracy;            //accuracy of unit
+    public float reloadTime;        //reload time
+
+    //shield generator params
+    public float shieldStrength;    //strength of shield
+    public float rechargeTime;      //recharge time of shield
+
     public TechTileData(TechTile techTile)
     {
-        prefabName = techTile.GetComponent<Draggable>().prefabInfo.path;
+        prefabName = techTile.GetPrefabPath();
         slotName = techTile.GetComponentInParent<Slot>().name;
+
+        FireUnit fu = techTile.GetComponentInChildren<FireUnit>();
+        if (fu)
+        {
+            accuracy = fu.m_accuracy;
+            reloadTime = fu.reloadTime;
+        }
+
+        ShieldGenerator sg = techTile.GetComponentInChildren<ShieldGenerator>();
+        if (sg)
+        {
+            shieldStrength = sg.shieldStrength;
+            rechargeTime = sg.rechargeTime;
+        }
     }
 }

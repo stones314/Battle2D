@@ -27,7 +27,7 @@ public class ShopSlot : Slot
 
         maxItems = pool.GetShopSize(1);
 
-        Roll(false);
+        Roll();
     }
 
     // Update is called once per frame
@@ -52,15 +52,25 @@ public class ShopSlot : Slot
     {
         if (!m_dragged) return;
 
-        m_draggedDefaultColor = m_dragged.GetComponentInChildren<SpriteRenderer>().color;
-        m_dragged.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        if(m_dragged.GetComponentInChildren<SpriteRenderer>().color == Color.red)
+        {
+            //this means that we got Enter call in new shop slot before Exit call in old shop slot
+            //we ignore it here, and tell dragged item do not remove indication in Exit call:
+            m_dragged.SetIgnoreNextIndicationReset();
+        }
+        else
+        {
+            m_draggedDefaultColor = m_dragged.GetComponentInChildren<SpriteRenderer>().color;
+            m_dragged.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        }
     }
 
     protected override void RemoveIndication()
     {
         if (!m_dragged) return;
 
-        m_dragged.GetComponentInChildren<SpriteRenderer>().color = m_draggedDefaultColor;
+        if(!m_dragged.GetIgnoreNextIndicationReset())
+            m_dragged.GetComponentInChildren<SpriteRenderer>().color = m_draggedDefaultColor;
     }
 
     public void ReturnUnboughtItems()
@@ -74,6 +84,11 @@ public class ShopSlot : Slot
                 Object.Destroy(item.gameObject);
             }
         }
+
+        foreach (var infoItem in GetComponentsInChildren<ShopItemInfo>())
+        {
+            Object.Destroy(infoItem.gameObject);
+        }
     }
 
     public void FetchNewItems()
@@ -83,6 +98,22 @@ public class ShopSlot : Slot
         foreach (var item in items)
         {
             GameObject gameObject = null;
+            ShopItemInfo itemInfo = null;
+
+            //Fetch Holder:
+            try
+            {
+                if (item.type == SlotType.Ship)
+                    itemInfo = Instantiate(Resources.Load<ShopItemInfo>("Prefabs/Ships/ShipInfo"));
+                else
+                    itemInfo = Instantiate(Resources.Load<ShopItemInfo>("Prefabs/Tech/TechInfo"));
+                itemInfo.transform.parent = this.transform;
+            }
+            catch
+            {
+                Debug.LogError("Null when instantiating?");
+            }
+
             try
             {
                 gameObject = Instantiate(Resources.Load<GameObject>(item.path));
@@ -106,16 +137,19 @@ public class ShopSlot : Slot
             }
 
             Draggable dragged = gameObject.GetComponent<Draggable>();
-            dragged.Initialize(this);
+            dragged.Initialize(this, item);
 
             PlaceDraggable(dragged);
+
+            itemInfo.transform.position = dragged.transform.position;
+            itemInfo.SetCost(dragged.cost);
+            itemInfo.SetDisplayName(dragged.displayName);
         }
         AlignItems();
     }
 
-    public void Roll(bool doPay = true)
+    public void Roll()
     {
-        if(doPay) player.TryDecreeseBalance(1000);
         ReturnUnboughtItems();
         pendingFetch = 5;//
         if (frozen) ToggleFreeze();
@@ -136,7 +170,7 @@ public class ShopSlot : Slot
     {
         Object.Destroy(item.gameObject);
 
-        player.IncreaseBalance(1000);
+        //player.IncreaseBalance(1000);
     }
 
     public override void PlaceDraggable(Draggable dragged)
@@ -154,6 +188,14 @@ public class ShopSlot : Slot
         }
     }
 
+    public override void RemovedDraggable(Draggable dragged)
+    {
+        base.RemovedDraggable(dragged);
+
+        if(dragged.GetNewSlot().slotType != SlotType.Shop)
+            Destroy(GetComponentInChildren<ShopItemInfo>().gameObject);
+    }
+
     public override bool IsFilled()
     {
         return false;
@@ -168,7 +210,7 @@ public class ShopSlot : Slot
             if (frozen)
                 ToggleFreeze();
             else
-                Roll(false);
+                Roll();
         }
     }
 }

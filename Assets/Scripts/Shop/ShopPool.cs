@@ -73,9 +73,9 @@ public class ShopPool : MonoBehaviour
         if (itemType == ItemType.Ships)
             return "Prefabs/Ships";
         if (itemType == ItemType.Equipments)
-            return "Prefabs/Equipments";
+            return "Prefabs/Tech/Equipments";
         if (itemType == ItemType.Upgrades)
-            return "Prefabs/Upgrades";
+            return "Prefabs/Tech/Upgrades";
         return "";
     }
 

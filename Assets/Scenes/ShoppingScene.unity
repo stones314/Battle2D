@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c098d1942146f4c84924ffdb9a15fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 8811755526398069197, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
+  playerPrefab: {fileID: 8811755526398069197, guid: f113de8f8e2b06e4db7021f011ebe0ed, type: 3}
 --- !u!4 &389693136
 Transform:
   m_ObjectHideFlags: 0
@@ -641,22 +641,6 @@ PrefabInstance:
     - target: {fileID: 2804917696383102608, guid: 1afafcfe304af314ab6fb6aad5ff3cd7, type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2973870046112945120, guid: 1afafcfe304af314ab6fb6aad5ff3cd7, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 2973870046112945120, guid: 1afafcfe304af314ab6fb6aad5ff3cd7, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246156150313712092, guid: 1afafcfe304af314ab6fb6aad5ff3cd7, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246156150313712092, guid: 1afafcfe304af314ab6fb6aad5ff3cd7, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.001953125
       objectReference: {fileID: 0}
     - target: {fileID: 6400155287811188876, guid: 1afafcfe304af314ab6fb6aad5ff3cd7, type: 3}
       propertyPath: m_RootOrder
@@ -709,10 +693,6 @@ PrefabInstance:
     - target: {fileID: 6400155287811188876, guid: 1afafcfe304af314ab6fb6aad5ff3cd7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7674581463651334670, guid: 1afafcfe304af314ab6fb6aad5ff3cd7, type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1afafcfe304af314ab6fb6aad5ff3cd7, type: 3}
@@ -1457,6 +1437,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 8811755526398069197, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
+      propertyPath: money
+      value: 50000
+      objectReference: {fileID: 0}
     - target: {fileID: 8811755526398069198, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
       propertyPath: m_RootOrder
       value: 3

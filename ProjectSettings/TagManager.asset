@@ -23,6 +23,7 @@ TagManager:
   - Fire Unit
   - Ammo
   - Opponent
+  - Shield
   layers:
   - Default
   - TransparentFX

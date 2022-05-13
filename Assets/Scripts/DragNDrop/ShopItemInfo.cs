@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HoverOverInfo : MonoBehaviour
+public class ShopItemInfo : MonoBehaviour
 {
-
     [SerializeField]
-    UnityEngine.UI.Text description;
+    UnityEngine.UI.Text m_displayName;
     [SerializeField]
-    UnityEngine.UI.Text stats;
+    UnityEngine.UI.Text m_cost;
 
     // Start is called before the first frame update
     void Start()
@@ -22,13 +21,13 @@ public class HoverOverInfo : MonoBehaviour
         
     }
 
-    public void SetDescription(string text)
+    public void SetCost(int cost)
     {
-        description.text = text;
+        m_cost.text = "$" + cost.ToString();
     }
 
-    public void SetStats(string text)
+    public void SetDisplayName(string name)
     {
-        stats.text = text;
+        m_displayName.text = name;
     }
 }

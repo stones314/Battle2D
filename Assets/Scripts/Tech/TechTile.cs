@@ -13,17 +13,18 @@ public abstract class TechTile : Draggable
 
     public abstract void BattleEnded();
 
-    public virtual void PlacedOnShip(Slot slot)
+    public virtual void PlacedOnTarget(Slot slot)
     {
-        ApplyBonusesToShip();
+        ApplyBonusesToTarget(slot);
         if (singleUse)
         {
             slot.RemovedDraggable(this);
             Destroy(this.gameObject);
+            slot.GetComponentInParent<Draggable>().cost += cost;
         }
     }
 
-    public abstract void ApplyBonusesToShip();
+    public abstract void ApplyBonusesToTarget(Slot slot);
 
     public abstract void RemovedFromShip(Ship oldParent);
 

@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AccuracyBonus : TechTile
+public class SpeedBonus : TechTile
 {
-    public int accuracyBonus;
-
-    public Font font;
+    public int speedBonus;
 
     // Start is called before the first frame update
     void Start()
@@ -17,12 +15,20 @@ public class AccuracyBonus : TechTile
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
-    public override void GenerateTile()
+    }
+    public override void ApplyBonusesToTarget(Slot slot)
     {
-        GetComponentInChildren<Accuracy>().SetAccuracy(accuracyBonus);
+        FireUnit fu = slot.GetComponentInParent<FireUnit>();
+        if (fu)
+        {
+            fu.AddSpeedBonus(speedBonus);
+        }
+        ShieldGenerator sg = slot.GetComponentInParent<ShieldGenerator>();
+        if (sg)
+        {
+            sg.AddSpeedBonus(speedBonus);
+        }
     }
 
     public override void BattleEnded()
@@ -35,9 +41,9 @@ public class AccuracyBonus : TechTile
         
     }
 
-    public override void ApplyBonusesToTarget(Slot slot)
+    public override void GenerateTile()
     {
-        GetComponentInParent<FireUnit>().AddAccuracy(accuracyBonus);
+        GetComponentInChildren<Accuracy>().SetAccuracy(speedBonus);
     }
 
     public override void RemovedFromShip(Ship oldParent)
@@ -59,7 +65,6 @@ public class AccuracyBonus : TechTile
 
     public override string GetHoverOverStats()
     {
-        return "Accuracy +" + accuracyBonus + "%";
+        return "Reload/Recharge Time: -" +speedBonus + "%";
     }
-
 }

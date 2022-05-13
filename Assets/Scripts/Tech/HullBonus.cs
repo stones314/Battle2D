@@ -58,7 +58,7 @@ public class HullBonus : TechTile
         
     }
 
-    public override void ApplyBonusesToShip()
+    public override void ApplyBonusesToTarget(Slot slot)
     {
         GetComponentInParent<Ship>().AddBonusLayers(layerBonus);
     }
@@ -66,5 +66,9 @@ public class HullBonus : TechTile
     public override void RemovedFromShip(Ship oldParent)
     {
         
+    }
+    public override string GetHoverOverStats()
+    {
+        return "+" + layerBonus + " Hull";
     }
 }

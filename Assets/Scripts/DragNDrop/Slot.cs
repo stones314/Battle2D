@@ -28,7 +28,7 @@ public class Slot : MonoBehaviour
         BaseStart();
     }
 
-    protected void BaseStart()//Add this so that I can override and call base.BaseStart in inherited classes
+    protected void BaseStart()//Add this so that I can override and call base.BaseStart() in inherited classes
     {
         defaultColor = GetComponentInParent<SpriteRenderer>().color;
         FetchPlayer();
@@ -50,7 +50,7 @@ public class Slot : MonoBehaviour
         if (!ValidCollision(collision.gameObject)) return;
 
         m_dragged = collision.gameObject.GetComponentInParent<Draggable>();
-        m_dragged.OverSlot(this.transform);
+        m_dragged.OverSlot(this);
 
         if (m_dragged.cost <= player.money)
         {
@@ -144,8 +144,8 @@ public class Slot : MonoBehaviour
         RemoveIndication();
         AlignItems();
         
-        if (dragged.transform.parent.tag == "Ship")
-            dragged.GetComponent<TechTile>().PlacedOnShip(this);
+        if (dragged.GetNewSlot().slotType == SlotType.EquipmentUpgrade || dragged.GetNewSlot().slotType == SlotType.ShipUpgrade || dragged.GetNewSlot().slotType == SlotType.Equipment)
+            dragged.GetComponent<TechTile>().PlacedOnTarget(this);
     }
 
     public virtual void RemovedDraggable(Draggable dragged)

@@ -12,6 +12,9 @@ public class SceneController : MonoBehaviour
     CursorControl cursor;
     Player player;
     Player opponent;
+
+    bool waitForEnd = false;
+    float countDownStart;
     
     [SerializeField]
     SaveSystem saveSystem;
@@ -48,6 +51,13 @@ public class SceneController : MonoBehaviour
     void Update()
     {
         if (inBattle)
+        {
+            if (!opponent.HasShipsLeft() || !player.HasShipsLeft())
+            {
+                StartEndTimer();
+            }
+        }
+        else if (waitForEnd && (Time.time - countDownStart) > 5)
         {
             if (!opponent.HasShipsLeft())
             {
@@ -104,12 +114,21 @@ public class SceneController : MonoBehaviour
     void EndBattle()
     {
         inBattle = false;
+        waitForEnd = false;
         shop.SetEnableShop(true);
         opponent.BattleEnded();
         Destroy(opponent.gameObject);
         player.BattleEnded();
         player.round += 1;
+        player.IncreaseBalance(3000);
         SceneManager.LoadScene("ShoppingScene");
+    }
+
+    void StartEndTimer()
+    {
+        inBattle = false;
+        waitForEnd = true;
+        countDownStart = Time.time;
     }
 
     void StartShopping()
