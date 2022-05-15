@@ -15,6 +15,7 @@ public abstract class TechTile : Draggable
 
     public virtual void PlacedOnTarget(Slot slot)
     {
+        EventManager.NotifyTechPlaced();
         ApplyBonusesToTarget(slot);
         if (singleUse)
         {
