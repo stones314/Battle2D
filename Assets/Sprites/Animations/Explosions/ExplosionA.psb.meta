@@ -25,6 +25,7 @@ ScriptedImporter:
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
+    ignoreMasterTextureLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -79,7 +80,6 @@ ScriptedImporter:
       width: 0
       height: 0
     spriteID: 
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -91,7 +91,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: ExpA12
+  - name: 'ExpA12 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -103,7 +103,6 @@ ScriptedImporter:
       width: 38
       height: 29
     spriteID: 6ad2e46eeb326e74086542fa7759196c
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -113,7 +112,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 149, y: 26}
-  - name: ExpA11
+  - name: 'ExpA11 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -124,8 +123,7 @@ ScriptedImporter:
       y: 433
       width: 79
       height: 75
-    spriteID: 1b8b37f08583c0d47ba7e61606c77651
-    internalID: 0
+    spriteID: 4655b77f125b64a7c9be4491f8e59155
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -135,7 +133,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -25, y: 405}
-  - name: ExpA10
+  - name: 'ExpA10 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -146,8 +144,7 @@ ScriptedImporter:
       y: 4
       width: 87
       height: 83
-    spriteID: 70982ae0f90b5b44cab2376c5cdc97f4
-    internalID: 0
+    spriteID: a9244a3093c0b4a60b10936d48549663
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -157,7 +154,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 97, y: -20}
-  - name: ExpA09
+  - name: 'ExpA09 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -168,8 +165,7 @@ ScriptedImporter:
       y: 332
       width: 98
       height: 93
-    spriteID: 2359f75210a325d4f83f475f021d90f0
-    internalID: 0
+    spriteID: 078f0b903af7c4bc6964a779a935cf25
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +175,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -16, y: 312}
-  - name: ExpA08
+  - name: 'ExpA08 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -190,8 +186,7 @@ ScriptedImporter:
       y: 119
       width: 106
       height: 103
-    spriteID: 57b14871ff27a7d4b808f6af63e55000
-    internalID: 0
+    spriteID: 68e14a735972142b9bd6b720a9cc31c3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -201,7 +196,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -11, y: 103}
-  - name: ExpA07
+  - name: 'ExpA07 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -212,8 +207,7 @@ ScriptedImporter:
       y: 4
       width: 110
       height: 107
-    spriteID: ecff36e7de79c9240910bc30a59d4cc8
-    internalID: 0
+    spriteID: 8b19235de8984494caf7d33537ece3ff
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -223,7 +217,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -9, y: -10}
-  - name: ExpA06
+  - name: 'ExpA06 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -234,8 +228,7 @@ ScriptedImporter:
       y: 230
       width: 97
       height: 94
-    spriteID: cd7778803453daf49862125eef86d531
-    internalID: 0
+    spriteID: f38860956dabe4cfaa8a247594529ac6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -245,7 +238,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -16, y: 210}
-  - name: ExpA05
+  - name: 'ExpA05 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -256,8 +249,7 @@ ScriptedImporter:
       y: 95
       width: 81
       height: 79
-    spriteID: 413f0626f14c24d4692882c0adadb9ca
-    internalID: 0
+    spriteID: d4185792c029e485b9241c07b75c8b04
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -267,7 +259,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 96, y: 66}
-  - name: ExpA04
+  - name: 'ExpA04 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -278,8 +270,7 @@ ScriptedImporter:
       y: 182
       width: 67
       height: 60
-    spriteID: b24ea0227621a2d44b0476d03d1a335e
-    internalID: 0
+    spriteID: c111b650122a4443cb6be462d4a54f89
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -289,7 +280,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 89, y: 144}
-  - name: ExpA03
+  - name: 'ExpA03 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -300,8 +291,7 @@ ScriptedImporter:
       y: 250
       width: 58
       height: 50
-    spriteID: adffaa46525c24642b896b0742c12725
-    internalID: 0
+    spriteID: faad6479f9cdc48459d70f112b42fe9e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -311,7 +301,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 84, y: 208}
-  - name: ExpA02
+  - name: 'ExpA02 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -322,8 +312,7 @@ ScriptedImporter:
       y: 182
       width: 44
       height: 37
-    spriteID: 5e170eb018952bf4a9f8786ada48af8b
-    internalID: 0
+    spriteID: 2b7da3ef49af245f29fe3e83d0d5a9df
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -333,7 +322,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 153, y: 134}
-  - name: ExpA01
+  - name: 'ExpA01 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -344,8 +333,7 @@ ScriptedImporter:
       y: 132
       width: 30
       height: 27
-    spriteID: 379f0e5e7627bd541bbf9e71dc371c75
-    internalID: 0
+    spriteID: 63d0496658caf4f1881b87f8156bf4a0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -355,7 +343,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 160, y: 79}
-  - name: ExpA00
+  - name: 'ExpA00 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -366,8 +354,7 @@ ScriptedImporter:
       y: 433
       width: 20
       height: 19
-    spriteID: aae678e0603d42647b2f17b043f3d932
-    internalID: 0
+    spriteID: d2002da8b1fd14bf4961652f68be90d8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -377,123 +364,181 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 36, y: 377}
-  platformSettings: []
-  mosaicLayers: 1
-  documentPivot: {x: 0, y: 0}
-  documentAlignment: 7
-  importHiddenLayers: 0
-  importedTextureWidth: 256
-  importedTextureHeight: 512
-  documentSize: {x: 128, y: 128}
-  paperDollMode: 0
-  keepDupilcateSpriteName: 0
-  spriteCategoryList:
-    categories: []
-  textureActualWidth: 256
-  textureActualHeight: 512
-  spritePackingTag: 
-  resliceFromLayer: 0
-  characterMode: 1
-  mosaicPSDLayers: []
-  rigPSDLayers:
-  - name: ExpA12
-    spriteName: ExpA12
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 6ad2e46eeb326e74086542fa7759196c
-    layerID: 0
-    mosaicPosition: {x: 211, y: 95}
-  - name: ExpA11
-    spriteName: ExpA11
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 1b8b37f08583c0d47ba7e61606c77651
-    layerID: -514629054
-    mosaicPosition: {x: 4, y: 433}
-  - name: ExpA10
-    spriteName: ExpA10
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 70982ae0f90b5b44cab2376c5cdc97f4
-    layerID: -2080712995
-    mosaicPosition: {x: 122, y: 4}
-  - name: ExpA09
-    spriteName: ExpA09
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 2359f75210a325d4f83f475f021d90f0
-    layerID: -158398695
-    mosaicPosition: {x: 4, y: 332}
-  - name: ExpA08
-    spriteName: ExpA08
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 57b14871ff27a7d4b808f6af63e55000
-    layerID: -1724482636
-    mosaicPosition: {x: 4, y: 119}
-  - name: ExpA07
-    spriteName: ExpA07
-    isGroup: 0
-    parentIndex: -1
-    spriteID: ecff36e7de79c9240910bc30a59d4cc8
-    layerID: 648170359
-    mosaicPosition: {x: 4, y: 4}
-  - name: ExpA06
-    spriteName: ExpA06
-    isGroup: 0
-    parentIndex: -1
-    spriteID: cd7778803453daf49862125eef86d531
-    layerID: -917913582
-    mosaicPosition: {x: 4, y: 230}
-  - name: ExpA05
-    spriteName: ExpA05
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 413f0626f14c24d4692882c0adadb9ca
-    layerID: 1810969773
-    mosaicPosition: {x: 122, y: 95}
-  - name: ExpA04
-    spriteName: ExpA04
-    isGroup: 0
-    parentIndex: -1
-    spriteID: b24ea0227621a2d44b0476d03d1a335e
-    layerID: 244885832
-    mosaicPosition: {x: 122, y: 182}
-  - name: ExpA03
-    spriteName: ExpA03
-    isGroup: 0
-    parentIndex: -1
-    spriteID: adffaa46525c24642b896b0742c12725
-    layerID: -1677428469
-    mosaicPosition: {x: 122, y: 250}
-  - name: ExpA02
-    spriteName: ExpA02
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 5e170eb018952bf4a9f8786ada48af8b
-    layerID: 1051454886
-    mosaicPosition: {x: 197, y: 182}
-  - name: ExpA01
-    spriteName: ExpA01
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 379f0e5e7627bd541bbf9e71dc371c75
-    layerID: -514629055
-    mosaicPosition: {x: 211, y: 132}
-  - name: ExpA00
-    spriteName: ExpA00
-    isGroup: 0
-    parentIndex: -1
-    spriteID: aae678e0603d42647b2f17b043f3d932
-    layerID: -2080712996
-    mosaicPosition: {x: 91, y: 433}
   characterData:
     bones: []
     parts: []
     dimension: {x: 0, y: 0}
     characterGroups: []
+    boneReadOnly: 0
+  sharedRigSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    boneReadOnly: 0
+  platformSettings: []
+  mosaicLayers: 1
+  characterMode: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  layerMappingOption: 2
+  generatePhysicsShape: 0
+  paperDollMode: 0
+  keepDupilcateSpriteName: 0
+  skeletonAssetReferenceID: 
+  spriteCategoryList:
+    categories: []
+  spritePackingTag: 
+  resliceFromLayer: 0
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: ExpA12
+    spriteName: 'ExpA12 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 6ad2e46eeb326e74086542fa7759196c
+    layerID: 0
+    mosaicPosition: {x: 211, y: 95}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA11
+    spriteName: 'ExpA11 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 4655b77f125b64a7c9be4491f8e59155
+    layerID: 1380439682
+    mosaicPosition: {x: 4, y: 433}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA10
+    spriteName: 'ExpA10 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a9244a3093c0b4a60b10936d48549663
+    layerID: -185644259
+    mosaicPosition: {x: 122, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA09
+    spriteName: 'ExpA09 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 078f0b903af7c4bc6964a779a935cf25
+    layerID: 1736669945
+    mosaicPosition: {x: 4, y: 332}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA08
+    spriteName: 'ExpA08 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 68e14a735972142b9bd6b720a9cc31c3
+    layerID: 170586004
+    mosaicPosition: {x: 4, y: 119}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA07
+    spriteName: 'ExpA07 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 8b19235de8984494caf7d33537ece3ff
+    layerID: -1751728297
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA06
+    spriteName: 'ExpA06 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: f38860956dabe4cfaa8a247594529ac6
+    layerID: 977155058
+    mosaicPosition: {x: 4, y: 230}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA05
+    spriteName: 'ExpA05 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: d4185792c029e485b9241c07b75c8b04
+    layerID: -588928883
+    mosaicPosition: {x: 122, y: 95}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA04
+    spriteName: 'ExpA04 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: c111b650122a4443cb6be462d4a54f89
+    layerID: 2139954472
+    mosaicPosition: {x: 122, y: 182}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA03
+    spriteName: 'ExpA03 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: faad6479f9cdc48459d70f112b42fe9e
+    layerID: 217640171
+    mosaicPosition: {x: 122, y: 250}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA02
+    spriteName: 'ExpA02 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 2b7da3ef49af245f29fe3e83d0d5a9df
+    layerID: -1348443770
+    mosaicPosition: {x: 197, y: 182}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA01
+    spriteName: 'ExpA01 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 63d0496658caf4f1881b87f8156bf4a0
+    layerID: 1380439585
+    mosaicPosition: {x: 211, y: 132}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ExpA00
+    spriteName: 'ExpA00 '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: d2002da8b1fd14bf4961652f68be90d8
+    layerID: -185644356
+    mosaicPosition: {x: 91, y: 433}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Bakgrunn
+    spriteName: 
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 1011233928
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  sharedRigPSDLayers: []
+  pSDLayerImportSetting: []
   generateGOHierarchy: 0
   textureAssetName: ExplosionA Texture
   prefabAssetName: ExplosionA Prefab
   spriteLibAssetName: ExplosionA Sprite Lib
+  skeletonAssetName: 
   secondarySpriteTextures: []
