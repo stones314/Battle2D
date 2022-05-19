@@ -119,8 +119,6 @@ public class SceneController : MonoBehaviour
         opponent.BattleEnded();
         Destroy(opponent.gameObject);
         player.BattleEnded();
-        player.round += 1;
-        player.IncreaseBalance(3000);
         SceneManager.LoadScene("ShoppingScene");
     }
 

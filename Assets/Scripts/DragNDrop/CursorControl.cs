@@ -165,6 +165,11 @@ public class CursorControl : MonoBehaviour
         {
             SceneManager.LoadScene("BattleScene");
         }
+        if (button.tag == "Level Up")
+        {
+            if (player.money >= player.levelUpCost)
+                player.LevelUp();
+        }
     }
 
     private void Drag()

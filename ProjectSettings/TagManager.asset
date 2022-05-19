@@ -24,6 +24,7 @@ TagManager:
   - Ammo
   - Opponent
   - Shield
+  - Level Up
   layers:
   - Default
   - TransparentFX

@@ -9,8 +9,17 @@ public class Player : MonoBehaviour
     public int money;
     public int health;
 
+    public int levelUpCost { get; private set; } = 8000;
+    public int income { get; private set; } = 2000;
+
+    [SerializeField]
+    UnityEngine.UI.Text LevelUpCostText;
+    [SerializeField]
+    UnityEngine.UI.Text LevelText;
+
     private void Awake()
     {
+
     }
 
     // Start is called before the first frame update
@@ -26,6 +35,7 @@ public class Player : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         SetBalance(money);
+
     }
 
     // Update is called once per frame
@@ -75,10 +85,35 @@ public class Player : MonoBehaviour
 
     public void BattleEnded()
     {
+        HandleIncome();
+
         Ship[] ships = GetComponentsInChildren<Ship>(true);
         foreach (var ship in ships)
         {
             ship.BattleEnded();
         }
+    }
+
+    private void HandleIncome()
+    {
+        round += 1;
+
+        if (income < 10000)
+            income += 1000;
+        IncreaseBalance(income);
+
+        levelUpCost -= 1000;
+        if (levelUpCost < 0) levelUpCost = 0;
+
+        LevelUpCostText.text = "Level Up\n$" + levelUpCost;
+    }
+
+    public void LevelUp()
+    {
+        TryDecreeseBalance(levelUpCost);
+        level += 1;
+        levelUpCost += 8000;
+        LevelUpCostText.text = "Level Up\n$" + levelUpCost;
+        LevelText.text = "Level " + level;
     }
 }
