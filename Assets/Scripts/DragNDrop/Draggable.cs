@@ -109,6 +109,11 @@ public class Draggable : MonoBehaviour
         return 0;
     }
 
+    /*
+     * Change Sort Order to "lift" of "lower" the draggable.
+     * Used to make sure the object is rendered over other objects
+     * when it is dragged.
+     */
     private void ChangeSortOrder(int amount)
     {
         foreach (var sr in GetComponentsInChildren<SpriteRenderer>())
@@ -125,7 +130,8 @@ public class Draggable : MonoBehaviour
     {
         SlotType toSlot = newSlot.slotType;
 
-        //Sell is free:
+        //An object moved to the shop is sold:
+        //When selling you get 1/3 of the investment back (including all upgrades)
         if (toSlot == SlotType.Shop)
         {
             int c = 0;
@@ -137,7 +143,7 @@ public class Draggable : MonoBehaviour
             return -c/3;
         }
 
-        //Buy from shop costs 3000 (regardless of where it is placed):
+        //Buy when moved out of the shop (regardless of where it is placed):
         if (CurrentSlotType() == SlotType.Shop)
         {
             return cost;
@@ -149,7 +155,7 @@ public class Draggable : MonoBehaviour
             return 0;
         }
 
-        //Remaining option is to reconfigurie battlefield, which costs 0:
+        //Remaining option is to reconfigurie battlefield, which is free:
         return 0;
     }
 
