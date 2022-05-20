@@ -116,7 +116,7 @@ public class SceneController : MonoBehaviour
         inBattle = false;
         waitForEnd = false;
         shop.SetEnableShop(true);
-        opponent.BattleEnded();
+        //opponent.BattleEnded();
         Destroy(opponent.gameObject);
         player.BattleEnded();
         SceneManager.LoadScene("ShoppingScene");
