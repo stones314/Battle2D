@@ -8,6 +8,7 @@ public class Ship : Draggable
     public float layerStrength = 10;
 
     public int shieldCount = 0;
+    public int Speed { private set; get; } = 0;
 
     [SerializeField]
     GameObject explosionPrefab;
@@ -54,6 +55,11 @@ public class Ship : Draggable
         RestoreHull();
 
         GetComponent<CapsuleCollider>().radius *= 3f;
+    }
+
+    public void Attack()
+    {
+
     }
 
     public void HitByProjectile(float damage)
