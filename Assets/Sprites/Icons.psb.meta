@@ -25,6 +25,7 @@ ScriptedImporter:
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
+    ignoreMasterTextureLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -79,7 +80,6 @@ ScriptedImporter:
       width: 0
       height: 0
     spriteID: 
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -103,7 +103,6 @@ ScriptedImporter:
       width: 120
       height: 120
     spriteID: 8f0defe9679e5d046bf71c9f76adaea4
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -124,8 +123,7 @@ ScriptedImporter:
       y: 267
       width: 123
       height: 114
-    spriteID: cbd67e19142cbdf418351a0e69982925
-    internalID: 0
+    spriteID: 7df8ee2aca5184d74b9370438952802a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -146,8 +144,7 @@ ScriptedImporter:
       y: 4
       width: 127
       height: 127
-    spriteID: 9da4642ec30e94f439b271a2211a9869
-    internalID: 0
+    spriteID: 198e2aecb1e5946688b892571cbd5b0b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -187,14 +184,14 @@ ScriptedImporter:
     spriteName: Damage
     isGroup: 0
     parentIndex: -1
-    spriteID: cbd67e19142cbdf418351a0e69982925
+    spriteID: 7df8ee2aca5184d74b9370438952802a
     layerID: -2024040277
     mosaicPosition: {x: 4, y: 267}
   - name: Accuracy
     spriteName: Accuracy
     isGroup: 0
     parentIndex: -1
-    spriteID: 9da4642ec30e94f439b271a2211a9869
+    spriteID: 198e2aecb1e5946688b892571cbd5b0b
     layerID: 1942806957
     mosaicPosition: {x: 4, y: 4}
   characterData:

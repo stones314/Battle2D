@@ -25,6 +25,7 @@ ScriptedImporter:
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
+    ignoreMasterTextureLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -79,7 +80,6 @@ ScriptedImporter:
       width: 0
       height: 0
     spriteID: 
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -103,7 +103,6 @@ ScriptedImporter:
       width: 42
       height: 128
     spriteID: efe0cde65d8c40545ac9882689a7ebcf
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -124,8 +123,7 @@ ScriptedImporter:
       y: 4
       width: 95
       height: 95
-    spriteID: a6791845d8a0dfa419c283ce9e70c2fa
-    internalID: 0
+    spriteID: e4a43d2e69d2448e4ab344c1d538e457
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -146,8 +144,7 @@ ScriptedImporter:
       y: 107
       width: 42
       height: 80
-    spriteID: 884401e4ca86d1a40a28fce51fcc1a74
-    internalID: 0
+    spriteID: d414b3e444a8e40a381ab92497d03988
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -187,14 +184,14 @@ ScriptedImporter:
     spriteName: Bomb
     isGroup: 0
     parentIndex: -1
-    spriteID: a6791845d8a0dfa419c283ce9e70c2fa
+    spriteID: e4a43d2e69d2448e4ab344c1d538e457
     layerID: -958406990
     mosaicPosition: {x: 4, y: 4}
   - name: Bullet
     spriteName: Bullet
     isGroup: 0
     parentIndex: -1
-    spriteID: 884401e4ca86d1a40a28fce51fcc1a74
+    spriteID: d414b3e444a8e40a381ab92497d03988
     layerID: -976773162
     mosaicPosition: {x: 54, y: 107}
   characterData:
