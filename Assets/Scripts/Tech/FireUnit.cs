@@ -53,6 +53,7 @@ public class FireUnit : MonoBehaviour
     float lastBurstTime;
     int burstCounter;
     Vector3 targetDirection;
+    bool prepareAttack = false;
     bool attack = false;
 
     private Text munitionIndicatorText;
@@ -70,10 +71,14 @@ public class FireUnit : MonoBehaviour
     {
         if (!battle) return;
         if (!enemyPlayer) return;
-        if (!attack) return;
+
+        if (!prepareAttack) return;
 
         GetTarget();
         RotateTowardsTarget();
+
+        if (!attack) return;
+
         FireWhenReady();
     }
 
@@ -166,6 +171,7 @@ public class FireUnit : MonoBehaviour
         hasTarget = lockTarget;
         burstCounter = 0;
         //reloadAnimator.SetBool("active", false);
+        prepareAttack = false;
         attack = false;
     }
 
@@ -200,6 +206,11 @@ public class FireUnit : MonoBehaviour
         }
         */
 
+    }
+
+    public void PrepareAttack()
+    {
+        prepareAttack = true;
     }
 
     public void Attack()

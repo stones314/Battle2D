@@ -61,6 +61,16 @@ public class Ship : Draggable
         GetComponent<CapsuleCollider>().radius *= 3f;
     }
 
+    public void PrepareAttack()
+    {
+        TechTile[] techs = GetComponentsInChildren<TechTile>();
+        foreach (var tech in techs)
+        {
+            tech.PrepareAttack();
+        }
+        GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.green;
+    }
+
     public void Attack()
     {
         TechTile[] techs = GetComponentsInChildren<TechTile>();
@@ -68,6 +78,7 @@ public class Ship : Draggable
         {
             tech.Attack();
         }
+        GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void HitByProjectile(float damage)
@@ -91,6 +102,7 @@ public class Ship : Draggable
     public void DestroyShip()
     {
         this.gameObject.SetActive(false);
+        GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.white;
 
         if (!explosionPrefab) return;
 

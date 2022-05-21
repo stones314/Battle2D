@@ -37,6 +37,7 @@ public abstract class TechTile : Draggable
 
     public abstract void BattleEnded();
 
+    public abstract void PrepareAttack();
     public abstract void Attack();
 
 }

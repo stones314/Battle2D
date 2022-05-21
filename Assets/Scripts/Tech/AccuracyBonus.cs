@@ -62,6 +62,10 @@ public class AccuracyBonus : TechTile
         return "Accuracy +" + accuracyBonus + "%";
     }
 
+    public override void PrepareAttack()
+    {
+
+    }
     public override void Attack()
     {
 

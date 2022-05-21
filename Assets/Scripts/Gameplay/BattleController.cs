@@ -8,6 +8,7 @@ public class BattleController
     private Player opponent;
     private List<Ship> attackOrder;
     private int nextAttacker;
+    private int numActive;
 
     public BattleController()
     {
@@ -28,6 +29,8 @@ public class BattleController
         {
             InsertIntoAttackOrder(ship);
         }
+        numActive = attackOrder.Count;
+        attackOrder[nextAttacker].PrepareAttack();
     }
 
     private void InsertIntoAttackOrder(Ship newShip)
@@ -60,18 +63,35 @@ public class BattleController
         nextAttacker %= attackOrder.Count;
     }
 
-    private void FindNextAttacker()
+    private void MarkSecondAttacker()
+    {
+        int secondAttacker = nextAttacker + 1;
+        secondAttacker %= attackOrder.Count;
+        while (!attackOrder[secondAttacker].gameObject.activeInHierarchy && secondAttacker != nextAttacker)
+        {
+            secondAttacker++;
+            secondAttacker %= attackOrder.Count;
+        }
+        if(secondAttacker != nextAttacker)
+        {
+            attackOrder[secondAttacker].GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.yellow;
+        }
+    }
+
+    private void FindFirstAttacker()
     {
         IncreaseNextAttacker();
         while (!attackOrder[nextAttacker].gameObject.activeInHierarchy)
         {
             IncreaseNextAttacker();
         }
+        attackOrder[nextAttacker].PrepareAttack();
     }
 
     public void AttackNext()
     {
         attackOrder[nextAttacker].Attack();
-        FindNextAttacker();
+        FindFirstAttacker();
+        MarkSecondAttacker();
     }
 }
