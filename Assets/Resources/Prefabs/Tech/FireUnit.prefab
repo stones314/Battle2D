@@ -104,8 +104,8 @@ MonoBehaviour:
   munitionPrefab: {fileID: 630202284204822068, guid: 228809b3b6ec8df48ad3c8fd2a3267dc, type: 3}
   burstSize: 1
   burstDeltaTime: 0.2
-  munitionSpeed: 2
-  accuracy: 30
+  munitionSpeed: 10
+  m_accuracy: 30
   lockTarget: 0
   accuracyIndicatorPrefab: {fileID: 5217222717079708301, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
 --- !u!1 &6675674768613285959

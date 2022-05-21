@@ -903,6 +903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveSystem: {fileID: 389693135}
+  attackPeriod: 3
 --- !u!4 &704533080
 Transform:
   m_ObjectHideFlags: 0

@@ -122,10 +122,6 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7372430879519288521, guid: c4207fcb293d78f48b0c4ff54ea12651, type: 3}
-      propertyPath: munitionSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7372430879519288521, guid: c4207fcb293d78f48b0c4ff54ea12651, type: 3}
       propertyPath: munitionPrefab
       value: 
       objectReference: {fileID: 4283857030963905798, guid: a3c1ca63e568b2842aec7bcd22e1a505, type: 3}

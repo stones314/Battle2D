@@ -129,10 +129,6 @@ PrefabInstance:
       propertyPath: reloadTime
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 7372430879519288521, guid: c4207fcb293d78f48b0c4ff54ea12651, type: 3}
-      propertyPath: munitionSpeed
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7947726012342348311, guid: c4207fcb293d78f48b0c4ff54ea12651, type: 3}
       propertyPath: m_RootOrder
       value: 1

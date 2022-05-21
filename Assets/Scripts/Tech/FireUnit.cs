@@ -39,7 +39,7 @@ public class FireUnit : MonoBehaviour
     [SerializeField]
     GameObject accuracyIndicatorPrefab;
 
-    Animator reloadAnimator;
+    //Animator reloadAnimator;
     //Sprite reloadStartSprite;
     //SpriteRenderer reloadRenderer;
 
@@ -61,7 +61,7 @@ public class FireUnit : MonoBehaviour
     void Start()
     {
         AddMunitionIndicator();
-        AddAccuracyIndicator();
+        //AddAccuracyIndicator();
         InitilaizeReloadAnimator();
     }
 
@@ -79,10 +79,10 @@ public class FireUnit : MonoBehaviour
 
     public void InitilaizeReloadAnimator()
     {
-        if (reloadAnimator) return;
-        reloadAnimator = GetComponentInChildren<Reload>().GetComponent<Animator>();
-        reloadAnimator.SetBool("reloading", false);
-        reloadAnimator.SetBool("active", false);
+        //if (reloadAnimator) return;
+        //reloadAnimator = GetComponentInChildren<Reload>().GetComponent<Animator>();
+        //reloadAnimator.SetBool("reloading", false);
+        //reloadAnimator.SetBool("active", false);
     }
 
     public void BattleStarted(Player opponent)
@@ -94,9 +94,9 @@ public class FireUnit : MonoBehaviour
         burstCounter = 0;
         lastBurstTime = Time.time;
         
-        InitilaizeReloadAnimator();//in case this is the opponent it seems to not be initialized, so do it here
-        reloadAnimator.speed = 2.083f / reloadTime;  //Animation lasts 2 sec by default. We want it to last reloadTime instead
-        reloadAnimator.SetBool("reloading", true);
+        //InitilaizeReloadAnimator();//in case this is the opponent it seems to not be initialized, so do it here
+        //reloadAnimator.speed = 2.083f / reloadTime;  //Animation lasts 2 sec by default. We want it to last reloadTime instead
+        //reloadAnimator.SetBool("reloading", true);
     }
 
     public void BattleEnded()
@@ -104,7 +104,7 @@ public class FireUnit : MonoBehaviour
         this.gameObject.SetActive(true);
         battle = false;
         enemyPlayer = null;
-        reloadAnimator.SetBool("reloading", false);
+        //reloadAnimator.SetBool("reloading", false);
     }
 
     private void GetTarget()
@@ -149,10 +149,10 @@ public class FireUnit : MonoBehaviour
         if (!hasTarget) return;
         float angleDiff = Quaternion.Angle(transform.rotation, wantedRotation);
         if (angleDiff > 0.01f) return;
-        if (Time.time - lastFireTime < reloadTime) return;
+        //if (Time.time - lastFireTime < reloadTime) return;
 
         //ready to fire:
-        reloadAnimator.SetBool("active", true);
+        //reloadAnimator.SetBool("active", true);
 
         if (burstCounter < burstSize)
             FireNextInBurst();
@@ -165,7 +165,7 @@ public class FireUnit : MonoBehaviour
         lastFireTime = Time.time;
         hasTarget = lockTarget;
         burstCounter = 0;
-        reloadAnimator.SetBool("active", false);
+        //reloadAnimator.SetBool("active", false);
         attack = false;
     }
 

@@ -36,11 +36,11 @@ public class BattleController
         int opts = 1;
         foreach (var sortedShip in attackOrder)
         {
-            if (newShip.Speed < sortedShip.Speed)
+            if (newShip.Initiative > sortedShip.Initiative)
             {
                 break;
             }
-            else if (newShip.Speed == sortedShip.Speed)
+            else if (newShip.Initiative == sortedShip.Initiative)
             {
                 opts++;
             }

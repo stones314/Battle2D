@@ -5,17 +5,21 @@ using UnityEngine;
 public class Ship : Draggable
 {
     public int hullLayers = 1;
-    public float layerStrength = 10;
+    public float layerStrength = 1;
 
     public int shieldCount = 0;
-    public int Speed { private set; get; } = 0;
+    
+    public int Initiative = 1;
 
     [SerializeField]
     GameObject explosionPrefab;
     [SerializeField]
     Transform hullArea;
+    [SerializeField]
+    Transform initiativeArea;
 
     List<HullElement> hullElements = new List<HullElement>();
+    List<GameObject> initiativeElements = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -103,6 +107,12 @@ public class Ship : Draggable
         }
     }
 
+    public void Initialize()
+    {
+        GenerateHullMeter();
+        GenerateInitiativeMeter();
+    }
+
     public void AddBonusLayers(int numLayers)
     {
         for (int l = hullLayers; l < hullLayers + numLayers; l++)
@@ -143,6 +153,50 @@ public class Ship : Draggable
             hullElement.RestoreHull();
         }
     }
+
+
+    public void GenerateInitiativeMeter()
+    {
+        for (int i = 0; i < Initiative; i++)
+        {
+            AddInitiativeIndicator(i);
+        }
+
+    }
+
+    public void AddBonusInitiative(int number)
+    {
+        for (int i = Initiative; i < Initiative + number; i++)
+        {
+            AddInitiativeIndicator(i);
+        }
+        Initiative += number;
+    }
+
+    public void RemoveBonusInitiative(int number)
+    {
+        Initiative -= number;
+
+        for (int i = initiativeElements.Count - 1; i >= Initiative; i--)
+        {
+            Destroy(initiativeElements[i]);
+            initiativeElements.RemoveAt(i);
+        }
+    }
+
+    private void AddInitiativeIndicator(int index)
+    {
+        int row = index % 10;
+        float c = index / 10f;
+        int col = (int)c;
+        GameObject initiativeElement = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Ships/InitiativeElement"));
+        initiativeElement.transform.SetParent(initiativeArea);
+        initiativeElement.transform.rotation = initiativeArea.rotation;
+        initiativeElement.transform.localPosition = new Vector3(0.25f - 0.25f * col, -0.45f + 0.1f * row, 0) * 1.28f;
+        initiativeElement.transform.localScale = new Vector3(0.25f, 0.1f, 0);
+        initiativeElements.Add(initiativeElement);
+    }
+
 
     public float GetDamagePerSec()
     {

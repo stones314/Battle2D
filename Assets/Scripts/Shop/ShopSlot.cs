@@ -133,7 +133,7 @@ public class ShopSlot : Slot
             if (item.type == SlotType.Ship)
             {
                 gameObject.transform.localScale *= shipScale;
-                gameObject.GetComponent<Ship>().GenerateHullMeter();//Must be done after rescale
+                gameObject.GetComponent<Ship>().Initialize();//Must be done after rescale
             }
 
             Draggable dragged = gameObject.GetComponent<Draggable>();

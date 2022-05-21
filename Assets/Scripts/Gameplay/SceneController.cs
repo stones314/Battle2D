@@ -59,6 +59,7 @@ public class SceneController : MonoBehaviour
             if(Time.time - lastAttackTime > attackPeriod)
             {
                 battleController.AttackNext();
+                lastAttackTime = Time.time;
             }
             if (!opponent.HasShipsLeft() || !player.HasShipsLeft())
             {
@@ -98,7 +99,7 @@ public class SceneController : MonoBehaviour
 
     void StartBattle()
     {
-        lastAttackTime = 0;
+        lastAttackTime = Time.time;
         inBattle = true;
 
         shop.SetEnableShop(false);
@@ -130,8 +131,6 @@ public class SceneController : MonoBehaviour
         Destroy(opponent.gameObject);
         player.BattleEnded();
 
-        battleController = null;
-         
         SceneManager.LoadScene("ShoppingScene");
     }
 

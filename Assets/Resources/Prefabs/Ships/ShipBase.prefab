@@ -114,6 +114,7 @@ Transform:
   - {fileID: 4915441837646150386}
   - {fileID: 2797976146208821623}
   - {fileID: 2410272139250872764}
+  - {fileID: 893814676147808103}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -184,15 +185,13 @@ MonoBehaviour:
   description: 
   slotsInto: 2
   cost: 3000
-  prefabInfo:
-    level: 0
-    type: 2
-    path: 
   hullLayers: 2
   layerStrength: 1
   shieldCount: 0
+  Initiative: 1
   explosionPrefab: {fileID: 3571034017086880950, guid: 430b7dba7dcb4c34aacbc1858631b4d0, type: 3}
   hullArea: {fileID: 2410272139250872764}
+  initiativeArea: {fileID: 893814676147808103}
 --- !u!54 &6409849262522965165
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -253,6 +252,36 @@ Transform:
   m_Father: {fileID: 631664595609270600}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7174591748426763418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 893814676147808103}
+  m_Layer: 8
+  m_Name: InitiativeArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &893814676147808103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174591748426763418}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 3.99, y: -2.18, z: 0}
+  m_LocalScale: {x: 2, y: 5.6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 631664595609270600}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1001 &4031208780803712201
 PrefabInstance:
   m_ObjectHideFlags: 0
