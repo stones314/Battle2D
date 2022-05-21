@@ -133,5 +133,9 @@ public class ShieldGenerator : TechTile
         rechargeTime *= (100f - (float)speedBonus) / 100f;
     }
 
+    public override void Attack()
+    {
+
+    }
 
 }

@@ -59,7 +59,11 @@ public class Ship : Draggable
 
     public void Attack()
     {
-
+        TechTile[] techs = GetComponentsInChildren<TechTile>();
+        foreach (var tech in techs)
+        {
+            tech.Attack();
+        }
     }
 
     public void HitByProjectile(float damage)

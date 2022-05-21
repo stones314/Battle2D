@@ -7,11 +7,11 @@ public abstract class TechTile : Draggable
 {
     public bool singleUse = false;
 
+    /**
+     * Shoping Related Methods:
+     */
+
     public abstract void GenerateTile();
-
-    public abstract void BattleStarted(Player opponent);
-
-    public abstract void BattleEnded();
 
     public virtual void PlacedOnTarget(Slot slot)
     {
@@ -28,5 +28,15 @@ public abstract class TechTile : Draggable
     public abstract void ApplyBonusesToTarget(Slot slot);
 
     public abstract void RemovedFromShip(Ship oldParent);
+
+    /**
+     * Battle Related Methods:
+     */
+
+    public abstract void BattleStarted(Player opponent);
+
+    public abstract void BattleEnded();
+
+    public abstract void Attack();
 
 }

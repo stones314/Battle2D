@@ -71,4 +71,13 @@ public class Weapon : TechTile
     {
         return fireUnit.GetDamagePerSec();
     }
+
+    public override void Attack()
+    {
+        FireUnit[] fireUnits = GetComponentsInChildren<FireUnit>();
+        foreach (var fireUnit in fireUnits)
+        {
+            fireUnit.Attack();
+        }
+    }
 }

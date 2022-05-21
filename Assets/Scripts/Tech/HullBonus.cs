@@ -71,4 +71,9 @@ public class HullBonus : TechTile
     {
         return "+" + layerBonus + " Hull";
     }
+
+    public override void Attack()
+    {
+
+    }
 }

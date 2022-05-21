@@ -9,17 +9,17 @@ public class BattleController
     private List<Ship> attackOrder;
     private int nextAttacker;
 
-    public BattleController(ref Player _player, ref Player _opponent)
+    public BattleController()
+    {
+        attackOrder = new List<Ship>(20);
+    }
+
+    public void StartBattle(ref Player _player, ref Player _opponent)
     {
         player = _player;
         opponent = _opponent;
-        InitAttackOrder();
+        attackOrder.Clear();
         nextAttacker = 0;
-    }
-
-    private void InitAttackOrder()
-    {
-        attackOrder = new List<Ship>(20);
         foreach (var ship in player.GetComponentsInChildren<Ship>())
         {
             InsertIntoAttackOrder(ship);

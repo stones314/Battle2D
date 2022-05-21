@@ -67,4 +67,9 @@ public class SpeedBonus : TechTile
     {
         return "Reload/Recharge Time: -" +speedBonus + "%";
     }
+
+    public override void Attack()
+    {
+
+    }
 }

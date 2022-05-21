@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    float startTime;
     bool inBattle = false;
 
     Shop shop;
@@ -18,6 +17,11 @@ public class SceneController : MonoBehaviour
     
     [SerializeField]
     SaveSystem saveSystem;
+
+    public float attackPeriod = 1.0f;
+    float lastAttackTime;
+
+    BattleController battleController = new BattleController();
 
     private void Awake()
     {
@@ -52,6 +56,10 @@ public class SceneController : MonoBehaviour
     {
         if (inBattle)
         {
+            if(Time.time - lastAttackTime > attackPeriod)
+            {
+                battleController.AttackNext();
+            }
             if (!opponent.HasShipsLeft() || !player.HasShipsLeft())
             {
                 StartEndTimer();
@@ -90,7 +98,7 @@ public class SceneController : MonoBehaviour
 
     void StartBattle()
     {
-        startTime = Time.time;
+        lastAttackTime = 0;
         inBattle = true;
 
         shop.SetEnableShop(false);
@@ -102,6 +110,8 @@ public class SceneController : MonoBehaviour
 
         player.BattleStarted(opponent);
         opponent.BattleStarted(player);
+
+        battleController.StartBattle(ref player, ref opponent);
 
         Debug.Log("StartBattle in " + SceneManager.GetActiveScene().name);
     }
@@ -119,6 +129,9 @@ public class SceneController : MonoBehaviour
         //opponent.BattleEnded();
         Destroy(opponent.gameObject);
         player.BattleEnded();
+
+        battleController = null;
+         
         SceneManager.LoadScene("ShoppingScene");
     }
 

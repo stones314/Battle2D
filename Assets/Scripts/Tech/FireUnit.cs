@@ -53,6 +53,7 @@ public class FireUnit : MonoBehaviour
     float lastBurstTime;
     int burstCounter;
     Vector3 targetDirection;
+    bool attack = false;
 
     private Text munitionIndicatorText;
 
@@ -69,6 +70,7 @@ public class FireUnit : MonoBehaviour
     {
         if (!battle) return;
         if (!enemyPlayer) return;
+        if (!attack) return;
 
         GetTarget();
         RotateTowardsTarget();
@@ -141,6 +143,7 @@ public class FireUnit : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, wantedRotation, Time.deltaTime * rotationSpeed);
     }
 
+
     public void FireWhenReady()
     {
         if (!hasTarget) return;
@@ -163,6 +166,7 @@ public class FireUnit : MonoBehaviour
         hasTarget = lockTarget;
         burstCounter = 0;
         reloadAnimator.SetBool("active", false);
+        attack = false;
     }
 
     private void FireNextInBurst()
@@ -172,9 +176,15 @@ public class FireUnit : MonoBehaviour
         lastBurstTime = Time.time;
         burstCounter++;
 
+        Fire();
+
+    }
+
+    private void Fire()
+    {
         GameObject projectile = Instantiate(munitionPrefab);
         Quaternion rot = this.transform.rotation;
-        rot.eulerAngles -= new Vector3(0,0,90);
+        rot.eulerAngles -= new Vector3(0, 0, 90);
         projectile.transform.rotation = rot;
         projectile.transform.position = muzzel.transform.position;
         projectile.transform.localScale *= 0.4f;
@@ -183,7 +193,18 @@ public class FireUnit : MonoBehaviour
         m.SetOwningPlayer(this.GetComponentInParent<Player>());
         m.SetBattle(true);
 
-        if (Random.value > (float)m_accuracy/100f) projectile.transform.position += 50 * Vector3.back;
+        /*
+        if (Random.value > m_accuracy / 100f)
+        {
+            projectile.transform.position += 50 * Vector3.back;
+        }
+        */
+
+    }
+
+    public void Attack()
+    {
+        attack = true;
     }
 
     public void AddMunitionIndicator()
