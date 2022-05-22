@@ -59,7 +59,7 @@ public class ShipData
     public string slotName;         //slot where ship is placed
     public int hullLayers;          //number of hull layers
     public int layerStrength;       //strenght of each layer
-    public int numTechTiles;        //nuber of tech tiles attached
+    public int initiative;          //initiative of ship
     public TechTileData[] techTiles;//list of tech tiles attached
 
     public ShipData(Ship ship)
@@ -68,9 +68,10 @@ public class ShipData
         slotName = ship.GetComponentInParent<Slot>().name;
         hullLayers = ship.hullLayers;
         layerStrength = (int)ship.layerStrength;
+        initiative = ship.Initiative;
 
         TechTile[] shipTech = ship.GetComponentsInChildren<TechTile>();
-        numTechTiles = shipTech.Length;
+        int numTechTiles = shipTech.Length;
         techTiles = new TechTileData[numTechTiles];
 
         for (int i = 0; i < numTechTiles; i++)
@@ -87,8 +88,8 @@ public class TechTileData
     public string slotName;         //name of slot where tech is attached
 
     //fire unit params:
-    public int accuracy;            //accuracy of unit
-    public float reloadTime;        //reload time
+    public int burstSize;           //burst size of fire unit
+    public float munitionDamage;    //damage of a single munition
 
     //shield generator params
     public float shieldStrength;    //strength of shield
@@ -102,8 +103,8 @@ public class TechTileData
         FireUnit fu = techTile.GetComponentInChildren<FireUnit>();
         if (fu)
         {
-            accuracy = fu.m_accuracy;
-            reloadTime = fu.reloadTime;
+            burstSize = fu.burstSize;
+            munitionDamage = fu.GetMunitionDamage();
         }
 
         ShieldGenerator sg = techTile.GetComponentInChildren<ShieldGenerator>();

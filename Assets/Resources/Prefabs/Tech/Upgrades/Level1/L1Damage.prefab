@@ -97,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333871, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_Name
-      value: L1Computer
+      value: L1Damage
       objectReference: {fileID: 0}
     - target: {fileID: 4911632752194798429, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_SortingOrder
@@ -115,7 +115,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1505741515216333864, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
   m_PrefabInstance: {fileID: 71332148673242284}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6705887832672206676
+--- !u!114 &-2309018519220739222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,16 +124,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1447937895745505411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c548bc1eea572346914e320b87f9151, type: 3}
+  m_Script: {fileID: 11500000, guid: 998d87b11b31fcb47a5219d4c7fffdd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: Aim  Upgrade 1
-  description: Hit probability is increased
+  displayName: Damage Bonus
+  description: Increases munition damage
   slotsInto: 1
-  cost: 1000
+  cost: 3000
   singleUse: 1
-  accuracyBonus: 5
-  font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  damageBonus: 1
 --- !u!1001 &8142151754395533285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141,6 +140,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1447937895745505412}
     m_Modifications:
+    - target: {fileID: 1376651496625826758, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 3511159978268719641, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
       propertyPath: m_SortingOrder
       value: 7
@@ -151,6 +154,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8205759256163050214, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205759256163050214, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205759256163050214, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
+      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8205759256163050214, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
@@ -193,5 +204,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8414266387342932932, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6239961266717184234, guid: b5cc624f3ad330b47af16d89bccfbc65, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}

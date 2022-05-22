@@ -107,7 +107,7 @@ MonoBehaviour:
   displayName: Level 1 Cannon
   description: A basic weapon that fire bullets
   slotsInto: 0
-  cost: 2000
+  cost: 1000
   singleUse: 0
   weaponType: 0
 --- !u!1001 &4744295425971938533

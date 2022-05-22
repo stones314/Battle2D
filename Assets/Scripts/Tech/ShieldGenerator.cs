@@ -14,6 +14,7 @@ public class ShieldGenerator : TechTile
     private float rechargeStartTime;
 
     Animator reloadAnimator;
+    private float rescaleFactor = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,18 @@ public class ShieldGenerator : TechTile
 
         if (strengthLeft <= 0)
             Recharge();
+    }
+
+    public override void Clicked(Vector2 offset)
+    {
+        base.Clicked(offset);
+        shield.transform.localScale /= 3;
+    }
+
+    public override int Dropped(int playerMoney)
+    {
+        shield.transform.localScale *= 3;
+        return base.Dropped(playerMoney);
     }
 
     public float ScaleStrengthLeft()
@@ -68,9 +81,12 @@ public class ShieldGenerator : TechTile
     public override void ApplyBonusesToTarget(Slot slot)
     {
         Ship ship = GetComponentInParent<Ship>();
+        ship.shieldCount++;
         shield.transform.position = ship.transform.position;
+        rescaleFactor = 1.0f + 0.1f*(ship.shieldCount - 1);
+        shield.transform.localScale *= rescaleFactor;
         shield.gameObject.SetActive(true);
-        //shield.transform.localScale *= 3;
+
     }
 
     public override void BattleEnded()
@@ -103,16 +119,17 @@ public class ShieldGenerator : TechTile
 
     public override void RemovedFromShip(Ship oldParent)
     {
-        //shield.transform.localScale /= 3;
         shield.gameObject.SetActive(false);
+        shield.transform.localScale /= rescaleFactor;
+        oldParent.shieldCount--;
     }
 
     public override string GetHoverOverStats()
     {
         return
             "Shield Strength: " + shieldStrength.ToString("F2") +
-            "Recharge Time: " + rechargeTime.ToString("F0") + " sec\n" +
-            "Sell Value:  " + cost / 3;
+            "\nRecharge Time: " + rechargeTime.ToString("F0") + " sec" +
+            "\nSell Value:  " + cost / 3;
     }
 
     public void ShieldHitByProjectile(float damage)
@@ -128,7 +145,7 @@ public class ShieldGenerator : TechTile
 
     }
 
-    public void AddSpeedBonus(int speedBonus)
+    public void AddRechargeBonus(int speedBonus)
     {
         rechargeTime *= (100f - (float)speedBonus) / 100f;
     }

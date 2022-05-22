@@ -97,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333871, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_Name
-      value: L1SpeedBonus
+      value: L2Recharger
       objectReference: {fileID: 0}
     - target: {fileID: 4911632752194798429, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_SortingOrder
@@ -127,12 +127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d89993a33a29245ad578aab989a5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: Speed Bonus
-  description: Improves reload or Recharge time for an equipment
+  displayName: Shield Recharger 1
+  description: Improves  Recharge time for an equipment
   slotsInto: 1
-  cost: 1000
+  cost: 2000
   singleUse: 1
-  speedBonus: 5
+  rechageBonus: 5
 --- !u!1001 &8142151754395533285
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -140,6 +140,7 @@ public class SaveSystem : MonoBehaviour
             go.transform.position = slot.transform.position;
             ship.hullLayers = shipData.hullLayers;
             ship.layerStrength = shipData.layerStrength;
+            ship.Initiative = shipData.initiative;
             ship.Initialize();
 
             AddTechTiles(ship, shipData.techTiles);
@@ -169,8 +170,8 @@ public class SaveSystem : MonoBehaviour
             FireUnit fu = go.GetComponentInChildren<FireUnit>();
             if (fu)
             {
-                fu.m_accuracy = techData.accuracy;
-                fu.reloadTime = techData.reloadTime;
+                fu.burstSize = techData.burstSize;
+                fu.SetMunitionDamage(techData.munitionDamage);
             }
 
             ShieldGenerator sg = go.GetComponentInChildren<ShieldGenerator>();

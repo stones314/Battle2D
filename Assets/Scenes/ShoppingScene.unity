@@ -983,7 +983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2c503ad47f2b249b484a35f62e3f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsPerLevel: 010000000100000002000000020000000200000003000000
+  itemsPerLevel: 020000000200000002000000020000000200000003000000
   itemType: 2
 --- !u!212 &882053286
 SpriteRenderer:
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2c503ad47f2b249b484a35f62e3f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsPerLevel: 010000000100000001000000010000000100000002000000
+  itemsPerLevel: 020000000200000002000000020000000200000002000000
   itemType: 1
 --- !u!212 &1117930078
 SpriteRenderer:
@@ -2012,7 +2012,7 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 8811755526398069197, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
       propertyPath: money
-      value: 50000
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 8811755526398069197, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
       propertyPath: LevelText

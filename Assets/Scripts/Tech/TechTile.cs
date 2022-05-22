@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class TechTile : Draggable
 {
     public bool singleUse = false;
+    private bool firstPlacement = true;    //So that tech placement triggers only once for equipments
 
     /**
      * Shoping Related Methods:
@@ -15,7 +16,11 @@ public abstract class TechTile : Draggable
 
     public virtual void PlacedOnTarget(Slot slot)
     {
-        EventManager.NotifyTechPlaced();
+        if (firstPlacement)
+        {
+            EventManager.NotifyTechPlaced(this, slot);
+            firstPlacement = false;
+        }
         ApplyBonusesToTarget(slot);
         if (singleUse)
         {

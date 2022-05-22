@@ -13,9 +13,6 @@ public class FireUnit : MonoBehaviour
     [Tooltip("Degees turned per second")]
     public float rotationSpeed = 40f;
 
-    [Tooltip("Time between each fire")]
-    public float reloadTime = 5f;
-
     [Tooltip("The munition fired")]
     [SerializeField]
     GameObject munitionPrefab;
@@ -28,20 +25,6 @@ public class FireUnit : MonoBehaviour
 
     [Tooltip("How fast the mnition flies")]
     public float munitionSpeed = 5f;
-
-    [Tooltip("Probablity of hitting the target")]
-    public int m_accuracy = 30;
-
-    [Tooltip("If fireUnit can lock on to a target")]
-    public bool lockTarget = false;
-
-    [Tooltip("Prefab for accuracy indicator")]
-    [SerializeField]
-    GameObject accuracyIndicatorPrefab;
-
-    //Animator reloadAnimator;
-    //Sprite reloadStartSprite;
-    //SpriteRenderer reloadRenderer;
 
     private Player enemyPlayer;
 
@@ -58,12 +41,15 @@ public class FireUnit : MonoBehaviour
 
     private Text munitionIndicatorText;
 
+    private void Awake()
+    {
+        AddMunitionIndicator();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        AddMunitionIndicator();
-        //AddAccuracyIndicator();
-        InitilaizeReloadAnimator();
+        
     }
 
     // Update is called once per frame
@@ -82,12 +68,15 @@ public class FireUnit : MonoBehaviour
         FireWhenReady();
     }
 
-    public void InitilaizeReloadAnimator()
+    public void AddDamageBonus(float damage)
     {
-        //if (reloadAnimator) return;
-        //reloadAnimator = GetComponentInChildren<Reload>().GetComponent<Animator>();
-        //reloadAnimator.SetBool("reloading", false);
-        //reloadAnimator.SetBool("active", false);
+        float newDamage = float.Parse(munitionIndicatorText.text) + damage;
+        munitionIndicatorText.text = "" + newDamage;
+    }
+
+    public void AddBurstBonus(int size)
+    {
+        burstSize += size;
     }
 
     public void BattleStarted(Player opponent)
@@ -168,7 +157,7 @@ public class FireUnit : MonoBehaviour
     private void EndBurstFire()
     {
         lastFireTime = Time.time;
-        hasTarget = lockTarget;
+        hasTarget = false;
         burstCounter = 0;
         //reloadAnimator.SetBool("active", false);
         prepareAttack = false;
@@ -195,6 +184,7 @@ public class FireUnit : MonoBehaviour
         projectile.transform.position = muzzel.transform.position;
         projectile.transform.localScale *= 0.4f;
         Munition m = projectile.GetComponent<Munition>();
+        m.damage = float.Parse(munitionIndicatorText.text);
         m.speedVector = new Vector3(targetDirection.x, targetDirection.y, 0f) * munitionSpeed;
         m.SetOwningPlayer(this.GetComponentInParent<Player>());
         m.SetBattle(true);
@@ -225,7 +215,7 @@ public class FireUnit : MonoBehaviour
         munitionObj.transform.parent = this.transform;
         munitionObj.transform.rotation = this.transform.rotation;
         munitionObj.transform.localPosition = new Vector3(-0.8f, -0.8f, 0);
-        munitionObj.transform.localScale *= 1f;
+        munitionObj.transform.localScale *= 0.5f;
         munitionObj.GetComponent<Rigidbody>().freezeRotation = true;
         Munition munition = munitionObj.GetComponent<Munition>();
         munition.SetBattle(false);
@@ -278,37 +268,19 @@ public class FireUnit : MonoBehaviour
         rectTransform.localScale = new Vector3(1, 1, 1);
     }
 
-    public void AddAccuracyIndicator()
+    public void SetMunitionDamage(float damage)
     {
-        //Create Accuracy Indicator Game Object
-        GameObject accuracyIndicatorObj = Instantiate(accuracyIndicatorPrefab);
-        accuracyIndicatorObj.transform.parent = this.transform;
-        accuracyIndicatorObj.transform.rotation = this.transform.rotation;
-        accuracyIndicatorObj.transform.localPosition = new Vector3(-1.5f, -0.8f, 0);
-        accuracyIndicatorObj.transform.localScale *= 0.4f;
-        Accuracy acc = accuracyIndicatorObj.GetComponent<Accuracy>();
-        acc.SetAccuracy(m_accuracy);
+        munitionIndicatorText.text = "" + damage;
     }
 
-    public void AddAccuracy(int accuracy)
+    public float GetMunitionDamage()
     {
-        m_accuracy += accuracy;
-        GetComponentInChildren<Accuracy>().SetAccuracy(m_accuracy);
+        return float.Parse(munitionIndicatorText.text);
     }
 
-    public void AddSpeedBonus(int speedBonus)
+    public float GetDamagePerAttack()
     {
-        reloadTime *= (100f - (float)speedBonus) / 100f;
-    }
-
-    public float GetDamagePerSec()
-    {
-        float ds = munitionPrefab.GetComponent<Munition>().damage;
-        float acc = (float)m_accuracy/100f;
-        ds *= acc;
-        ds *= burstSize;
-        ds /= (reloadTime + burstDeltaTime*(burstSize-1));
-        return ds;
+        return GetMunitionDamage() * burstSize;
     }
 
     public string StatsToString()
@@ -316,10 +288,9 @@ public class FireUnit : MonoBehaviour
         Munition m = munitionPrefab.GetComponent<Munition>();
 
         return
-            "Reload Time: " + reloadTime + " sec\n" +
-            "Accuracy:    " + m_accuracy + " %\n" +
             "Burst Size:  " + burstSize + "\n" +
-            "Munition:    " + m.name + " (" + m.damage +" damage)\n" +
+            "Munition:    " + m.name + " (" + GetMunitionDamage() + " damage)\n" +
+            "Damage:      " + GetDamagePerAttack() + "\n" +
             "Sell Value:  " + GetComponentInParent<Draggable>().cost/3;
     }
 }

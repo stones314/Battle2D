@@ -9,20 +9,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: Initiative
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: hullLayers
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: description
       value: A small ship with room for a single equipment, but starts with extra
-        hull
+        initiative
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: displayName
-      value: Durable Interceptor
+      value: Fast Interceptor
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: prefabInfo.path
@@ -38,15 +38,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270597, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_Color.b
-      value: 0.504094
+      value: 0.24528302
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270597, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_Color.g
-      value: 0.6037736
+      value: 0.89834106
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270597, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_Color.r
-      value: 0.52570647
+      value: 0.9811321
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270600, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_RootOrder
@@ -94,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270601, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_Name
-      value: Ship1Slot
+      value: Ship1SlotFast
       objectReference: {fileID: 0}
     - target: {fileID: 4915441837646150386, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_LocalPosition.x

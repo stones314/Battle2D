@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    public delegate void TechPlaced();
+    public delegate void TechPlaced(TechTile tech, Slot slot);
     public static event TechPlaced OnTechPlaced;
 
     // Start is called before the first frame update
@@ -19,9 +19,9 @@ public class EventManager : MonoBehaviour
         
     }
 
-    public static void NotifyTechPlaced()
+    public static void NotifyTechPlaced(TechTile tech, Slot slot)
     {
         if(OnTechPlaced != null)
-            OnTechPlaced();
+            OnTechPlaced(tech, slot);
     }
 }

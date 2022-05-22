@@ -67,9 +67,9 @@ public class Weapon : TechTile
         return fireUnit.StatsToString();
     }
 
-    public float GetDamagePerSec()
+    public float GetDamagePerAttack()
     {
-        return fireUnit.GetDamagePerSec();
+        return fireUnit.GetDamagePerAttack();
     }
 
     public override void PrepareAttack()

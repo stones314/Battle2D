@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Accuracy : MonoBehaviour
+public class ValueIndicator : MonoBehaviour
 {
-    private int accuracy;
+    private int value;
 
     UnityEngine.UI.Text textField;
 
     // Start is called before the first frame update
     void Start()
     {
-        SetAccuracy(accuracy);
+        SetValue(value);
     }
 
     // Update is called once per frame
@@ -21,21 +21,21 @@ public class Accuracy : MonoBehaviour
 
     }
 
-    public void SetAccuracy(int newAcc)
+    public void SetValue(int newVal)
     {
         if(!textField) textField = GetComponentInChildren<UnityEngine.UI.Text>();
-        accuracy = newAcc;
-        textField.text = accuracy.ToString();
+        value = newVal;
+        textField.text = value.ToString();
     }
 
-    public void AddAccuracy(int addAcc)
+    public void AddValue(int addVal)
     {
-        accuracy += addAcc;
-        textField.text = accuracy.ToString();
+        value += addVal;
+        textField.text = value.ToString();
     }
 
-    public int GetAccuracy()
+    public int GetValue()
     {
-        return accuracy;
+        return value;
     }
 }

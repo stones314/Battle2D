@@ -22,7 +22,7 @@ public class AccuracyBonus : TechTile
 
     public override void GenerateTile()
     {
-        GetComponentInChildren<Accuracy>().SetAccuracy(accuracyBonus);
+        GetComponentInChildren<ValueIndicator>().SetValue(accuracyBonus);
     }
 
     public override void BattleEnded()
@@ -37,7 +37,7 @@ public class AccuracyBonus : TechTile
 
     public override void ApplyBonusesToTarget(Slot slot)
     {
-        GetComponentInParent<FireUnit>().AddAccuracy(accuracyBonus);
+        
     }
 
     public override void RemovedFromShip(Ship oldParent)

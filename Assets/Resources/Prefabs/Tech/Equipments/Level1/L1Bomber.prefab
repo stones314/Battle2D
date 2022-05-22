@@ -84,8 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: Level 1 Bomber
-  description: A cannon designed to fire bombs. Slow to reload, but accurate and
-    deals more damge than most other weapons.
+  description: A cannon designed to fire bombs.
   slotsInto: 0
   cost: 2000
   singleUse: 0

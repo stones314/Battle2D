@@ -81,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505741515216333871, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
       propertyPath: m_Name
-      value: L1Initiative
+      value: L2Hull
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
@@ -90,7 +90,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1505741515216333871, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
   m_PrefabInstance: {fileID: 71332148673242284}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3042452609541768070
+--- !u!114 &648168665362490063
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,12 +99,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1447937895745505411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11c539625687db24abc12cbe4117d51a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1357494189b5b3d4bb25ee18092b536e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: Level 1 Initiative
-  description: Increases ship initiative
+  displayName: Hull Upgrade 1
+  description: Adds an additional layer of hull to a ship so that it can withstand
+    more damage.
   slotsInto: 3
-  cost: 2000
+  cost: 1000
   singleUse: 1
-  initiativeBonus: 1
+  layerBonus: 2
+  strengthBonus: 0

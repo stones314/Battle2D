@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedBonus : TechTile
+public class RechargeBonus : TechTile
 {
-    public int speedBonus;
+    public int rechageBonus;
 
     // Start is called before the first frame update
     void Start()
@@ -19,15 +19,10 @@ public class SpeedBonus : TechTile
     }
     public override void ApplyBonusesToTarget(Slot slot)
     {
-        FireUnit fu = slot.GetComponentInParent<FireUnit>();
-        if (fu)
-        {
-            fu.AddSpeedBonus(speedBonus);
-        }
         ShieldGenerator sg = slot.GetComponentInParent<ShieldGenerator>();
         if (sg)
         {
-            sg.AddSpeedBonus(speedBonus);
+            sg.AddRechargeBonus(rechageBonus);
         }
     }
 
@@ -43,7 +38,7 @@ public class SpeedBonus : TechTile
 
     public override void GenerateTile()
     {
-        GetComponentInChildren<Accuracy>().SetAccuracy(speedBonus);
+        GetComponentInChildren<ValueIndicator>().SetValue(rechageBonus);
     }
 
     public override void RemovedFromShip(Ship oldParent)
@@ -65,7 +60,7 @@ public class SpeedBonus : TechTile
 
     public override string GetHoverOverStats()
     {
-        return "Reload/Recharge Time: -" +speedBonus + "%";
+        return "Recharge Time: -" +rechageBonus + "%";
     }
 
     public override void PrepareAttack()

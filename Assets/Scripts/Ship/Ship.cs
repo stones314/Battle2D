@@ -210,12 +210,12 @@ public class Ship : Draggable
     }
 
 
-    public float GetDamagePerSec()
+    public float GetDamagePerAttack()
     {
         float ds = 0.0f;
         foreach(var weapon in GetComponentsInChildren<Weapon>())
         {
-            ds += weapon.GetDamagePerSec();
+            ds += weapon.GetDamagePerAttack();
         }
         return ds;
     }
@@ -228,10 +228,16 @@ public class Ship : Draggable
             c += d.cost;
         }
 
-        return
+        string str =
             "Hull:    " + hullLayers + "\n" +
-            "Shields: " + shieldCount + "\n" + 
-            "Damage/sec: " + GetDamagePerSec() + "\n" +
-            "Sell Value:  " + c / 3;
+            "Initiative: " + Initiative;
+        if (shieldCount > 0) str += "\nShields: " + shieldCount;
+        
+        float dmg = GetDamagePerAttack();
+        if (dmg > 0) str += "\nDamage/attack: " + dmg;
+
+        str += "\nSell Value:  " + c / 3;
+        
+        return str;
     }
 }
