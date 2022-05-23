@@ -15,6 +15,7 @@ public class Draggable : MonoBehaviour
     Vector2 clickOffset;
 
     PoolItem prefabInfo;
+    public ShopItemInfo itemInfoObj;
 
     private bool ignoreNextIndicationReset = false;
 
@@ -35,6 +36,16 @@ public class Draggable : MonoBehaviour
         currentSlot = startSlot;
         isDragged = false;
         prefabInfo = item;
+    }
+
+    public void DestroyShopInfo()
+    {
+        Debug.Log("Try destroy shop info");
+        if(itemInfoObj)
+        {
+            Debug.Log("Destroy shop info");
+            Destroy(itemInfoObj.gameObject);
+        }
     }
 
     public string GetPrefabPath()

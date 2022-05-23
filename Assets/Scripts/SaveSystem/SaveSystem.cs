@@ -133,10 +133,10 @@ public class SaveSystem : MonoBehaviour
             }
 
             GameObject go = Instantiate(Resources.Load<GameObject>(shipData.prefabName));
-            Ship ship = go.GetComponent<Ship>();
+            go.transform.localScale *= Constants.ShipScale;
             go.transform.parent = slot.transform;
-            go.transform.localScale *= 1.8f;
             go.transform.position = slot.transform.position;
+            Ship ship = go.GetComponent<Ship>();
             ship.hullLayers = shipData.hullLayers;
             ship.layerStrength = shipData.layerStrength;
             ship.Initiative = shipData.initiative;
@@ -164,7 +164,7 @@ public class SaveSystem : MonoBehaviour
             GameObject go = Instantiate(Resources.Load<GameObject>(techData.prefabName));
             go.transform.parent = slot.transform;
             go.transform.position = slot.transform.position;
-            go.transform.localScale *= 2.2f;
+            go.transform.localScale *= Constants.EquipmentScale;
 
             FireUnit fu = go.GetComponentInChildren<FireUnit>();
             if (fu)

@@ -76,7 +76,12 @@ public class SceneController : MonoBehaviour
             }
             else if (!player.HasShipsLeft())
             {
-                if (opponent.HasShipsLeft()) Debug.Log("YOU LOST!");
+                if (opponent.HasShipsLeft())
+                {
+                    Debug.Log("YOU LOST!");
+                    player.health -= opponent.level;
+                }
+
                 EndBattle();
             }
         }

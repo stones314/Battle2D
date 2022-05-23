@@ -10,9 +10,6 @@ public class ShopSlot : Slot
 
     bool frozen = false;
 
-    public float techScale = 1.0f;
-    public float shipScale = 1.0f;
-
     Color originalDefault;
 
     Color m_draggedDefaultColor = Color.white;
@@ -97,42 +94,35 @@ public class ShopSlot : Slot
 
         foreach (var item in items)
         {
+            //Get Item (ship, equipment or tech tile:
             GameObject gameObject = null;
-            ShopItemInfo itemInfo = null;
-
-            //Fetch Holder:
-            try
-            {
-                if (item.type == SlotType.Ship)
-                    itemInfo = Instantiate(Resources.Load<ShopItemInfo>("Prefabs/Ships/ShipInfo"));
-                else
-                    itemInfo = Instantiate(Resources.Load<ShopItemInfo>("Prefabs/Tech/TechInfo"));
-                itemInfo.transform.parent = this.transform;
-            }
-            catch
-            {
-                Debug.LogError("Null when instantiating?");
-            }
 
             try
             {
                 gameObject = Instantiate(Resources.Load<GameObject>(item.path));
-                gameObject.transform.parent = this.transform;
             }
             catch
             {
                 Debug.LogError("Null when instantiating?");
             }
 
-            if (item.type == SlotType.Equipment || item.type == SlotType.ShipUpgrade || item.type == SlotType.EquipmentUpgrade)
+            if (item.type == SlotType.Equipment)
             {
-                gameObject.transform.localScale *= techScale;
+                gameObject.transform.localScale *= Constants.EquipmentScale;
+                gameObject.transform.parent = this.transform;
+                gameObject.GetComponent<TechTile>().GenerateTile();
+            }
+            if (item.type == SlotType.ShipUpgrade || item.type == SlotType.EquipmentUpgrade)
+            {
+                gameObject.transform.localScale *= Constants.UpgradeScale;
+                gameObject.transform.parent = this.transform;
                 gameObject.GetComponent<TechTile>().GenerateTile();
             }
 
             if (item.type == SlotType.Ship)
             {
-                gameObject.transform.localScale *= shipScale;
+                gameObject.transform.localScale *= Constants.ShipScale;
+                gameObject.transform.parent = this.transform;
                 gameObject.GetComponent<Ship>().Initialize();//Must be done after rescale
             }
 
@@ -141,9 +131,25 @@ public class ShopSlot : Slot
 
             PlaceDraggable(dragged);
 
+            //Add cost indicator:
+            ShopItemInfo itemInfo = null;
+            try
+            {
+                if (item.type == SlotType.Ship)
+                    itemInfo = Instantiate(Resources.Load<ShopItemInfo>("Prefabs/Ships/ShipInfo"));
+                else
+                    itemInfo = Instantiate(Resources.Load<ShopItemInfo>("Prefabs/Tech/TechInfo"));
+            }
+            catch
+            {
+                Debug.LogError("Null when instantiating?");
+            }
+
+            itemInfo.transform.parent = this.transform;
             itemInfo.transform.position = dragged.transform.position;
             itemInfo.SetCost(dragged.cost);
             itemInfo.SetDisplayName(dragged.displayName);
+            dragged.itemInfoObj = itemInfo;
         }
         AlignItems();
     }
@@ -192,8 +198,8 @@ public class ShopSlot : Slot
     {
         base.RemovedDraggable(dragged);
 
-        if(dragged.GetNewSlot().slotType != SlotType.Shop)
-            Destroy(GetComponentInChildren<ShopItemInfo>().gameObject);
+        if (dragged.GetNewSlot().slotType != SlotType.Shop)
+            dragged.DestroyShopInfo();
     }
 
     public override bool IsFilled()
