@@ -23,11 +23,13 @@ public class BattleController
         nextAttacker = 0;
         foreach (var ship in player.GetComponentsInChildren<Ship>())
         {
-            InsertIntoAttackOrder(ship);
+            if(ship.HasCombatAction())
+                InsertIntoAttackOrder(ship);
         }
         foreach (var ship in opponent.GetComponentsInChildren<Ship>())
         {
-            InsertIntoAttackOrder(ship);
+            if (ship.HasCombatAction())
+                InsertIntoAttackOrder(ship);
         }
         numActive = attackOrder.Count;
         attackOrder[nextAttacker].PrepareAttack();

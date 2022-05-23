@@ -65,12 +65,12 @@ public class InitiativeBonus : TechTile
         return "+" + initiativeBonus + " Initiative";
     }
 
-    public override void PrepareAttack()
+    public override void PrepareCombatAction()
     {
 
     }
 
-    public override void Attack()
+    public override void ExecuteCombatAction()
     {
 
     }

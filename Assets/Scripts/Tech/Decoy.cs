@@ -8,7 +8,7 @@ public class Decoy : TechTile
     {
     }
 
-    public override void Attack()
+    public override void ExecuteCombatAction()
     {
     }
 
@@ -24,7 +24,7 @@ public class Decoy : TechTile
     {
     }
 
-    public override void PrepareAttack()
+    public override void PrepareCombatAction()
     {
     }
 
@@ -42,5 +42,10 @@ public class Decoy : TechTile
     void Update()
     {
         
+    }
+
+    public override bool HasCombatAction()
+    {
+        return false;
     }
 }

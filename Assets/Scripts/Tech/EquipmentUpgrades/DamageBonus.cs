@@ -63,12 +63,12 @@ public class DamageBonus : TechTile
         return "Munition Damage: +" + damageBonus;
     }
 
-    public override void PrepareAttack()
+    public override void PrepareCombatAction()
     {
 
     }
 
-    public override void Attack()
+    public override void ExecuteCombatAction()
     {
 
     }

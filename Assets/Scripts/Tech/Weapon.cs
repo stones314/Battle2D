@@ -72,7 +72,12 @@ public class Weapon : TechTile
         return fireUnit.GetDamagePerAttack();
     }
 
-    public override void PrepareAttack()
+    public override bool HasCombatAction()
+    {
+        return true;
+    }
+
+    public override void PrepareCombatAction()
     {
         FireUnit[] fireUnits = GetComponentsInChildren<FireUnit>();
         foreach (var fireUnit in fireUnits)
@@ -81,7 +86,7 @@ public class Weapon : TechTile
         }
     }
 
-    public override void Attack()
+    public override void ExecuteCombatAction()
     {
         FireUnit[] fireUnits = GetComponentsInChildren<FireUnit>();
         foreach (var fireUnit in fireUnits)

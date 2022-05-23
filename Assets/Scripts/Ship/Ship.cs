@@ -61,12 +61,21 @@ public class Ship : Draggable
         GetComponent<CapsuleCollider>().radius *= 3f;
     }
 
+    public bool HasCombatAction()
+    {
+        foreach (var tech in GetComponentsInChildren<TechTile>())
+        {
+            if(tech.HasCombatAction()) return true;
+        }
+        return false;
+    }
+
     public void PrepareAttack()
     {
         TechTile[] techs = GetComponentsInChildren<TechTile>();
         foreach (var tech in techs)
         {
-            tech.PrepareAttack();
+            tech.PrepareCombatAction();
         }
         GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.green;
     }
@@ -76,7 +85,7 @@ public class Ship : Draggable
         TechTile[] techs = GetComponentsInChildren<TechTile>();
         foreach (var tech in techs)
         {
-            tech.Attack();
+            tech.ExecuteCombatAction();
         }
         GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.white;
     }

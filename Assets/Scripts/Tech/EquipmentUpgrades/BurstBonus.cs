@@ -63,12 +63,12 @@ public class BurstBonus : TechTile
         return "Munition Damage: +" + burstBonus;
     }
 
-    public override void PrepareAttack()
+    public override void PrepareCombatAction()
     {
 
     }
 
-    public override void Attack()
+    public override void ExecuteCombatAction()
     {
 
     }

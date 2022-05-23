@@ -108,14 +108,13 @@ public class SaveSystem : MonoBehaviour
         player.level = data.level;
         player.money = data.money;
         player.round = data.roundsPlayed;
+        player.tag = "Opponent";
 
         AddShips(player, data.fleet.ships);
 
         //player.transform.rotation = new Quaternion(0, 0, 180, 0);
 
         player.transform.position = new Vector3(10,0,0);
-
-        player.tag = "Opponent";
 
         return player;
     }
@@ -179,7 +178,7 @@ public class SaveSystem : MonoBehaviour
             {
                 sg.shieldStrength = techData.shieldStrength;
                 sg.rechargeTime = techData.rechargeTime;
-                sg.PlacedOnTarget(slot);
+                sg.PlacedOnTarget(slot, true);
             }
         }
     }

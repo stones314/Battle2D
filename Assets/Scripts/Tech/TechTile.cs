@@ -14,8 +14,9 @@ public abstract class TechTile : Draggable
 
     public abstract void GenerateTile();
 
-    public virtual void PlacedOnTarget(Slot slot)
+    public virtual void PlacedOnTarget(Slot slot, bool atLoad = false)
     {
+        if (atLoad) firstPlacement = false;
         if (firstPlacement)
         {
             EventManager.NotifyTechPlaced(this, slot);
@@ -42,7 +43,8 @@ public abstract class TechTile : Draggable
 
     public abstract void BattleEnded();
 
-    public abstract void PrepareAttack();
-    public abstract void Attack();
+    public virtual bool HasCombatAction() { return false; }
+    public abstract void PrepareCombatAction();
+    public abstract void ExecuteCombatAction();
 
 }
