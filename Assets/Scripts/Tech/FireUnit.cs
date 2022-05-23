@@ -105,11 +105,30 @@ public class FireUnit : MonoBehaviour
     {
         if (hasTarget && targetShip && targetShip.gameObject.activeSelf) return;
 
-        Ship[] possibleTargets = enemyPlayer.GetComponentsInChildren<Ship>();
+        Ship[] ships = enemyPlayer.GetComponentsInChildren<Ship>();
 
-        if (possibleTargets.Length == 0) return;
+        List<Ship> possibleTargets = new List<Ship>(ships.Length);
+        bool hasDecoy = false;
+        foreach (var ship in ships)
+        {
+            if (ship.GetComponentInChildren<Decoy>())
+            {
+                hasDecoy = true;
+                break;
+            }
+        }
+        foreach (var ship in ships)
+        {
+            if (!hasDecoy)
+                possibleTargets.Add(ship);
+            else if (ship.GetComponentInChildren<Decoy>())
+                possibleTargets.Add(ship);
+            
+        }
 
-        int x = (int)Random.Range(0f, possibleTargets.Length - 0.000001f);
+        if (possibleTargets.Count == 0) return;
+
+        int x = (int)Random.Range(0f, possibleTargets.Count - 0.000001f);
 
         SetShipTarget(possibleTargets[x]);
     }
