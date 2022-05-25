@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Grpc.Net.Client.Web;
+using System.Net.Http;
+using Grpc.Net.Client;
 
 public class SaveSystem : MonoBehaviour
 {
     [SerializeField]
     Player playerPrefab;
 
+    GrpcNetworking.DataStorage.DataStorageClient client;
     const string PLAYER_PREFIX = "/player";
     const string COUNT_FILE = "/count";
 
@@ -22,6 +26,26 @@ public class SaveSystem : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
+
+    }
+
+    public bool ConnectToServer(string address = "http://localhost:8001")
+    {
+        try
+        {
+            var channel = GrpcChannel.ForAddress(address, new GrpcChannelOptions
+            {
+                HttpHandler = new GrpcWebHandler(new HttpClientHandler()),
+            });
+
+            client = new GrpcNetworking.DataStorage.DataStorageClient(channel);
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     string GetDir(int round)
@@ -71,6 +95,48 @@ public class SaveSystem : MonoBehaviour
 
         formatter.Serialize(stream, data);
         stream.Close();
+    }
+
+    private void SavePlayerOnNet(Player player)
+    {
+        if (client == null)
+        {
+            Debug.LogError("No gRPC Client, unable to save player");
+            return;
+        }
+
+        PlayerData data = new PlayerData(player);
+        BinaryFormatter formatter = new BinaryFormatter();
+        MemoryStream ms = new MemoryStream();
+        formatter.Serialize(ms, data);
+
+        var call = client.SavePlayer(new GrpcNetworking.PlayerData
+        {
+            Round = data.level,
+            SerializedPlayerData = Google.Protobuf.ByteString.CopyFrom(ms.ToArray()),
+        });
+        ms.Close();
+    }
+
+    private Player LoadPlayerFromNet(int round)
+    {
+        if (client == null)
+        {
+            Debug.LogError("No gRPC Client, unable to save player");
+            return null;
+        }
+
+        var call = client.LoadPlayer(new GrpcNetworking.LoadRequest
+        {
+            Round = round,
+        });
+
+        BinaryFormatter formatter = new BinaryFormatter();
+        MemoryStream ms = new MemoryStream();
+        call.SerializedPlayerData.WriteTo(ms);
+        PlayerData data = formatter.Deserialize(ms) as PlayerData;
+        ms.Close();
+        return CreatePlayer(data);
     }
 
     public Player LoadPlayer(int round)
