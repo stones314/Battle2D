@@ -75,4 +75,7 @@ crashlytics-build.properties
 *.dll
 /[Aa]ssets/[Pp]ackages/*
 /[Aa]ssets/[Nn]u[Gg]et/*
+!/Server/Server.csproj
+/Server/obj/*
+/Server/bin/*
 

@@ -27,12 +27,19 @@ public class SaveSystem : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
+        if(client == null)
+        {
+            ConnectToServer(Constants.ServerAddress);
+        }
     }
 
     public bool ConnectToServer(string address = "http://localhost:8001")
     {
         try
         {
+            System.AppContext.SetSwitch(
+                "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
             var channel = GrpcChannel.ForAddress(address, new GrpcChannelOptions
             {
                 HttpHandler = new GrpcWebHandler(new HttpClientHandler()),
@@ -40,10 +47,12 @@ public class SaveSystem : MonoBehaviour
 
             client = new GrpcNetworking.DataStorage.DataStorageClient(channel);
 
+            Debug.Log("Connected to " + address);
             return true;
         }
         catch
         {
+            Debug.Log("Unable to onnected to " + address);
             return false;
         }
     }
@@ -73,6 +82,20 @@ public class SaveSystem : MonoBehaviour
 
     public void SavePlayer(Player player)
     {
+        if (client != null)
+        {
+            Debug.Log("Saving player on net");
+            SavePlayerOnNet(player);
+        }
+        else
+        {
+            Debug.Log("No gRPC Client, Saving player locally");
+            SavePlayerLocaly(player);
+        }
+    }
+
+    private void SavePlayerLocaly(Player player)
+    {
         if (!Directory.Exists(GetDir(player.round)))
         {
             Directory.CreateDirectory(GetDir(player.round));
@@ -99,12 +122,6 @@ public class SaveSystem : MonoBehaviour
 
     private void SavePlayerOnNet(Player player)
     {
-        if (client == null)
-        {
-            Debug.LogError("No gRPC Client, unable to save player");
-            return;
-        }
-
         PlayerData data = new PlayerData(player);
         BinaryFormatter formatter = new BinaryFormatter();
         MemoryStream ms = new MemoryStream();
@@ -112,7 +129,7 @@ public class SaveSystem : MonoBehaviour
 
         var call = client.SavePlayer(new GrpcNetworking.PlayerData
         {
-            Round = data.level,
+            Round = data.roundsPlayed,
             SerializedPlayerData = Google.Protobuf.ByteString.CopyFrom(ms.ToArray()),
         });
         ms.Close();
@@ -120,12 +137,6 @@ public class SaveSystem : MonoBehaviour
 
     private Player LoadPlayerFromNet(int round)
     {
-        if (client == null)
-        {
-            Debug.LogError("No gRPC Client, unable to save player");
-            return null;
-        }
-
         var call = client.LoadPlayer(new GrpcNetworking.LoadRequest
         {
             Round = round,
@@ -139,11 +150,10 @@ public class SaveSystem : MonoBehaviour
         return CreatePlayer(data);
     }
 
-    public Player LoadPlayer(int round)
-    {
+    private Player LoadPlayerLocally(int round) {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = GetDir(round) + PLAYER_PREFIX;
-        
+
         int savedPlayers = LoadPlayerCount(round);
 
         if (savedPlayers < 1) return null;
@@ -166,6 +176,20 @@ public class SaveSystem : MonoBehaviour
             triesLeft--;
         }
         return null;
+    }
+
+    public Player LoadPlayer(int round)
+    {
+        if(client != null)
+        {
+            Debug.Log("Loading player from net");
+            return LoadPlayerFromNet(round);
+        }
+        else
+        {
+            Debug.Log("No gRPC Client, Loading player locally");
+            return LoadPlayerLocally(round);
+        }
     }
 
     public Player CreatePlayer(PlayerData data)
