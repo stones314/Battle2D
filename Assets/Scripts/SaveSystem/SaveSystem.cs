@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using Grpc.Net.Client.Web;
+//using Grpc.Net.Client.Web;
 using System.Net.Http;
-using Grpc.Net.Client;
+//using Grpc.Net.Client;
 
 public class SaveSystem : MonoBehaviour
 {
     [SerializeField]
     Player playerPrefab;
 
-    GrpcNetworking.DataStorage.DataStorageClient client;
+    [SerializeField]
+    Client client;
+
     const string PLAYER_PREFIX = "/player";
     const string COUNT_FILE = "/count";
 
@@ -27,34 +29,6 @@ public class SaveSystem : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        if(client == null)
-        {
-            ConnectToServer(Constants.ServerAddress);
-        }
-    }
-
-    public bool ConnectToServer(string address = "http://localhost:8001")
-    {
-        try
-        {
-            System.AppContext.SetSwitch(
-                "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-
-            var channel = GrpcChannel.ForAddress(address, new GrpcChannelOptions
-            {
-                HttpHandler = new GrpcWebHandler(new HttpClientHandler()),
-            });
-
-            client = new GrpcNetworking.DataStorage.DataStorageClient(channel);
-
-            Debug.Log("Connected to " + address);
-            return true;
-        }
-        catch
-        {
-            Debug.Log("Unable to onnected to " + address);
-            return false;
-        }
     }
 
     string GetDir(int round)
@@ -82,7 +56,7 @@ public class SaveSystem : MonoBehaviour
 
     public void SavePlayer(Player player)
     {
-        if (client != null)
+        if (client)
         {
             Debug.Log("Saving player on net");
             SavePlayerOnNet(player);
@@ -92,6 +66,7 @@ public class SaveSystem : MonoBehaviour
             Debug.Log("No gRPC Client, Saving player locally");
             SavePlayerLocaly(player);
         }
+        
     }
 
     private void SavePlayerLocaly(Player player)
@@ -120,37 +95,18 @@ public class SaveSystem : MonoBehaviour
         stream.Close();
     }
 
+    
     private void SavePlayerOnNet(Player player)
     {
-        PlayerData data = new PlayerData(player);
-        BinaryFormatter formatter = new BinaryFormatter();
-        MemoryStream ms = new MemoryStream();
-        formatter.Serialize(ms, data);
-
-        var call = client.SavePlayer(new GrpcNetworking.PlayerData
-        {
-            Round = data.roundsPlayed,
-            SerializedPlayerData = Google.Protobuf.ByteString.CopyFrom(ms.ToArray()),
-        });
-        ms.Close();
+        client.SavePlayer(player);
     }
 
-    private Player LoadPlayerFromNet(int round)
+    private void LoadPlayerFromNet(int round)
     {
-        var call = client.LoadPlayer(new GrpcNetworking.LoadRequest
-        {
-            Round = round,
-        });
-
-        BinaryFormatter formatter = new BinaryFormatter();
-        MemoryStream ms = new MemoryStream();
-        call.SerializedPlayerData.WriteTo(ms);
-        PlayerData data = formatter.Deserialize(ms) as PlayerData;
-        ms.Close();
-        return CreatePlayer(data);
+        client.BeginLoadPlayer((uint)round);
     }
 
-    private Player LoadPlayerLocally(int round) {
+    private PlayerData LoadPlayerLocally(int round) {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = GetDir(round) + PLAYER_PREFIX;
 
@@ -171,24 +127,24 @@ public class SaveSystem : MonoBehaviour
                 PlayerData data = formatter.Deserialize(stream) as PlayerData;
                 stream.Close();
 
-                return CreatePlayer(data);
+                return data;
             }
             triesLeft--;
         }
         return null;
     }
 
-    public Player LoadPlayer(int round)
+    public void BeginLoadOpponent(int round)
     {
-        if(client != null)
+        if(client)
         {
             Debug.Log("Loading player from net");
-            return LoadPlayerFromNet(round);
+            LoadPlayerFromNet(round);
         }
         else
         {
-            Debug.Log("No gRPC Client, Loading player locally");
-            return LoadPlayerLocally(round);
+            Debug.Log("No Client, Loading player locally");
+            EventManager.NotifyPlayerLoaded(LoadPlayerLocally(round));
         }
     }
 

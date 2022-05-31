@@ -25,6 +25,7 @@ ScriptedImporter:
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
+    ignoreMasterTextureLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -79,7 +80,6 @@ ScriptedImporter:
       width: 0
       height: 0
     spriteID: 
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -91,7 +91,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: ShootSpeed
+  - name: 'ShootSpeed '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -103,7 +103,6 @@ ScriptedImporter:
       width: 120
       height: 120
     spriteID: 8f0defe9679e5d046bf71c9f76adaea4
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -113,7 +112,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 0, y: 135}
-  - name: Damage
+  - name: 'Damage '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -124,8 +123,7 @@ ScriptedImporter:
       y: 267
       width: 123
       height: 114
-    spriteID: cbd67e19142cbdf418351a0e69982925
-    internalID: 0
+    spriteID: e373782e402da5d489d80e673906b8ec
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -135,7 +133,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 1, y: 260}
-  - name: Accuracy
+  - name: 'Accuracy '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -146,8 +144,7 @@ ScriptedImporter:
       y: 4
       width: 127
       height: 127
-    spriteID: 9da4642ec30e94f439b271a2211a9869
-    internalID: 0
+    spriteID: 6153fd4f1a74c9c4694f3219be556390
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -157,53 +154,81 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 3, y: 4}
-  platformSettings: []
-  mosaicLayers: 1
-  documentPivot: {x: 0, y: 0}
-  documentAlignment: 7
-  importHiddenLayers: 0
-  importedTextureWidth: 256
-  importedTextureHeight: 512
-  documentSize: {x: 128, y: 128}
-  paperDollMode: 0
-  keepDupilcateSpriteName: 0
-  spriteCategoryList:
-    categories: []
-  textureActualWidth: 256
-  textureActualHeight: 512
-  spritePackingTag: 
-  resliceFromLayer: 0
-  characterMode: 1
-  mosaicPSDLayers: []
-  rigPSDLayers:
-  - name: ShootSpeed
-    spriteName: ShootSpeed
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 8f0defe9679e5d046bf71c9f76adaea4
-    layerID: 0
-    mosaicPosition: {x: 4, y: 139}
-  - name: Damage
-    spriteName: Damage
-    isGroup: 0
-    parentIndex: -1
-    spriteID: cbd67e19142cbdf418351a0e69982925
-    layerID: -2024040277
-    mosaicPosition: {x: 4, y: 267}
-  - name: Accuracy
-    spriteName: Accuracy
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 9da4642ec30e94f439b271a2211a9869
-    layerID: 1942806957
-    mosaicPosition: {x: 4, y: 4}
   characterData:
     bones: []
     parts: []
     dimension: {x: 0, y: 0}
     characterGroups: []
+    boneReadOnly: 0
+  sharedRigSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    boneReadOnly: 0
+  platformSettings: []
+  mosaicLayers: 1
+  characterMode: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  layerMappingOption: 2
+  generatePhysicsShape: 0
+  paperDollMode: 0
+  keepDupilcateSpriteName: 0
+  skeletonAssetReferenceID: 
+  spriteCategoryList:
+    categories: []
+  spritePackingTag: 
+  resliceFromLayer: 0
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: ShootSpeed
+    spriteName: 'ShootSpeed '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 8f0defe9679e5d046bf71c9f76adaea4
+    layerID: 0
+    mosaicPosition: {x: 4, y: 139}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Damage
+    spriteName: 'Damage '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: e373782e402da5d489d80e673906b8ec
+    layerID: -128742933
+    mosaicPosition: {x: 4, y: 267}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Accuracy
+    spriteName: 'Accuracy '
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 6153fd4f1a74c9c4694f3219be556390
+    layerID: 59608205
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Bakgrunn
+    spriteName: 
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 1011233928
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  sharedRigPSDLayers: []
+  pSDLayerImportSetting: []
   generateGOHierarchy: 0
   textureAssetName: Icons Texture
   prefabAssetName: Icons Prefab
   spriteLibAssetName: Icons Sprite Lib
+  skeletonAssetName: 
   secondarySpriteTextures: []

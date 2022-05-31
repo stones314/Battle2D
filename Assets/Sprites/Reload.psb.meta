@@ -25,6 +25,7 @@ ScriptedImporter:
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
+    ignoreMasterTextureLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -79,7 +80,6 @@ ScriptedImporter:
       width: 0
       height: 0
     spriteID: 
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -91,7 +91,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: Reload24
+  - name: 'Reload24 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -103,7 +103,6 @@ ScriptedImporter:
       width: 0
       height: 0
     spriteID: b08d53b8b7d48414a9648db3c465932a
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -113,10 +112,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 147, y: 1727}
-  - name: Reload23
+  - name: 'Reload23 '
     originalName: 
-    pivot: {x: 1, y: 0}
-    alignment: 8
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -124,8 +123,7 @@ ScriptedImporter:
       y: 796
       width: 32
       height: 123
-    spriteID: 72ec23e67f6925046999ea657e192f53
-    internalID: 0
+    spriteID: d815590057b90894986f1b35fadd763a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -135,10 +133,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 372, y: 663}
-  - name: Reload22
+  - name: 'Reload22 '
     originalName: 
-    pivot: {x: 1, y: 0}
-    alignment: 8
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -146,8 +144,7 @@ ScriptedImporter:
       y: 1060
       width: 63
       height: 126
-    spriteID: 9042f5421e54b424cbe20848574c1691
-    internalID: 0
+    spriteID: 5c8c1f1459b1b764481b59b02a76d870
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -157,10 +154,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 372, y: 930}
-  - name: Reload21
+  - name: 'Reload21 '
     originalName: 
-    pivot: {x: 1, y: 0}
-    alignment: 8
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -168,8 +165,7 @@ ScriptedImporter:
       y: 1848
       width: 90
       height: 127
-    spriteID: 4afce99e933404e47a7401e5e0b834ff
-    internalID: 0
+    spriteID: 037d49ec67d22754a8dc527ee03d0959
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,10 +175,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 366, y: 1719}
-  - name: Reload20
+  - name: 'Reload20 '
     originalName: 
-    pivot: {x: 1, y: 0}
-    alignment: 8
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -190,8 +186,7 @@ ScriptedImporter:
       y: 1852
       width: 110
       height: 127
-    spriteID: fef501da7b04d134fa6459304efd150b
-    internalID: 0
+    spriteID: 8df9c70eb173c484c85dcd214bab4588
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -201,10 +196,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 122, y: 1723}
-  - name: Reload19
+  - name: 'Reload19 '
     originalName: 
-    pivot: {x: 1, y: 0}
-    alignment: 8
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -212,8 +207,7 @@ ScriptedImporter:
       y: 615
       width: 123
       height: 128
-    spriteID: 04c8ec80b017f404892c2fe5aa675522
-    internalID: 0
+    spriteID: eef83a58414c36244897cb35c9deeebe
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -223,10 +217,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 524, y: 487}
-  - name: Reload18
+  - name: 'Reload18 '
     originalName: 
-    pivot: {x: 1, y: 0}
-    alignment: 8
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -234,8 +228,7 @@ ScriptedImporter:
       y: 478
       width: 127
       height: 129
-    spriteID: bcd759f14c22d524c88e9817c839bd8c
-    internalID: 0
+    spriteID: bedceba19d4094e46843ce7dcd6bfb18
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -245,10 +238,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 528, y: 351}
-  - name: Reload17
+  - name: 'Reload17 '
     originalName: 
-    pivot: {x: 0.992305, y: 0.20546393}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -256,8 +249,7 @@ ScriptedImporter:
       y: 1852
       width: 127
       height: 162
-    spriteID: 8f61d3f27fc526543aef81440d2e3346
-    internalID: 0
+    spriteID: 756720d1b5d6e86439a76da35f928387
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -267,19 +259,18 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 4, y: 1758}
-  - name: Reload16
+  - name: 'Reload16 '
     originalName: 
-    pivot: {x: 0.98453146, y: 0.32949814}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 269
+      x: 268
       y: 1848
       width: 127
       height: 193
-    spriteID: 4b082da34c604f14791606385fd01400
-    internalID: 0
+    spriteID: 42e5f29a36202984595ad945db76538d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -289,10 +280,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 268, y: 1785}
-  - name: Reload15
+  - name: 'Reload15 '
     originalName: 
-    pivot: {x: 1.0000778, y: 0.40533698}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -300,8 +291,7 @@ ScriptedImporter:
       y: 251
       width: 127
       height: 219
-    spriteID: dbe5d7ccd75bc3d4680c165a3e04c782
-    internalID: 0
+    spriteID: e04be48479ea8634785e0eeb57b75ec2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -311,10 +301,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 528, y: 214}
-  - name: Reload14
+  - name: 'Reload14 '
     originalName: 
-    pivot: {x: 0.997487, y: 0.45456395}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -322,8 +312,7 @@ ScriptedImporter:
       y: 4
       width: 127
       height: 239
-    spriteID: 8b9ab4d3350114542aaff8a81ae7058b
-    internalID: 0
+    spriteID: 40d478740fed2a046b07ac97761c5818
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -333,10 +322,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 528, y: -13}
-  - name: Reload13
+  - name: 'Reload13 '
     originalName: 
-    pivot: {x: 1.0000778, y: 0.49999952}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -344,8 +333,7 @@ ScriptedImporter:
       y: 1588
       width: 127
       height: 252
-    spriteID: fbd4438ec05f2ed4e93baad17abae5dc
-    internalID: 0
+    spriteID: 626e6f13987641f4d8cb2d60c23631cd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -355,10 +343,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 268, y: 1584}
-  - name: Reload12
+  - name: 'Reload12 '
     originalName: 
-    pivot: {x: 1, y: 0.5}
-    alignment: 5
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -366,8 +354,7 @@ ScriptedImporter:
       y: 1324
       width: 127
       height: 256
-    spriteID: 762592755bb978040b00f84d995aa5e7
-    internalID: 0
+    spriteID: 6899f0f76df06e548a606c09dac80558
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -377,10 +364,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 268, y: 1324}
-  - name: Reload11
+  - name: 'Reload11 '
     originalName: 
-    pivot: {x: 0.7920467, y: 0.4974289}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -388,8 +375,7 @@ ScriptedImporter:
       y: 1060
       width: 160
       height: 256
-    spriteID: fd236277e2075c04eb8ef8f23e216165
-    internalID: 0
+    spriteID: 4a3bcfbd52cb27d498146e560ebcb2da
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -399,10 +385,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 268, y: 1060}
-  - name: Reload10
+  - name: 'Reload10 '
     originalName: 
-    pivot: {x: 0.6653949, y: 0.49999976}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -410,8 +396,7 @@ ScriptedImporter:
       y: 796
       width: 191
       height: 256
-    spriteID: 992ff5b09ae11de4bb77a4906a35f33a
-    internalID: 0
+    spriteID: 36927da842dca0e4aaf5829e7b65ad32
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -421,10 +406,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 268, y: 796}
-  - name: Reload9
+  - name: 'Reload9 '
     originalName: 
-    pivot: {x: 0.5830214, y: 0.5012853}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -432,8 +417,7 @@ ScriptedImporter:
       y: 532
       width: 218
       height: 256
-    spriteID: 2b89239f3ecf7334595a243cb1e042cc
-    internalID: 0
+    spriteID: 4057a65c4184ab14dbc0c904875e57d8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -443,10 +427,10 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 268, y: 532}
-  - name: Reload8
+  - name: 'Reload8 '
     originalName: 
-    pivot: {x: 0.5318003, y: 0.4961437}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -454,8 +438,7 @@ ScriptedImporter:
       y: 268
       width: 238
       height: 256
-    spriteID: e2603bbfd75e89145a520ad52d5dcdf7
-    internalID: 0
+    spriteID: b5381b43ee6f595449c859a0e02a93ce
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -465,7 +448,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 268, y: 268}
-  - name: Reload7
+  - name: 'Reload7 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -473,11 +456,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 268
-      y: 3
+      y: 4
       width: 252
       height: 256
-    spriteID: f35d38780a0e11a4283301d8c9de48bd
-    internalID: 0
+    spriteID: 55016bd0ec7dc63418c29414368d90a3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -487,7 +469,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 268, y: 4}
-  - name: Reload6
+  - name: 'Reload6 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -498,8 +480,7 @@ ScriptedImporter:
       y: 4
       width: 256
       height: 256
-    spriteID: e9e346c9dec3ed247a221842b483bf3f
-    internalID: 0
+    spriteID: 9ff8b6860b89f2349bb5908fb4b82dc7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -509,7 +490,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 4, y: 4}
-  - name: Reload5
+  - name: 'Reload5 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -520,8 +501,7 @@ ScriptedImporter:
       y: 268
       width: 256
       height: 256
-    spriteID: 67b480158beb5f242bbd3786a20f8f47
-    internalID: 0
+    spriteID: 0d20937c9258f9b439119673ffb8d52b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -531,7 +511,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 4, y: 268}
-  - name: Reload4
+  - name: 'Reload4 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -542,8 +522,7 @@ ScriptedImporter:
       y: 532
       width: 256
       height: 256
-    spriteID: 50b6bcdbe676ee14f8d7e406cc9e4fdf
-    internalID: 0
+    spriteID: 5d9cbfc8b4c726144a4ce038498ea746
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -553,7 +532,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 4, y: 532}
-  - name: Reload3
+  - name: 'Reload3 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -564,8 +543,7 @@ ScriptedImporter:
       y: 796
       width: 256
       height: 256
-    spriteID: 7189c07fb16e66746a16541d08851637
-    internalID: 0
+    spriteID: 425e6c176f01ea645b652734e622e717
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -575,7 +553,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 4, y: 796}
-  - name: Reload2
+  - name: 'Reload2 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -586,8 +564,7 @@ ScriptedImporter:
       y: 1060
       width: 256
       height: 256
-    spriteID: dc1351dc0d13e3641921da98188500aa
-    internalID: 0
+    spriteID: b2d116778eb97524eaad317f6beee316
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -597,7 +574,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 4, y: 1060}
-  - name: Reload1
+  - name: 'Reload1 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -608,8 +585,7 @@ ScriptedImporter:
       y: 1324
       width: 256
       height: 256
-    spriteID: 6c91ac9fb4dc8b6438bcc9d4b279f704
-    internalID: 0
+    spriteID: 03cd885275b49534a84ed83a76587c5a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -619,7 +595,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 4, y: 1324}
-  - name: Reload0
+  - name: 'Reload0 '
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -630,8 +606,7 @@ ScriptedImporter:
       y: 1588
       width: 256
       height: 256
-    spriteID: 0b1acf841addae74e8e5eb8527f40e82
-    internalID: 0
+    spriteID: 644c309dc59423640ab1a76013e607fc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -641,6 +616,19 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 4, y: 1588}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    boneReadOnly: 0
+  sharedRigSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    boneReadOnly: 0
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -676,205 +664,286 @@ ScriptedImporter:
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
   mosaicLayers: 1
+  characterMode: 1
   documentPivot: {x: 0, y: 0}
   documentAlignment: 0
   importHiddenLayers: 0
-  importedTextureWidth: 1024
-  importedTextureHeight: 2048
-  documentSize: {x: 256, y: 256}
+  layerMappingOption: 2
+  generatePhysicsShape: 0
   paperDollMode: 0
   keepDupilcateSpriteName: 0
+  skeletonAssetReferenceID: 
   spriteCategoryList:
     categories: []
-  textureActualWidth: 1024
-  textureActualHeight: 2048
   spritePackingTag: 
   resliceFromLayer: 0
-  characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
   - name: Reload24
-    spriteName: Reload24
+    spriteName: 'Reload24 '
     isGroup: 0
     parentIndex: -1
     spriteID: b08d53b8b7d48414a9648db3c465932a
     layerID: 0
     mosaicPosition: {x: 403, y: 1983}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload23
-    spriteName: Reload23
+    spriteName: 'Reload23 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 72ec23e67f6925046999ea657e192f53
-    layerID: 485259232
+    spriteID: d815590057b90894986f1b35fadd763a
+    layerID: -1373640448
     mosaicPosition: {x: 467, y: 796}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload22
-    spriteName: Reload22
+    spriteName: 'Reload22 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 9042f5421e54b424cbe20848574c1691
-    layerID: 2051343173
+    spriteID: 5c8c1f1459b1b764481b59b02a76d870
+    layerID: 192443493
     mosaicPosition: {x: 436, y: 1060}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload21
-    spriteName: Reload21
+    spriteName: 'Reload21 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 4afce99e933404e47a7401e5e0b834ff
-    layerID: -677540182
+    spriteID: 037d49ec67d22754a8dc527ee03d0959
+    layerID: 1758527434
     mosaicPosition: {x: 403, y: 1848}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload20
-    spriteName: Reload20
+    spriteName: 'Reload20 '
     isGroup: 0
     parentIndex: -1
-    spriteID: fef501da7b04d134fa6459304efd150b
-    layerID: 888543759
+    spriteID: 8df9c70eb173c484c85dcd214bab4588
+    layerID: -970355921
     mosaicPosition: {x: 139, y: 1852}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload19
-    spriteName: Reload19
+    spriteName: 'Reload19 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 04c8ec80b017f404892c2fe5aa675522
-    layerID: -321309819
+    spriteID: eef83a58414c36244897cb35c9deeebe
+    layerID: 2114757829
     mosaicPosition: {x: 528, y: 615}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload18
-    spriteName: Reload18
+    spriteName: 'Reload18 '
     isGroup: 0
     parentIndex: -1
-    spriteID: bcd759f14c22d524c88e9817c839bd8c
-    layerID: 1244774122
+    spriteID: bedceba19d4094e46843ce7dcd6bfb18
+    layerID: -614125526
     mosaicPosition: {x: 528, y: 478}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload17
-    spriteName: Reload17
+    spriteName: 'Reload17 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 8f61d3f27fc526543aef81440d2e3346
-    layerID: -1840339593
+    spriteID: 756720d1b5d6e86439a76da35f928387
+    layerID: 595728055
     mosaicPosition: {x: 4, y: 1852}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload16
-    spriteName: Reload16
+    spriteName: 'Reload16 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 4b082da34c604f14791606385fd01400
-    layerID: -274255652
+    spriteID: 42e5f29a36202984595ad945db76538d
+    layerID: -2133155300
     mosaicPosition: {x: 268, y: 1848}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload15
-    spriteName: Reload15
+    spriteName: 'Reload15 '
     isGroup: 0
     parentIndex: -1
-    spriteID: dbe5d7ccd75bc3d4680c165a3e04c782
-    layerID: 1291828289
+    spriteID: e04be48479ea8634785e0eeb57b75ec2
+    layerID: -567071359
     mosaicPosition: {x: 528, y: 251}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload14
-    spriteName: Reload14
+    spriteName: 'Reload14 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 8b9ab4d3350114542aaff8a81ae7058b
-    layerID: -1437055066
+    spriteID: 40d478740fed2a046b07ac97761c5818
+    layerID: 999012582
     mosaicPosition: {x: 528, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload13
-    spriteName: Reload13
+    spriteName: 'Reload13 '
     isGroup: 0
     parentIndex: -1
-    spriteID: fbd4438ec05f2ed4e93baad17abae5dc
-    layerID: 485259235
+    spriteID: 626e6f13987641f4d8cb2d60c23631cd
+    layerID: -1373640413
     mosaicPosition: {x: 268, y: 1588}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload12
-    spriteName: Reload12
+    spriteName: 'Reload12 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 762592755bb978040b00f84d995aa5e7
-    layerID: 2051343176
+    spriteID: 6899f0f76df06e548a606c09dac80558
+    layerID: 192443528
     mosaicPosition: {x: 268, y: 1324}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload11
-    spriteName: Reload11
+    spriteName: 'Reload11 '
     isGroup: 0
     parentIndex: -1
-    spriteID: fd236277e2075c04eb8ef8f23e216165
-    layerID: -677540179
+    spriteID: 4a3bcfbd52cb27d498146e560ebcb2da
+    layerID: 1758527469
     mosaicPosition: {x: 268, y: 1060}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload10
-    spriteName: Reload10
+    spriteName: 'Reload10 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 992ff5b09ae11de4bb77a4906a35f33a
-    layerID: 888543762
+    spriteID: 36927da842dca0e4aaf5829e7b65ad32
+    layerID: -970355886
     mosaicPosition: {x: 268, y: 796}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload9
-    spriteName: Reload9
+    spriteName: 'Reload9 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 2b89239f3ecf7334595a243cb1e042cc
-    layerID: 555966522
+    spriteID: 4057a65c4184ab14dbc0c904875e57d8
+    layerID: 1601004474
     mosaicPosition: {x: 268, y: 532}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload8
-    spriteName: Reload8
+    spriteName: 'Reload8 '
     isGroup: 0
     parentIndex: -1
-    spriteID: e2603bbfd75e89145a520ad52d5dcdf7
-    layerID: 555966521
+    spriteID: b5381b43ee6f595449c859a0e02a93ce
+    layerID: 1601004473
     mosaicPosition: {x: 268, y: 268}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload7
-    spriteName: Reload7
+    spriteName: 'Reload7 '
     isGroup: 0
     parentIndex: -1
-    spriteID: f35d38780a0e11a4283301d8c9de48bd
-    layerID: 555966532
+    spriteID: 55016bd0ec7dc63418c29414368d90a3
+    layerID: 1601004484
     mosaicPosition: {x: 268, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload6
-    spriteName: Reload6
+    spriteName: 'Reload6 '
     isGroup: 0
     parentIndex: -1
-    spriteID: e9e346c9dec3ed247a221842b483bf3f
-    layerID: 555966531
+    spriteID: 9ff8b6860b89f2349bb5908fb4b82dc7
+    layerID: 1601004483
     mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload5
-    spriteName: Reload5
+    spriteName: 'Reload5 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 67b480158beb5f242bbd3786a20f8f47
-    layerID: 555966534
+    spriteID: 0d20937c9258f9b439119673ffb8d52b
+    layerID: 1601004486
     mosaicPosition: {x: 4, y: 268}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload4
-    spriteName: Reload4
+    spriteName: 'Reload4 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 50b6bcdbe676ee14f8d7e406cc9e4fdf
-    layerID: 555966533
+    spriteID: 5d9cbfc8b4c726144a4ce038498ea746
+    layerID: 1601004485
     mosaicPosition: {x: 4, y: 532}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload3
-    spriteName: Reload3
+    spriteName: 'Reload3 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 7189c07fb16e66746a16541d08851637
-    layerID: 555966528
+    spriteID: 425e6c176f01ea645b652734e622e717
+    layerID: 1601004480
     mosaicPosition: {x: 4, y: 796}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload2
-    spriteName: Reload2
+    spriteName: 'Reload2 '
     isGroup: 0
     parentIndex: -1
-    spriteID: dc1351dc0d13e3641921da98188500aa
-    layerID: 555966527
+    spriteID: b2d116778eb97524eaad317f6beee316
+    layerID: 1601004479
     mosaicPosition: {x: 4, y: 1060}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload1
-    spriteName: Reload1
+    spriteName: 'Reload1 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 6c91ac9fb4dc8b6438bcc9d4b279f704
-    layerID: 555966530
+    spriteID: 03cd885275b49534a84ed83a76587c5a
+    layerID: 1601004482
     mosaicPosition: {x: 4, y: 1324}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Reload0
-    spriteName: Reload0
+    spriteName: 'Reload0 '
     isGroup: 0
     parentIndex: -1
-    spriteID: 0b1acf841addae74e8e5eb8527f40e82
-    layerID: 555966529
+    spriteID: 644c309dc59423640ab1a76013e607fc
+    layerID: 1601004481
     mosaicPosition: {x: 4, y: 1588}
-  characterData:
-    bones: []
-    parts: []
-    dimension: {x: 0, y: 0}
-    characterGroups: []
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Bakgrunn
+    spriteName: 
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 1011233928
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  sharedRigPSDLayers: []
+  pSDLayerImportSetting: []
   generateGOHierarchy: 0
   textureAssetName: Reload Texture
   prefabAssetName: Reload Prefab
   spriteLibAssetName: Reload Sprite Lib
+  skeletonAssetName: 
   secondarySpriteTextures: []

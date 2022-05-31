@@ -7,6 +7,9 @@ public class EventManager : MonoBehaviour
     public delegate void TechPlaced(TechTile tech, Slot slot);
     public static event TechPlaced OnTechPlaced;
 
+    public delegate void PlayerLoaded(PlayerData player);
+    public static event PlayerLoaded OnPlayerLoaded;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +26,11 @@ public class EventManager : MonoBehaviour
     {
         if(OnTechPlaced != null)
             OnTechPlaced(tech, slot);
+    }
+
+    public static void NotifyPlayerLoaded(PlayerData player)
+    {
+        if (OnPlayerLoaded != null)
+            OnPlayerLoaded(player);
     }
 }

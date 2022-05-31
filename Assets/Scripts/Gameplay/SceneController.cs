@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     bool inBattle = false;
+    bool loadingOpponent = false;
 
     Shop shop;
     CursorControl cursor;
@@ -48,7 +49,7 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        EventManager.OnPlayerLoaded += OpponentDataLoaded;
     }
 
     // Update is called once per frame
@@ -56,6 +57,7 @@ public class SceneController : MonoBehaviour
     {
         if (inBattle)
         {
+            if (loadingOpponent) return;
             if(Time.time - lastAttackTime > attackPeriod)
             {
                 battleController.AttackNext();
@@ -104,7 +106,6 @@ public class SceneController : MonoBehaviour
 
     void StartBattle()
     {
-        lastAttackTime = Time.time;
         inBattle = true;
 
         shop.SetEnableShop(false);
@@ -112,19 +113,25 @@ public class SceneController : MonoBehaviour
 
         saveSystem.SavePlayer(player);
         
-        opponent = GetOpponent();
+        //Load Opponent:
+        saveSystem.BeginLoadOpponent(player.round);
+        loadingOpponent = true;
+
+        Debug.Log("StartBattle in " + SceneManager.GetActiveScene().name);
+    }
+
+    void OpponentDataLoaded(PlayerData data)
+    {
+        lastAttackTime = Time.time;
+
+        opponent = saveSystem.CreatePlayer(data);
 
         player.BattleStarted(opponent);
         opponent.BattleStarted(player);
 
         battleController.StartBattle(ref player, ref opponent);
 
-        Debug.Log("StartBattle in " + SceneManager.GetActiveScene().name);
-    }
-
-    Player GetOpponent()
-    {
-        return saveSystem.LoadPlayer(player.round);
+        loadingOpponent = false;
     }
 
     void EndBattle()
