@@ -79,3 +79,5 @@ crashlytics-build.properties
 /Server/obj/*
 /Server/bin/*
 
+#Python
+*__pycache__*

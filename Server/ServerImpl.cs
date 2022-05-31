@@ -115,13 +115,14 @@ namespace GrpcNetworking
     {
         static void Main(string[] args)
         {
-            const int Port = 8001;
+            const int Port = 50124;
 
             Server server = new Server
             {
                 Services = { DataStorage.BindService(new ServerImpl()) },
                 Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
             };
+            
             server.Start();
 
             Console.WriteLine("DataStorage Server listening on port " + Port);
