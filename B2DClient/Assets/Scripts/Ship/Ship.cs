@@ -51,6 +51,7 @@ public class Ship : Draggable
     public void BattleEnded()
     {
         this.gameObject.SetActive(true);
+        GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.white;
         TechTile[] techs = GetComponentsInChildren<TechTile>(true);
         foreach (var tech in techs)
         {
