@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
 
     public bool HasShipsLeft()
     {
-        return GetComponentsInChildren<FireUnit>().Length > 0;
+        return GetComponentInChildren<Fleet>().GetComponentsInChildren<FireUnit>().Length > 0;
     }
 
     public void BattleEnded()
