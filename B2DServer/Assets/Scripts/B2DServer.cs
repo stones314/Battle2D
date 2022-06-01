@@ -5,30 +5,46 @@ using Unity.Networking.Transport;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-public class Server : MonoBehaviour
+public class B2DServer : MonoBehaviour
 {
+    string address = "localhost";
+    ushort port = 50123;
+
     public NetworkDriver m_Driver;
     private NativeList<NetworkConnection> m_Connections;
 
-    //
-    public static readonly uint MSG_ID_SAVE_PLAYER_CMD = 1;
-    public static readonly uint MSG_ID_SAVE_PLAYER_REP = 2;
-    public static readonly uint MSG_ID_LOAD_PLAYER_CMD = 3;
-    public static readonly uint MSG_ID_LOAD_PLAYER_REP = 4;
-
-    const string PLAYER_PREFIX = "/player";
+    const string PLAYER_PREFIX = "/p";
     const string COUNT_FILE = "/count";
+    string storeDir = "players/";
+
+    private void Awake()
+    {
+        string[] args = System.Environment.GetCommandLineArgs();
+        for (int i = 0; i < args.Length; i++)
+        {
+            if (args[i] == "-b2d-address")
+                address = args[i + 1];
+            else if (args[i] == "-b2d-port")
+                port = ushort.Parse(args[i + 1]);
+            else if (args[i] == "-b2d-store-dir")
+                storeDir = args[i + 1];
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         m_Driver = NetworkDriver.Create();
-        var endpoint = NetworkEndPoint.AnyIpv4;
-        endpoint.Port = 50123;
+        var endpoint = NetworkEndPoint.Parse(address, port);
         if (m_Driver.Bind(endpoint) != 0)
-            Debug.Log("Failed to bind port " + endpoint.Port);
+        {
+            Debug.Log("Failed to bind port " + endpoint.Port + " at " + address);
+        }
         else
+        {
             m_Driver.Listen();
+            Debug.Log("B2DServer listening on " + endpoint.Port + " at " + address);
+        }
 
         m_Connections = new NativeList<NetworkConnection>(16, Allocator.Persistent);
     }
@@ -86,10 +102,10 @@ public class Server : MonoBehaviour
     void HandleMessage(NetworkConnection connection, DataStreamReader stream)
     {
         uint msgId = stream.ReadUInt();
-        if(msgId == MSG_ID_SAVE_PLAYER_CMD) {
+        if(msgId == B2DNetData.MSG_ID_SAVE_PLAYER_CMD) {
             SavePlayer(stream);
         }
-        else if(msgId == MSG_ID_LOAD_PLAYER_CMD)
+        else if(msgId == B2DNetData.MSG_ID_LOAD_PLAYER_CMD)
         {
             SendPlayerToClient(LoadPlayer(stream), connection);
         }
@@ -156,7 +172,7 @@ public class Server : MonoBehaviour
     void SendPlayerToClient(byte[] playerData, NetworkConnection connection)
     {
         m_Driver.BeginSend(connection, out var writer);
-        writer.WriteUInt(MSG_ID_LOAD_PLAYER_REP);
+        writer.WriteUInt(B2DNetData.MSG_ID_LOAD_PLAYER_REP);
         writer.WriteInt(playerData.Length);
         foreach (var b in playerData)
         {
@@ -167,7 +183,7 @@ public class Server : MonoBehaviour
 
     string GetDir(uint round)
     {
-        return "players/round" + round;
+        return storeDir + "round" + round;
     }
 
     int LoadPlayerCount(uint round)

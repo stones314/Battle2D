@@ -78,11 +78,11 @@ public class Client : MonoBehaviour
     void HandleMessage(DataStreamReader stream)
     {
         uint msgId = stream.ReadUInt();
-        if (msgId == Server.MSG_ID_SAVE_PLAYER_REP)
+        if (msgId == B2DNetData.MSG_ID_SAVE_PLAYER_REP)
         {
             Debug.Log("Save Player Reply Id = " + stream.ReadUInt());
         }
-        else if (msgId == Server.MSG_ID_LOAD_PLAYER_REP)
+        else if (msgId == B2DNetData.MSG_ID_LOAD_PLAYER_REP)
         {
             PlayerData playerLoaded = DezerializePlayerData(stream);
             EventManager.NotifyPlayerLoaded(playerLoaded);
@@ -121,7 +121,7 @@ public class Client : MonoBehaviour
         formatter.Serialize(stream, data);
 
         m_Driver.BeginSend(m_Connection, out var writer);
-        writer.WriteUInt(Server.MSG_ID_SAVE_PLAYER_CMD);
+        writer.WriteUInt(B2DNetData.MSG_ID_SAVE_PLAYER_CMD);
         writer.WriteUInt((uint)player.round);
         writer.WriteInt((int)stream.Length);
         foreach (var b in stream.ToArray())
@@ -138,7 +138,7 @@ public class Client : MonoBehaviour
         if (!IsConnected()) return false;
 
         m_Driver.BeginSend(m_Connection, out var writer);
-        writer.WriteUInt(Server.MSG_ID_LOAD_PLAYER_CMD);
+        writer.WriteUInt(B2DNetData.MSG_ID_LOAD_PLAYER_CMD);
         writer.WriteUInt(round);
         m_Driver.EndSend(writer);
 

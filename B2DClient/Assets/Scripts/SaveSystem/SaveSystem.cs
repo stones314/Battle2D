@@ -15,9 +15,6 @@ public class SaveSystem : MonoBehaviour
     [SerializeField]
     Client client;
 
-    const string PLAYER_PREFIX = "/player";
-    const string COUNT_FILE = "/count";
-
     private void Awake()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag(this.gameObject.tag);
@@ -28,30 +25,6 @@ public class SaveSystem : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
-
-    }
-
-    string GetDir(int round)
-    {
-        return Application.persistentDataPath + "/players/round" + round;
-    }
-
-    int LoadPlayerCount(int round)
-    {
-        BinaryFormatter formatter = new BinaryFormatter();
-        string countPath = GetDir(round) + COUNT_FILE;
-        int savedPlayers = 0;
-
-        if (File.Exists(countPath))
-        {
-            FileStream countStream = new FileStream(countPath, FileMode.Open);
-            savedPlayers = (int)formatter.Deserialize(countStream);
-            countStream.Close();
-        }
-
-        Debug.Log("Found " + savedPlayers + " saved players at round " + round);
-
-        return savedPlayers;
     }
 
     public void SavePlayer(Player player)
@@ -63,39 +36,10 @@ public class SaveSystem : MonoBehaviour
         }
         else
         {
-            Debug.Log("No gRPC Client, Saving player locally");
-            SavePlayerLocaly(player);
+            Debug.Log("No Client, unable to save player");
         }
-        
     }
 
-    private void SavePlayerLocaly(Player player)
-    {
-        if (!Directory.Exists(GetDir(player.round)))
-        {
-            Directory.CreateDirectory(GetDir(player.round));
-        }
-
-        BinaryFormatter formatter = new BinaryFormatter();
-        string path = GetDir(player.round) + PLAYER_PREFIX;
-        string countPath = GetDir(player.round) + COUNT_FILE;
-
-        Debug.Log(path + "\n" + countPath);
-
-        int savedPlayers = LoadPlayerCount(player.round);
-
-        FileStream countStream = new FileStream(countPath, FileMode.Create);
-        formatter.Serialize(countStream, savedPlayers + 1);
-        countStream.Close();
-
-        FileStream stream = new FileStream(path + savedPlayers, FileMode.Create);
-        PlayerData data = new PlayerData(player);
-
-        formatter.Serialize(stream, data);
-        stream.Close();
-    }
-
-    
     private void SavePlayerOnNet(Player player)
     {
         client.SavePlayer(player);
@@ -106,33 +50,6 @@ public class SaveSystem : MonoBehaviour
         client.BeginLoadPlayer((uint)round);
     }
 
-    private PlayerData LoadPlayerLocally(int round) {
-        BinaryFormatter formatter = new BinaryFormatter();
-        string path = GetDir(round) + PLAYER_PREFIX;
-
-        int savedPlayers = LoadPlayerCount(round);
-
-        if (savedPlayers < 1) return null;
-
-        int triesLeft = 10;
-        while (triesLeft > 0)
-        {
-            int x = (int)Random.Range(0, savedPlayers - 0.00001f);
-
-            Debug.Log("Loading player " + x + " from round " + round);
-
-            if (File.Exists(path + x))
-            {
-                FileStream stream = new FileStream(path + x, FileMode.Open);
-                PlayerData data = formatter.Deserialize(stream) as PlayerData;
-                stream.Close();
-
-                return data;
-            }
-            triesLeft--;
-        }
-        return null;
-    }
 
     public void BeginLoadOpponent(int round)
     {
@@ -143,8 +60,7 @@ public class SaveSystem : MonoBehaviour
         }
         else
         {
-            Debug.Log("No Client, Loading player locally");
-            EventManager.NotifyPlayerLoaded(LoadPlayerLocally(round));
+            Debug.Log("No Client, unable to load player");
         }
     }
 
