@@ -50,6 +50,7 @@ public class SceneController : MonoBehaviour
     void Start()
     {
         EventManager.OnPlayerLoaded += OpponentDataLoaded;
+        attackPeriod /= Constants.GameSpeed;
     }
 
     // Update is called once per frame

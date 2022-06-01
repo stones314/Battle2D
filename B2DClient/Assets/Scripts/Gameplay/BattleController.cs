@@ -32,7 +32,8 @@ public class BattleController
                 InsertIntoAttackOrder(ship);
         }
         numActive = attackOrder.Count;
-        attackOrder[nextAttacker].PrepareAttack();
+        if(numActive > 0)
+            attackOrder[nextAttacker].PrepareAttack();
     }
 
     private void InsertIntoAttackOrder(Ship newShip)

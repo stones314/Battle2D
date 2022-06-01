@@ -23,8 +23,7 @@ public class FireUnit : MonoBehaviour
     [Tooltip("Time between each munition in a burst")]
     public float burstDeltaTime = 0.2f;
 
-    [Tooltip("How fast the mnition flies")]
-    public float munitionSpeed = 5f;
+    private float munitionSpeed = 10f;
 
     private Player enemyPlayer;
 
@@ -49,7 +48,8 @@ public class FireUnit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        burstDeltaTime /= Constants.GameSpeed;
+        munitionSpeed *= Constants.GameSpeed;
     }
 
     // Update is called once per frame

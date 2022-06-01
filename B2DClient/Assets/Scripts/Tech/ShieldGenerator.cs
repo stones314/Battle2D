@@ -6,6 +6,7 @@ public class ShieldGenerator : TechTile
 {
     public float shieldStrength;
     public float rechargeTime;
+    private GameSpeed.TimeInterval rechargeTimeGS;
 
     [SerializeField]
     Shield shield;
@@ -36,6 +37,7 @@ public class ShieldGenerator : TechTile
     {
         base.Clicked(offset);
         shield.transform.localScale /= 3;
+        shield.transform.position = this.transform.position;
     }
 
     public override int Dropped(int playerMoney)
@@ -52,6 +54,7 @@ public class ShieldGenerator : TechTile
     public void InitilaizeShield()
     {
         strengthLeft = shieldStrength;
+        rechargeTimeGS = new GameSpeed.TimeInterval(rechargeTime);
         shield.SetGenerator(this);
         shield.SetStrengthLeft(ScaleStrengthLeft());
         
@@ -69,7 +72,7 @@ public class ShieldGenerator : TechTile
 
     private void Recharge()
     {
-        if (Time.time - rechargeStartTime >= rechargeTime)
+        if (Time.time - rechargeStartTime >= rechargeTimeGS.interval)
         {
             strengthLeft = shieldStrength;
             reloadAnimator.SetBool("active", true);
@@ -107,7 +110,7 @@ public class ShieldGenerator : TechTile
         InitilaizeShield();         //in case this is the opponent it seems to not be initialized, so do it here
         InitilaizeReloadAnimator(); //in case this is the opponent it seems to not be initialized, so do it here
         
-        reloadAnimator.speed = 2.083f / rechargeTime;  //Animation lasts 2 sec by default. We want it to last reloadTime instead
+        reloadAnimator.speed = 2.083f / rechargeTimeGS.interval;  //Animation lasts 2 sec by default. We want it to last reloadTime instead
         reloadAnimator.SetBool("reloading", true);
         reloadAnimator.SetBool("active", true);
     }
@@ -128,7 +131,7 @@ public class ShieldGenerator : TechTile
     {
         return
             "Shield Strength: " + shieldStrength.ToString("F2") +
-            "\nRecharge Time: " + rechargeTime.ToString("F0") + " sec" +
+            "\nRecharge Time: " + rechargeTimeGS.interval.ToString("F0") + " sec" +
             "\nSell Value:  " + cost / 3;
     }
 
@@ -148,6 +151,7 @@ public class ShieldGenerator : TechTile
     public void AddRechargeBonus(int speedBonus)
     {
         rechargeTime *= (100f - (float)speedBonus) / 100f;
+        rechargeTimeGS = new GameSpeed.TimeInterval(rechargeTime);
     }
 
     public override void PrepareCombatAction()
