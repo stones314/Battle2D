@@ -113,6 +113,7 @@ public class B2DServer : MonoBehaviour
 
     void SavePlayer(DataStreamReader stream) {
         uint round = stream.ReadUInt();
+        Debug.Log("Save player for round " + round);
 
         int n_bytes = stream.ReadInt();
         NativeArray<byte> data = new NativeArray<byte>(n_bytes, Allocator.Temp);
@@ -128,8 +129,6 @@ public class B2DServer : MonoBehaviour
         BinaryFormatter formatter = new BinaryFormatter();
         string path = dir + PLAYER_PREFIX;
         string countPath = dir + COUNT_FILE;
-
-        Debug.Log(path + "\n" + countPath);
 
         int savedPlayers = LoadPlayerCount(round);
 
