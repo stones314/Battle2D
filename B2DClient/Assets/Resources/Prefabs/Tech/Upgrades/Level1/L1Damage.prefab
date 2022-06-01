@@ -110,11 +110,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1505741515216333871, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
   m_PrefabInstance: {fileID: 71332148673242284}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1447937895745505412 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1505741515216333864, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
-  m_PrefabInstance: {fileID: 71332148673242284}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &-2309018519220739222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,8 +126,14 @@ MonoBehaviour:
   description: Increases munition damage
   slotsInto: 1
   cost: 3000
+  itemInfoObj: {fileID: 0}
   singleUse: 1
   damageBonus: 1
+--- !u!4 &1447937895745505412 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1505741515216333864, guid: b08aaf35b60a65b4cb4754607514fc1b, type: 3}
+  m_PrefabInstance: {fileID: 71332148673242284}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8142151754395533285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -150,7 +151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5217222717079708301, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
       propertyPath: m_Name
-      value: AccuracyIndicator
+      value: Indicator
       objectReference: {fileID: 0}
     - target: {fileID: 8205759256163050214, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
       propertyPath: m_RootOrder
@@ -205,8 +206,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8414266387342932932, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
+      propertyPath: m_Size.x
+      value: 1.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 8414266387342932932, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
+      propertyPath: m_Size.y
+      value: 1.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8414266387342932932, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 6239961266717184234, guid: b5cc624f3ad330b47af16d89bccfbc65, type: 3}
+      objectReference: {fileID: 5029063048541517563, guid: b5cc624f3ad330b47af16d89bccfbc65, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92d9756c07c8ff649bdf0d645b27a8e1, type: 3}
