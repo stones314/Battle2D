@@ -2046,10 +2046,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 8811755526398069197, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
-      propertyPath: money
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8811755526398069197, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
       propertyPath: LevelText
       value: 
       objectReference: {fileID: 68981025}
@@ -2087,6 +2083,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811755526398069198, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
       propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811755526398069198, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811755526398069198, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811755526398069198, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8811755526398069201, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}

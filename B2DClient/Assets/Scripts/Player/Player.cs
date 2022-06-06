@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public int income { get; private set; } = 2000;
 
     [SerializeField]
+    UnityEngine.UI.Text RoundText;
+    [SerializeField]
     UnityEngine.UI.Text LevelUpCostText;
     [SerializeField]
     UnityEngine.UI.Text LevelText;
@@ -35,7 +37,7 @@ public class Player : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         SetBalance(money);
-
+        RoundText.text = "Round\n" + round;
     }
 
     // Update is called once per frame
@@ -97,6 +99,7 @@ public class Player : MonoBehaviour
     private void HandleIncome()
     {
         round += 1;
+        RoundText.text = "Round\n" + round;
 
         if (income < 10000)
             income += 1000;
