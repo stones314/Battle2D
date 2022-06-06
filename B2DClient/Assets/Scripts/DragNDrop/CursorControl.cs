@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,8 +8,8 @@ public class CursorControl : MonoBehaviour
     public Texture2D mouseCursor;
 
     //private variables
-    Vector2 moveInput = new Vector2(0, 0);
-    CursorMode cursorMode = CursorMode.Auto;
+    //Vector2 moveInput = new Vector2(0, 0);
+    //CursorMode cursorMode = CursorMode.Auto;
 
     [SerializeField]
     Player player;
@@ -43,7 +41,7 @@ public class CursorControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.SetCursor(mouseCursor, moveInput, cursorMode);
+        //Cursor.SetCursor(mouseCursor, moveInput, cursorMode);
         _enableDrag = true;
     }
 
