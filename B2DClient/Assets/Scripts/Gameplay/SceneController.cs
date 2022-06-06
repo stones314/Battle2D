@@ -1,19 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    bool inBattle = false;
-    bool loadingOpponent = false;
-
     Shop shop;
     CursorControl cursor;
     Player player;
     Player opponent;
 
-    bool waitForEnd = false;
     float countDownStart;
     
     [SerializeField]
@@ -22,7 +16,20 @@ public class SceneController : MonoBehaviour
     public float attackPeriod = 1.0f;
     float lastAttackTime;
 
+    float endOfBattleTime = 5.0f;
+
     BattleController battleController = new BattleController();
+
+    enum SceneState
+    {
+        LobbyScene,
+        ShoppingScene,
+        SavingPlayer,
+        LoadingOpponent,
+        InBattle,
+        EndBattle
+    }
+    SceneState sceneState;
 
     private void Awake()
     {
@@ -50,43 +57,54 @@ public class SceneController : MonoBehaviour
     void Start()
     {
         EventManager.OnPlayerLoaded += OpponentDataLoaded;
+        EventManager.OnPlayerSaved += OnPlayerSaved;
         attackPeriod /= Constants.GameSpeed;
+        endOfBattleTime /= Constants.GameSpeed;
+        sceneState = SceneState.ShoppingScene;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (inBattle)
+        switch (sceneState)
         {
-            if (loadingOpponent) return;
-            if(Time.time - lastAttackTime > attackPeriod)
-            {
-                battleController.AttackNext();
-                lastAttackTime = Time.time;
-            }
-            if (!opponent.HasShipsLeft() || !player.HasShipsLeft())
-            {
-                StartEndTimer();
-            }
-        }
-        else if (waitForEnd && (Time.time - countDownStart) > 5)
-        {
-            if (!opponent.HasShipsLeft())
-            {
-                if (player.HasShipsLeft()) Debug.Log("YOU WON!");
-                else Debug.Log("IT WAS A DRAW!");
-                EndBattle();
-            }
-            else if (!player.HasShipsLeft())
-            {
-                if (opponent.HasShipsLeft())
+            case SceneState.LobbyScene:
+            case SceneState.ShoppingScene:
+            case SceneState.SavingPlayer:
+            case SceneState.LoadingOpponent:
+                break;
+            case SceneState.InBattle:
+                if (!opponent.HasShipsLeft() || !player.HasShipsLeft())
                 {
-                    Debug.Log("YOU LOST!");
-                    player.health -= opponent.level;
+                    GoToEndBattle();
                 }
+                else if (Time.time - lastAttackTime > attackPeriod)
+                {
+                    battleController.AttackNext();
+                    lastAttackTime = Time.time;
+                }
+                break;
+            case SceneState.EndBattle:
+                if ((Time.time - countDownStart) > 5)
+                {
+                    if (!opponent.HasShipsLeft())
+                    {
+                        if (player.HasShipsLeft()) Debug.Log("YOU WON!");
+                        else Debug.Log("IT WAS A DRAW!");
+                        GoToShoping();
+                    }
+                    else if (!player.HasShipsLeft())
+                    {
+                        if (opponent.HasShipsLeft())
+                        {
+                            Debug.Log("YOU LOST!");
+                            player.health -= opponent.level;
+                        }
 
-                EndBattle();
-            }
+                        GoToShoping();
+                    }
+                }
+                break;
         }
     }
 
@@ -107,22 +125,26 @@ public class SceneController : MonoBehaviour
 
     void StartBattle()
     {
-        inBattle = true;
+        sceneState = SceneState.SavingPlayer;
+        Debug.Log("Saving Player");
 
         shop.SetEnableShop(false);
         cursor.SetEnableDrag(false);
 
         saveSystem.SavePlayer(player);
-        
-        //Load Opponent:
-        saveSystem.BeginLoadOpponent(player.round);
-        loadingOpponent = true;
+    }
 
-        Debug.Log("StartBattle in " + SceneManager.GetActiveScene().name);
+    void OnPlayerSaved()
+    {
+        //Load Opponent:
+        Debug.Log("Player Saved. Loading Opponent");
+        saveSystem.BeginLoadOpponent(player.round);
+        sceneState = SceneState.LoadingOpponent;
     }
 
     void OpponentDataLoaded(PlayerData data)
     {
+        Debug.Log("Opponent Loaded, Start Fighting");
         lastAttackTime = Time.time;
 
         opponent = saveSystem.CreatePlayer(data);
@@ -132,25 +154,26 @@ public class SceneController : MonoBehaviour
 
         battleController.StartBattle(ref player, ref opponent);
 
-        loadingOpponent = false;
+        sceneState = SceneState.InBattle;
     }
 
-    void EndBattle()
+    void GoToShoping()
     {
-        inBattle = false;
-        waitForEnd = false;
+        Debug.Log("Victory/Loss thing complete. Go back to shop.");
         shop.SetEnableShop(true);
-        //opponent.BattleEnded();
+
         Destroy(opponent.gameObject);
         player.BattleEnded();
+
+        sceneState = SceneState.ShoppingScene;
 
         SceneManager.LoadScene("ShoppingScene");
     }
 
-    void StartEndTimer()
+    void GoToEndBattle()
     {
-        inBattle = false;
-        waitForEnd = true;
+        Debug.Log("Fighting Ended, Display Victory/Loss thing (TODO");
+        sceneState = SceneState.EndBattle;
         countDownStart = Time.time;
     }
 

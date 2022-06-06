@@ -8,23 +8,25 @@ using System.IO;
 public class Client : MonoBehaviour
 {
     public NetworkDriver m_Driver;
-    public NetworkConnection m_Connection;
+    public NetworkConnection m_Connection = default(NetworkConnection);
     public bool Done;
 
-    private PlayerData playerToSave;
-    private bool pendingSave;
-
     enum LoadState {LOAD_COMMANDED, AWAITING_SERVER, LOAD_COMPLETE, NO_LOAD};
+
+    private void Awake()
+    {
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_Driver = NetworkDriver.Create();
-        m_Connection = default(NetworkConnection);
+        if (m_Connection.IsCreated) return;
 
+        m_Driver = NetworkDriver.Create();
         var endpoint = NetworkEndPoint.LoopbackIpv4;
         endpoint.Port = 50123;
         m_Connection = m_Driver.Connect(endpoint);
+        Debug.Log("Client.Awake()");
     }
 
     // Update is called once per frame
@@ -80,7 +82,7 @@ public class Client : MonoBehaviour
         uint msgId = stream.ReadUInt();
         if (msgId == B2DNetData.MSG_ID_SAVE_PLAYER_REP)
         {
-            Debug.Log("Save Player Reply Id = " + stream.ReadUInt());
+            EventManager.NotifyPlayerSaved();
         }
         else if (msgId == B2DNetData.MSG_ID_LOAD_PLAYER_REP)
         {

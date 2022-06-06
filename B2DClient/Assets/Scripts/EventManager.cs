@@ -10,6 +10,9 @@ public class EventManager : MonoBehaviour
     public delegate void PlayerLoaded(PlayerData player);
     public static event PlayerLoaded OnPlayerLoaded;
 
+    public delegate void PlayerSaved();
+    public static event PlayerSaved OnPlayerSaved;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,5 +35,11 @@ public class EventManager : MonoBehaviour
     {
         if (OnPlayerLoaded != null)
             OnPlayerLoaded(player);
+    }
+
+    public static void NotifyPlayerSaved()
+    {
+        if (OnPlayerSaved != null)
+            OnPlayerSaved();
     }
 }

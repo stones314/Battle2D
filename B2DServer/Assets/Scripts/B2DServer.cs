@@ -7,7 +7,7 @@ using System.IO;
 
 public class B2DServer : MonoBehaviour
 {
-    string address = "localhost";
+    string address = "127.0.0.1";
     ushort port = 50123;
 
     public NetworkDriver m_Driver;
@@ -102,12 +102,15 @@ public class B2DServer : MonoBehaviour
     void HandleMessage(NetworkConnection connection, DataStreamReader stream)
     {
         uint msgId = stream.ReadUInt();
+        Debug.Log("Server got Msg with ID " + msgId);
         if(msgId == B2DNetData.MSG_ID_SAVE_PLAYER_CMD) {
             SavePlayer(stream);
+            SendSaveReply(connection);
         }
         else if(msgId == B2DNetData.MSG_ID_LOAD_PLAYER_CMD)
         {
-            SendPlayerToClient(LoadPlayer(stream), connection);
+            byte[] data = LoadPlayer(stream);
+            SendPlayerToClient(data, connection);
         }
     }
 
@@ -139,6 +142,14 @@ public class B2DServer : MonoBehaviour
         FileStream fileStream = new FileStream(path + savedPlayers, FileMode.Create);
         fileStream.Write(data.ToArray(), 0, n_bytes);
         fileStream.Close();
+
+    }
+
+    void SendSaveReply(NetworkConnection connection)
+    {
+        m_Driver.BeginSend(connection, out var writer);
+        writer.WriteUInt(B2DNetData.MSG_ID_SAVE_PLAYER_REP);
+        m_Driver.EndSend(writer);
     }
 
     byte[] LoadPlayer(DataStreamReader inStream)
