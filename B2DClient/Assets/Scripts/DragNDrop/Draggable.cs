@@ -40,10 +40,8 @@ public class Draggable : MonoBehaviour
 
     public void DestroyShopInfo()
     {
-        Debug.Log("Try destroy shop info");
         if(itemInfoObj)
         {
-            Debug.Log("Destroy shop info");
             Destroy(itemInfoObj.gameObject);
         }
     }
