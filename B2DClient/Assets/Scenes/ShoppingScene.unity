@@ -678,7 +678,7 @@ GameObject:
   - component: {fileID: 389693138}
   m_Layer: 0
   m_Name: SaveSystem
-  m_TagString: Untagged
+  m_TagString: Save System
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -696,7 +696,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 8811755526398069197, guid: f113de8f8e2b06e4db7021f011ebe0ed, type: 3}
-  client: {fileID: 389693138}
 --- !u!4 &389693136
 Transform:
   m_ObjectHideFlags: 0
@@ -724,7 +723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7c64776b3973b458cf1db3f020e608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Done: 0
 --- !u!1001 &463903933
 PrefabInstance:
   m_ObjectHideFlags: 0
