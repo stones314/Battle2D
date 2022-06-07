@@ -47,7 +47,7 @@ public class ShopPool : MonoBehaviour
             FileInfo[] itemFiles = itemsPath.GetFiles("*.prefab", SearchOption.TopDirectoryOnly);
             foreach(var file in itemFiles)
             {
-                print("Found: " + file.FullName);
+                //print("Found: " + file.FullName);
                 for (int i = 0; i < itemsPerLevel[level - 1]; i++)
                 {
                     PoolItem item = new PoolItem(

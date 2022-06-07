@@ -17,6 +17,8 @@ public class SceneController : MonoBehaviour
     float lastAttackTime;
 
     float endOfBattleTime = 5.0f;
+    float msgSendTime;
+    int msgRetryCount;
 
     BattleController battleController = new BattleController();
 
@@ -70,8 +72,33 @@ public class SceneController : MonoBehaviour
         {
             case SceneState.LobbyScene:
             case SceneState.ShoppingScene:
+                break;
             case SceneState.SavingPlayer:
+                if (msgRetryCount > 3)
+                {
+                    GoToShoping();
+                }
+                else if (Time.time >= msgSendTime + 3)
+                {
+                    //Try again
+                    saveSystem.SavePlayer(player);
+                    msgSendTime = Time.time;
+                    msgRetryCount++;
+                }
+                break;
             case SceneState.LoadingOpponent:
+                if(msgRetryCount > 3)
+                {
+                    GoToShoping();
+                }
+                else if (Time.time >= msgSendTime + 3)
+                {
+
+                    //Try again
+                    saveSystem.BeginLoadOpponent(player.round);
+                    msgSendTime = Time.time;
+                    msgRetryCount++;
+                }
                 break;
             case SceneState.InBattle:
                 if (!opponent.HasShipsLeft() || !player.HasShipsLeft())
@@ -85,19 +112,21 @@ public class SceneController : MonoBehaviour
                 }
                 break;
             case SceneState.EndBattle:
-                if ((Time.time - countDownStart) > 5)
+                if ((Time.time - countDownStart) > endOfBattleTime)
                 {
                     if (!opponent.HasShipsLeft())
                     {
+                        /*
                         if (player.HasShipsLeft()) Debug.Log("YOU WON!");
                         else Debug.Log("IT WAS A DRAW!");
+                        */
                         GoToShoping();
                     }
                     else if (!player.HasShipsLeft())
                     {
                         if (opponent.HasShipsLeft())
                         {
-                            Debug.Log("YOU LOST!");
+                            //Debug.Log("YOU LOST!");
                             player.health -= opponent.level;
                         }
 
@@ -111,7 +140,7 @@ public class SceneController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded " + scene.name + ", mode = " + mode.ToString());
+        //Debug.Log("OnSceneLoaded " + scene.name + ", mode = " + mode.ToString());
 
         if (scene.name == "BattleScene")
         {
@@ -126,25 +155,29 @@ public class SceneController : MonoBehaviour
     void StartBattle()
     {
         sceneState = SceneState.SavingPlayer;
-        Debug.Log("Saving Player");
+        //Debug.Log("Saving Player");
 
         shop.SetEnableShop(false);
         cursor.SetEnableDrag(false);
 
         saveSystem.SavePlayer(player);
+        msgSendTime = Time.time;
+        msgRetryCount = 0;
     }
 
     void OnPlayerSaved()
     {
         //Load Opponent:
-        Debug.Log("Player Saved. Loading Opponent");
+        //Debug.Log("Player Saved. Loading Opponent");
         saveSystem.BeginLoadOpponent(player.round);
         sceneState = SceneState.LoadingOpponent;
+        msgSendTime = Time.time;
+        msgRetryCount = 0;
     }
 
     void OpponentDataLoaded(PlayerData data)
     {
-        Debug.Log("Opponent Loaded, Start Fighting");
+        //Debug.Log("Opponent Loaded, Start Fighting");
         lastAttackTime = Time.time;
 
         opponent = saveSystem.CreatePlayer(data);
@@ -159,10 +192,11 @@ public class SceneController : MonoBehaviour
 
     void GoToShoping()
     {
-        Debug.Log("Victory/Loss thing complete. Go back to shop.");
+        //Debug.Log("Victory/Loss thing complete. Go back to shop.");
         shop.SetEnableShop(true);
 
-        Destroy(opponent.gameObject);
+        if(opponent) Destroy(opponent.gameObject);
+
         player.BattleEnded();
 
         sceneState = SceneState.ShoppingScene;
@@ -172,7 +206,7 @@ public class SceneController : MonoBehaviour
 
     void GoToEndBattle()
     {
-        Debug.Log("Fighting Ended, Display Victory/Loss thing (TODO");
+        //Debug.Log("Fighting Ended, Display Victory/Loss thing (TODO");
         sceneState = SceneState.EndBattle;
         countDownStart = Time.time;
     }

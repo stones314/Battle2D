@@ -12,7 +12,6 @@ public class SaveSystem : MonoBehaviour
     [SerializeField]
     Player playerPrefab;
 
-    [SerializeField]
     Client client;
 
     private void Awake()
@@ -27,11 +26,16 @@ public class SaveSystem : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    private void Start()
+    {
+        client = GetComponent<Client>();
+    }
+
     public void SavePlayer(Player player)
     {
         if (client)
         {
-            Debug.Log("Saving player on net");
+            //Debug.Log("Saving player on net");
             SavePlayerOnNet(player);
         }
         else
@@ -55,7 +59,7 @@ public class SaveSystem : MonoBehaviour
     {
         if(client)
         {
-            Debug.Log("Loading player from net");
+            //Debug.Log("Loading player from net");
             LoadPlayerFromNet(round);
         }
         else
@@ -68,8 +72,9 @@ public class SaveSystem : MonoBehaviour
     {
         Player player = Instantiate(playerPrefab, new Vector3(), Quaternion.identity);
         player.level = data.level;
-        player.money = data.money;
-        player.round = data.roundsPlayed;
+        player.SetBalance(data.money);
+        player.SetRound(data.roundsPlayed);
+        //data.health;
         player.tag = "Opponent";
 
         AddShips(player, data.fleet.ships);

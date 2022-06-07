@@ -37,13 +37,19 @@ public class Player : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         SetBalance(money);
-        RoundText.text = "Round\n" + round;
+        SetRound(0);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void SetRound(int r)
+    {
+        round = r;
+        RoundText.text = "Round\n" + (round + 1);
     }
 
     public void SetBalance(int balance)
@@ -98,8 +104,7 @@ public class Player : MonoBehaviour
 
     private void HandleIncome()
     {
-        round += 1;
-        RoundText.text = "Round\n" + round;
+        SetRound(++round);
 
         if (income < 10000)
             income += 1000;
