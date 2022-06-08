@@ -139,11 +139,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 631664595609270601, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
   m_PrefabInstance: {fileID: 1793556347193617709}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1164147951604618341 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 631664595609270600, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
-  m_PrefabInstance: {fileID: 1793556347193617709}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &-6106897885004360334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +153,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   growth: 2
   condition: 3
+--- !u!4 &1164147951604618341 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 631664595609270600, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+  m_PrefabInstance: {fileID: 1793556347193617709}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6860574447100530602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165,6 +165,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1164147951604618341}
     m_Modifications:
+    - target: {fileID: 1767725220581875011, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
+      propertyPath: slotId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1767725220581875012, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
       propertyPath: m_Name
       value: TechSlot1

@@ -47,4 +47,26 @@ public abstract class TechTile : Draggable
     public abstract void PrepareCombatAction();
     public abstract void ExecuteCombatAction();
 
+    public virtual TechTileData ToTechTileData()
+    {
+        TechTileData ttd = new TechTileData();
+        ttd.prefabId = GetPrefabId();
+        ttd.slotId = GetComponentInParent<Slot>().slotId;
+
+        FireUnit fu = GetComponentInChildren<FireUnit>();
+        if (fu)
+        {
+            ttd.burstSize = (ushort)fu.burstSize;
+            ttd.munitionDamage = fu.GetMunitionDamage();
+        }
+
+        ShieldGenerator sg = GetComponentInChildren<ShieldGenerator>();
+        if (sg)
+        {
+            ttd.shieldStrength = sg.shieldStrength;
+            ttd.rechargeTime = sg.rechargeTime;
+        }
+
+        return ttd;
+    }
 }

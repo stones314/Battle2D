@@ -51,6 +51,11 @@ public class Draggable : MonoBehaviour
         return prefabInfo.path;
     }
 
+    public ushort GetPrefabId()
+    {
+        return prefabInfo.id;
+    }
+
     public void OverSlot(Slot slot) {
         newSlot = slot;
     }

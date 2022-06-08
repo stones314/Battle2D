@@ -250,4 +250,25 @@ public class Ship : Draggable
         
         return str;
     }
+
+    public ShipData ToShipData()
+    {
+        ShipData sd = new ShipData();
+        sd.prefabId = GetPrefabId();
+        sd.slotId = GetComponentInParent<Slot>().slotId;
+        sd.hullLayers = (ushort)hullLayers;
+        sd.layerStrength = (ushort)layerStrength;
+        sd.initiative = (ushort)Initiative;
+
+        TechTile[] shipTech = GetComponentsInChildren<TechTile>();
+        sd.numTechTiles = (ushort)shipTech.Length;
+        sd.techTiles = new TechTileData[sd.numTechTiles];
+
+        for (int t = 0; t < sd.numTechTiles; t++)
+        {
+            sd.techTiles[t] = shipTech[t].ToTechTileData();
+        }
+
+        return sd;
+    }
 }

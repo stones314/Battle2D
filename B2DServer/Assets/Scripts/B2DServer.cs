@@ -1,9 +1,9 @@
 using UnityEngine;
-using UnityEngine.Assertions;
 using Unity.Collections;
 using Unity.Networking.Transport;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Text;
 
 public class B2DServer : MonoBehaviour
 {
@@ -101,7 +101,7 @@ public class B2DServer : MonoBehaviour
 
     void HandleMessage(NetworkConnection connection, DataStreamReader stream)
     {
-        uint msgId = stream.ReadUInt();
+        ushort msgId = stream.ReadUShort();
         Debug.Log("Server got Msg with ID " + msgId);
         if(msgId == B2DNetData.MSG_ID_SAVE_PLAYER_CMD) {
             SavePlayer(stream);
@@ -109,18 +109,17 @@ public class B2DServer : MonoBehaviour
         }
         else if(msgId == B2DNetData.MSG_ID_LOAD_PLAYER_CMD)
         {
-            byte[] data = LoadPlayer(stream);
+            uint round = stream.ReadUInt();
+            PlayerData data = LoadPlayer(round);
             SendPlayerToClient(data, connection);
         }
     }
 
     void SavePlayer(DataStreamReader stream) {
-        uint round = stream.ReadUInt();
-        Debug.Log("Save player for round " + round);
 
-        int n_bytes = stream.ReadInt();
-        NativeArray<byte> data = new NativeArray<byte>(n_bytes, Allocator.Temp);
-        stream.ReadBytes(data);
+        PlayerData playerData = new PlayerData(stream);
+        ushort round = playerData.roundsPlayed;
+        Debug.Log("Save player for round " + round);
 
         string dir = GetDir(round);
 
@@ -130,6 +129,8 @@ public class B2DServer : MonoBehaviour
         }
 
         BinaryFormatter formatter = new BinaryFormatter();
+        string json = JsonUtility.ToJson(playerData);
+        
         string path = dir + PLAYER_PREFIX;
         string countPath = dir + COUNT_FILE;
 
@@ -139,29 +140,27 @@ public class B2DServer : MonoBehaviour
         formatter.Serialize(countStream, savedPlayers + 1);
         countStream.Close();
 
-        FileStream fileStream = new FileStream(path + savedPlayers, FileMode.Create);
-        fileStream.Write(data.ToArray(), 0, n_bytes);
+        FileStream fileStream = new FileStream(path + savedPlayers + ".json", FileMode.Create);
+        byte[] text = new UTF8Encoding(true).GetBytes(json);
+        fileStream.Write(text, 0, text.Length);
         fileStream.Close();
-
     }
 
     void SendSaveReply(NetworkConnection connection)
     {
         m_Driver.BeginSend(connection, out var writer);
-        writer.WriteUInt(B2DNetData.MSG_ID_SAVE_PLAYER_REP);
+        writer.WriteUShort(B2DNetData.MSG_ID_SAVE_PLAYER_REP);
         m_Driver.EndSend(writer);
     }
 
-    byte[] LoadPlayer(DataStreamReader inStream)
+    PlayerData LoadPlayer(uint round)
     {
-        uint round = inStream.ReadUInt();
-
         BinaryFormatter formatter = new BinaryFormatter();
         string path = GetDir(round) + PLAYER_PREFIX;
 
         int savedPlayers = LoadPlayerCount(round);
 
-        if (savedPlayers < 1) return new byte[0];
+        if (savedPlayers < 1) return null;
 
         int triesLeft = 10;
         while (triesLeft > 0)
@@ -170,24 +169,22 @@ public class B2DServer : MonoBehaviour
 
             Debug.Log("Loading player " + x + " from round " + round);
 
-            if (File.Exists(path + x))
+            if (File.Exists(path + x + ".json"))
             {
-                return File.ReadAllBytes(path + x);
+                string json = File.ReadAllText(path + x + ".json");
+                PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+                return data;
             }
             triesLeft--;
         }
-        return new byte[0];
+        return null;
     }
 
-    void SendPlayerToClient(byte[] playerData, NetworkConnection connection)
+    void SendPlayerToClient(PlayerData playerData, NetworkConnection connection)
     {
         m_Driver.BeginSend(connection, out var writer);
-        writer.WriteUInt(B2DNetData.MSG_ID_LOAD_PLAYER_REP);
-        writer.WriteInt(playerData.Length);
-        foreach (var b in playerData)
-        {
-            writer.WriteByte(b);
-        }
+        writer.WriteUShort(B2DNetData.MSG_ID_LOAD_PLAYER_REP);
+        playerData.WriteTo(ref writer);
         m_Driver.EndSend(writer);
     }
 
