@@ -18,7 +18,7 @@ local debug_level = {
 -- set this DEBUG to debug_level.LEVEL_1 to enable printing debug_level info
 -- set it to debug_level.LEVEL_2 to enable really verbose printing
 -- note: this will be overridden by user's preference settings
-local DEBUG = debug_level.LEVEL_1
+local DEBUG = debug_level.DISABLED
 
 local default_settings =
 {

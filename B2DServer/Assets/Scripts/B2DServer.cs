@@ -36,7 +36,8 @@ public class B2DServer : MonoBehaviour
     void Start()
     {
         m_Driver = NetworkDriver.Create();
-        var endpoint = NetworkEndPoint.Parse(address, port);
+        var endpoint = NetworkEndPoint.AnyIpv4;
+        endpoint.Port = port;
         if (m_Driver.Bind(endpoint) != 0)
         {
             Debug.Log("Failed to bind port " + endpoint.Port + " at " + address);

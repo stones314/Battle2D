@@ -19,8 +19,7 @@ public class Client : MonoBehaviour
         if (m_Connection.IsCreated) return;
 
         m_Driver = NetworkDriver.Create();
-        var endpoint = NetworkEndPoint.LoopbackIpv4;
-        endpoint.Port = 50123;
+        var endpoint = NetworkEndPoint.Parse("13.51.157.167", 50123);
         m_Connection = m_Driver.Connect(endpoint);
         
     }
