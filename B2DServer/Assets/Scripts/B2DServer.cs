@@ -7,7 +7,6 @@ using System.Text;
 
 public class B2DServer : MonoBehaviour
 {
-    string address = "127.0.0.1";
     ushort port = 50123;
 
     public NetworkDriver m_Driver;
@@ -16,16 +15,20 @@ public class B2DServer : MonoBehaviour
     const string PLAYER_PREFIX = "/p";
     const string PLAYER_POSTIX = ".json";
     const string COUNT_FILE = "/count";
-    string storeDir = "players/";
+    string storeDir = "./players/";
 
     private void Awake()
     {
+        // Had trouble with running server on lightsail, it was using 130% cpu
+        // Seems it tries to maximize framerate, and can go pretty fast when the server has no UI-stuff
+        // Explicit set target framerate to 60 => it uses about 2% cpu
+        // 60 frames per second might be a bit slow(?), will have to evaluate
+        Application.targetFrameRate = 60;
+
         string[] args = System.Environment.GetCommandLineArgs();
         for (int i = 0; i < args.Length; i++)
         {
-            if (args[i] == "-b2d-address")
-                address = args[i + 1];
-            else if (args[i] == "-b2d-port")
+            if (args[i] == "-b2d-port")
                 port = ushort.Parse(args[i + 1]);
             else if (args[i] == "-b2d-store-dir")
                 storeDir = args[i + 1];
@@ -40,12 +43,12 @@ public class B2DServer : MonoBehaviour
         endpoint.Port = port;
         if (m_Driver.Bind(endpoint) != 0)
         {
-            Debug.Log("Failed to bind port " + endpoint.Port + " at " + address);
+            Debug.Log("Failed to bind port " + endpoint.Port + " at " + endpoint.Address);
         }
         else
         {
             m_Driver.Listen();
-            Debug.Log("B2DServer listening on " + endpoint.Port + " at " + address);
+            Debug.Log("B2DServer listening on " + endpoint.Port + " at " + endpoint.Address);
         }
 
         m_Connections = new NativeList<NetworkConnection>(16, Allocator.Persistent);
