@@ -215,32 +215,26 @@ function disect_tech(tvbuf,pktinfo,tree,p)
 
     -- first field is prefab
     tree:add_le(pf_tech_prefab, tvbuf:range(pos,2))
-    local tech_pre = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
     -- next field is slot
     tree:add_le(pf_tech_slot, tvbuf:range(pos,2))
-    local tech_slot = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
     -- next field is burst size
     tree:add_le(pf_tech_burst, tvbuf:range(pos,2))
-    local tech_burst = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
     -- next field is munition damage
     tree:add_le(pf_tech_mdmg, tvbuf:range(pos,4))
-    local tech_mdmg = tvbuf:range(pos,4):le_float()
     pos = pos + 4
 
     -- next field is shield strength
     tree:add_le(pf_tech_shield, tvbuf:range(pos,4))
-    local tech_mdmg = tvbuf:range(pos,4):le_float()
     pos = pos + 4
 
     -- next field is recharge time
     tree:add_le(pf_tech_retime, tvbuf:range(pos,4))
-    local tech_mdmg = tvbuf:range(pos,4):le_float()
     pos = pos + 4
 
     return pos
@@ -251,27 +245,22 @@ function disect_ship(tvbuf,pktinfo,tree,p)
 
     -- first field is prefab
     tree:add_le(pf_ship_prefab, tvbuf:range(pos,2))
-    local ship_pre = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
     -- next field is slot
     tree:add_le(pf_ship_slot, tvbuf:range(pos,2))
-    local ship_slot = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
     -- next field is hull layers
     tree:add_le(pf_ship_hl, tvbuf:range(pos,2))
-    local ship_hl = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
     -- next field is layer strength
     tree:add_le(pf_ship_ls, tvbuf:range(pos,2))
-    local ship_ls = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
     -- next field is initiative
     tree:add_le(pf_ship_init, tvbuf:range(pos,2))
-    local ship_init = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
     -- next field is num tech tiles
@@ -279,6 +268,7 @@ function disect_ship(tvbuf,pktinfo,tree,p)
     local ship_ntt = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
+    -- loop through techs and dissect them:
     local tech_left = ship_ntt
     while tech_left > 0 do
         pos = disect_tech(tvbuf, pktinfo, tree, pos)
@@ -293,22 +283,18 @@ function disect_player(tvbuf, pktinfo, tree, p)
 
     -- first field is round no
     tree:add_le(pf_pd_round, tvbuf:range(pos,2))
-    local pd_r = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
     -- next field is level
     tree:add_le(pf_pd_level, tvbuf:range(pos,2))
-    local pd_l = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
     -- next field is money
     tree:add_le(pf_pd_money, tvbuf:range(pos,2))
-    local pd_m = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
     -- next field is health
     tree:add_le(pf_pd_health, tvbuf:range(pos,2))
-    local pd_h = tvbuf:range(pos,2):le_int()
     pos = pos + 2
 
     -- next field is num ships
@@ -316,6 +302,7 @@ function disect_player(tvbuf, pktinfo, tree, p)
     local pd_ns = tvbuf:range(pos,2):le_uint()
     pos = pos + 2
 
+    -- loop through ships and dissect them
     local ship_left = pd_ns
     while ship_left > 0 do
         pos = disect_ship(tvbuf, pktinfo, tree, pos)
@@ -381,7 +368,9 @@ function b2d.dissector(tvbuf,pktinfo,root)
     pos = pos + 2
 
     if msg_id == 1 then
-        -- Save player msg
+        -- Msg 1 is Save Player Cmd
+
+        -- Contains the player data to be saved
         pos = disect_player(tvbuf, pktinfo, tree, pos)
 
         -- info colum
@@ -389,16 +378,18 @@ function b2d.dissector(tvbuf,pktinfo,root)
     end
 
     if msg_id == 2 then
-        -- Save player reply
-        -- only contains msg id
+        -- Msg 2 is Save Player Reply
+
+        -- Only contains msg id (for now, should probably add some error field)
+
         -- info colum
         pktinfo.cols.info:set("Save Player Reply ")
     end
 
     if msg_id == 3 then
-        -- Load player msg
+        -- Msg 3 is Load Player Cmd
 
-        -- only field is round no
+        -- The only field is round no to load from
         tree:add_le(pf_round, tvbuf:range(pos,4))
         local round = tvbuf:range(pos,4):le_uint()
         pos = pos + 4
@@ -408,8 +399,9 @@ function b2d.dissector(tvbuf,pktinfo,root)
     end
 
     if msg_id == 4 then
-        -- Load player reply
+        -- Msg 4 is Load Player Reply
 
+        -- Contains the player data for loaded player:
         pos = disect_player(tvbuf, pktinfo, tree, pos)
 
         -- info colum

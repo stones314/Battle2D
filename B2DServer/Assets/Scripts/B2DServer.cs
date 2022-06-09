@@ -14,6 +14,7 @@ public class B2DServer : MonoBehaviour
     private NativeList<NetworkConnection> m_Connections;
 
     const string PLAYER_PREFIX = "/p";
+    const string PLAYER_POSTIX = ".json";
     const string COUNT_FILE = "/count";
     string storeDir = "players/";
 
@@ -111,15 +112,16 @@ public class B2DServer : MonoBehaviour
         {
             uint round = stream.ReadUInt();
             PlayerData data = LoadPlayer(round);
+            //Debug.Log("Loaded player from file, playerData = \n" + data.GetString());
             SendPlayerToClient(data, connection);
         }
     }
 
     void SavePlayer(DataStreamReader stream) {
 
-        PlayerData playerData = new PlayerData(stream);
+        PlayerData playerData = new PlayerData(ref stream);
         ushort round = playerData.roundsPlayed;
-        Debug.Log("Save player for round " + round);
+        //Debug.Log("Save player for round " + round + ", playerData = \n" + playerData.GetString());
 
         string dir = GetDir(round);
 
@@ -140,7 +142,7 @@ public class B2DServer : MonoBehaviour
         formatter.Serialize(countStream, savedPlayers + 1);
         countStream.Close();
 
-        FileStream fileStream = new FileStream(path + savedPlayers + ".json", FileMode.Create);
+        FileStream fileStream = new FileStream(path + savedPlayers + PLAYER_POSTIX, FileMode.Create);
         byte[] text = new UTF8Encoding(true).GetBytes(json);
         fileStream.Write(text, 0, text.Length);
         fileStream.Close();
@@ -155,7 +157,6 @@ public class B2DServer : MonoBehaviour
 
     PlayerData LoadPlayer(uint round)
     {
-        BinaryFormatter formatter = new BinaryFormatter();
         string path = GetDir(round) + PLAYER_PREFIX;
 
         int savedPlayers = LoadPlayerCount(round);
@@ -167,12 +168,14 @@ public class B2DServer : MonoBehaviour
         {
             int x = (int)Random.Range(0, savedPlayers - 0.00001f);
 
-            Debug.Log("Loading player " + x + " from round " + round);
+            //Debug.Log("Loading player " + x + " from round " + round);
+            string fileName = path + x + PLAYER_POSTIX;
 
-            if (File.Exists(path + x + ".json"))
+            if (File.Exists(fileName))
             {
-                string json = File.ReadAllText(path + x + ".json");
+                string json = File.ReadAllText(fileName);
                 PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+
                 return data;
             }
             triesLeft--;
@@ -206,7 +209,7 @@ public class B2DServer : MonoBehaviour
             countStream.Close();
         }
 
-        Debug.Log("Found " + savedPlayers + " saved players at round " + round);
+        //Debug.Log("Found " + savedPlayers + " saved players at round " + round);
 
         return savedPlayers;
     }

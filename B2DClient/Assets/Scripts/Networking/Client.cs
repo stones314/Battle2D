@@ -81,7 +81,8 @@ public class Client : MonoBehaviour
         }
         else if (msgId == B2DNetData.MSG_ID_LOAD_PLAYER_REP)
         {
-            PlayerData playerLoaded = new PlayerData(stream);
+            PlayerData playerLoaded = new PlayerData(ref stream);
+            //Debug.Log("Client: Player Loaded, playerData = \n" + playerLoaded.GetString());
             EventManager.NotifyPlayerLoaded(playerLoaded);
         }
     }
@@ -97,7 +98,7 @@ public class Client : MonoBehaviour
         playerData.WriteTo(ref writer);
         var x = m_Driver.EndSend(writer);
 
-        Debug.Log("Client.SavePlayer() completed " + x + " bytes sent");
+        //Debug.Log("Client.SavePlayer() completed " + x + " bytes sent, playerData = \n" + playerData.GetString());
     }
 
     public bool BeginLoadPlayer(uint round)
@@ -109,7 +110,6 @@ public class Client : MonoBehaviour
         writer.WriteUInt(round);
         m_Driver.EndSend(writer);
 
-        Debug.Log("Client.BeginLoadPlayer() completed!");
         return true;
     }
 
