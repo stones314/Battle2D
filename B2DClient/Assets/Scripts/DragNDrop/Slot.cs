@@ -14,6 +14,7 @@ public enum SlotType
 
 public class Slot : MonoBehaviour
 {
+    public ushort slotId;
     public int maxItems;
     public SlotType slotType;
     protected Draggable m_dragged;

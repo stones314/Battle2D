@@ -58,7 +58,7 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.OnPlayerLoaded += OpponentDataLoaded;
+        EventManager.OnPlayerLoaded += OnOpponentDataLoaded;
         EventManager.OnPlayerSaved += OnPlayerSaved;
         attackPeriod /= Constants.GameSpeed;
         endOfBattleTime /= Constants.GameSpeed;
@@ -175,7 +175,7 @@ public class SceneController : MonoBehaviour
         msgRetryCount = 0;
     }
 
-    void OpponentDataLoaded(PlayerData data)
+    void OnOpponentDataLoaded(PlayerData data)
     {
         //Debug.Log("Opponent Loaded, Start Fighting");
         lastAttackTime = Time.time;

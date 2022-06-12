@@ -1,9 +1,5 @@
 using UnityEngine;
-using UnityEngine.Assertions;
-using Unity.Collections;
 using Unity.Networking.Transport;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 
 public class Client : MonoBehaviour
 {
@@ -23,8 +19,7 @@ public class Client : MonoBehaviour
         if (m_Connection.IsCreated) return;
 
         m_Driver = NetworkDriver.Create();
-        var endpoint = NetworkEndPoint.LoopbackIpv4;
-        endpoint.Port = 50123;
+        var endpoint = NetworkEndPoint.Parse("16.170.74.73", 50123);
         m_Connection = m_Driver.Connect(endpoint);
         
     }
@@ -78,61 +73,31 @@ public class Client : MonoBehaviour
 
     void HandleMessage(DataStreamReader stream)
     {
-        uint msgId = stream.ReadUInt();
+        ushort msgId = stream.ReadUShort();
         if (msgId == B2DNetData.MSG_ID_SAVE_PLAYER_REP)
         {
             EventManager.NotifyPlayerSaved();
         }
         else if (msgId == B2DNetData.MSG_ID_LOAD_PLAYER_REP)
         {
-            PlayerData playerLoaded = DezerializePlayerData(stream);
+            PlayerData playerLoaded = new PlayerData(ref stream);
+            //Debug.Log("Client: Player Loaded, playerData = \n" + playerLoaded.GetString());
             EventManager.NotifyPlayerLoaded(playerLoaded);
         }
-    }
-
-    PlayerData DezerializePlayerData(DataStreamReader stream)
-    {
-        int n_bytes = stream.ReadInt();
-        NativeArray<byte> pd = new NativeArray<byte>(n_bytes, Allocator.Temp);
-        stream.ReadBytes(pd);
-
-        MemoryStream memStream = new MemoryStream();
-        foreach (var b in pd.ToArray())
-        {
-            memStream.WriteByte(b);
-        }
-
-        BinaryFormatter formatter = new BinaryFormatter();
-        memStream.Position = 0; //For some reason I need to do this before deserialization
-        PlayerData data = formatter.Deserialize(memStream) as PlayerData;
-        memStream.Close();
-        
-        return data;
     }
 
     public void SavePlayer(Player player)
     {
         if (!IsConnected()) return;
 
-        BinaryFormatter formatter = new BinaryFormatter();
-
-        MemoryStream stream = new MemoryStream();
-        PlayerData data = new PlayerData(player);
-
-        formatter.Serialize(stream, data);
+        PlayerData playerData = player.ToPlayerData();
 
         m_Driver.BeginSend(m_Connection, out var writer);
-        writer.WriteUInt(B2DNetData.MSG_ID_SAVE_PLAYER_CMD);
-        writer.WriteUInt((uint)player.round);
-        writer.WriteInt((int)stream.Length);
-        foreach (var b in stream.ToArray())
-        {
-            writer.WriteByte(b);
-        } 
+        writer.WriteUShort(B2DNetData.MSG_ID_SAVE_PLAYER_CMD);
+        playerData.WriteTo(ref writer);
         var x = m_Driver.EndSend(writer);
 
-        stream.Close();
-        Debug.Log("Client.SavePlayer() completed " + x + " bytes sent");
+        //Debug.Log("Client.SavePlayer() completed " + x + " bytes sent, playerData = \n" + playerData.GetString());
     }
 
     public bool BeginLoadPlayer(uint round)
@@ -140,11 +105,10 @@ public class Client : MonoBehaviour
         if (!IsConnected()) return false;
 
         m_Driver.BeginSend(m_Connection, out var writer);
-        writer.WriteUInt(B2DNetData.MSG_ID_LOAD_PLAYER_CMD);
+        writer.WriteUShort(B2DNetData.MSG_ID_LOAD_PLAYER_CMD);
         writer.WriteUInt(round);
         m_Driver.EndSend(writer);
 
-        Debug.Log("Client.BeginLoadPlayer() completed!");
         return true;
     }
 

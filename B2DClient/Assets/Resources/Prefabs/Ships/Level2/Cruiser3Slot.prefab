@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1164147951604618341}
     m_Modifications:
+    - target: {fileID: 1767725220581875011, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
+      propertyPath: slotId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1767725220581875012, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
       propertyPath: m_Name
       value: TechSlot1
@@ -211,6 +215,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1164147951604618341}
     m_Modifications:
+    - target: {fileID: 1767725220581875011, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
+      propertyPath: slotId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1767725220581875012, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
       propertyPath: m_Name
       value: TechSlot2

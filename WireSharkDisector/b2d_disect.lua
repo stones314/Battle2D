@@ -18,7 +18,7 @@ local debug_level = {
 -- set this DEBUG to debug_level.LEVEL_1 to enable printing debug_level info
 -- set it to debug_level.LEVEL_2 to enable really verbose printing
 -- note: this will be overridden by user's preference settings
-local DEBUG = debug_level.LEVEL_1
+local DEBUG = debug_level.DISABLED
 
 local default_settings =
 {
@@ -104,10 +104,26 @@ local b2d = Proto("b2d","B2D Protocol")
 -- multiple ways to do the same thing: create a protocol field (but not register it yet)
 -- the abbreviation should always have "<myproto>." before the specific abbreviation, to avoid collisions
 local pf_unity_hdr   = ProtoField.new   ("Some bytes I guess Unity adds", "b2d.unity_hdr", ftypes.BYTES)
-local pf_msg_id      = ProtoField.le_uint32("b2d.msg_id", "Msg ID")
-local pf_data_len    = ProtoField.le_uint32("b2d.data_len", "Number of bytes of player data")
-local pf_round       = ProtoField.le_uint32("b2d.round", "Round number for player")
-local pf_data        = ProtoField.new   ("Binary Player Data", "b2d.data", ftypes.BYTES)
+local pf_msg_id      = ProtoField.uint16("b2d.msg_id", "Msg ID")
+local pf_pd_round    = ProtoField.uint16("b2d.player.round", "Player round")
+local pf_pd_level    = ProtoField.uint16("b2d.player.level", "Player level")
+local pf_pd_money    = ProtoField.uint16("b2d.player.money", "Player money")
+local pf_pd_health   = ProtoField.int16 ("b2d.player.health", "Player health")
+local pf_pd_numShips = ProtoField.uint16("b2d.player.numShips", "Player ship count")
+local pf_ship_prefab = ProtoField.uint16("b2d.ship.prefab", "Ship prefab id")
+local pf_ship_slot   = ProtoField.uint16("b2d.ship.slot", "Ship slot id")
+local pf_ship_hl     = ProtoField.uint16("b2d.ship.layers", "Ship hull layer count")
+local pf_ship_ls     = ProtoField.uint16("b2d.ship.layerStrength", "Ship hull layer strenght")
+local pf_ship_init   = ProtoField.uint16("b2d.ship.initiative", "Ship initiative")
+local pf_ship_numTech= ProtoField.uint16("b2d.ship.numTechTiles", "Ship tech tile count")
+local pf_tech_prefab = ProtoField.uint16("b2d.tech.prefab", "Tech tile prefab id")
+local pf_tech_slot   = ProtoField.uint16("b2d.tech.slot", "Tech tile slot id")
+local pf_tech_burst  = ProtoField.uint16("b2d.tech.burst", "Tech tile fire unit burst size")
+local pf_tech_mdmg   = ProtoField.float("b2d.tech.munitionDamage", "Tech tile fire unit munition damage")
+local pf_tech_shield = ProtoField.float("b2d.tech.shieldStrength", "Tech tile shield strength")
+local pf_tech_retime = ProtoField.float("b2d.tech.rechargeTime", "Tech tile shiled recharge time")
+local pf_round       = ProtoField.uint32("b2d.round", "Round number for player")
+
 
 
 ----------------------------------------
@@ -118,8 +134,23 @@ b2d.fields = {
     pf_unity_hdr,
     pf_msg_id,
     pf_round,
-    pf_data_len,
-    pf_data
+    pf_pd_round,
+    pf_pd_level,
+    pf_pd_money,
+    pf_pd_health,
+    pf_pd_numShips,
+    pf_ship_prefab,
+    pf_ship_slot,
+    pf_ship_hl,
+    pf_ship_ls,
+    pf_ship_init,
+    pf_ship_numTech,
+    pf_tech_prefab,
+    pf_tech_slot,
+    pf_tech_burst,
+    pf_tech_mdmg,
+    pf_tech_shield,
+    pf_tech_retime,
 }
 
 --------------------------------------------------------------------------------
@@ -179,6 +210,107 @@ dprint2("b2d Prefs registered")
 -- the b2d header size
 local b2d_HDR_LEN = 10
 
+function disect_tech(tvbuf,pktinfo,tree,p)
+    local pos = p
+
+    -- first field is prefab
+    tree:add_le(pf_tech_prefab, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is slot
+    tree:add_le(pf_tech_slot, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is burst size
+    tree:add_le(pf_tech_burst, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is munition damage
+    tree:add_le(pf_tech_mdmg, tvbuf:range(pos,4))
+    pos = pos + 4
+
+    -- next field is shield strength
+    tree:add_le(pf_tech_shield, tvbuf:range(pos,4))
+    pos = pos + 4
+
+    -- next field is recharge time
+    tree:add_le(pf_tech_retime, tvbuf:range(pos,4))
+    pos = pos + 4
+
+    return pos
+end
+
+function disect_ship(tvbuf,pktinfo,tree,p)
+    local pos = p
+
+    -- first field is prefab
+    tree:add_le(pf_ship_prefab, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is slot
+    tree:add_le(pf_ship_slot, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is hull layers
+    tree:add_le(pf_ship_hl, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is layer strength
+    tree:add_le(pf_ship_ls, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is initiative
+    tree:add_le(pf_ship_init, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is num tech tiles
+    tree:add_le(pf_ship_numTech, tvbuf:range(pos,2))
+    local ship_ntt = tvbuf:range(pos,2):le_uint()
+    pos = pos + 2
+
+    -- loop through techs and dissect them:
+    local tech_left = ship_ntt
+    while tech_left > 0 do
+        pos = disect_tech(tvbuf, pktinfo, tree, pos)
+        tech_left = tech_left - 1
+    end
+
+    return pos
+end
+
+function disect_player(tvbuf, pktinfo, tree, p)
+    local pos = p
+
+    -- first field is round no
+    tree:add_le(pf_pd_round, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is level
+    tree:add_le(pf_pd_level, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is money
+    tree:add_le(pf_pd_money, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is health
+    tree:add_le(pf_pd_health, tvbuf:range(pos,2))
+    pos = pos + 2
+
+    -- next field is num ships
+    tree:add_le(pf_pd_numShips, tvbuf:range(pos,2))
+    local pd_ns = tvbuf:range(pos,2):le_uint()
+    pos = pos + 2
+
+    -- loop through ships and dissect them
+    local ship_left = pd_ns
+    while ship_left > 0 do
+        pos = disect_ship(tvbuf, pktinfo, tree, pos)
+        ship_left = ship_left - 1
+    end
+    return pos
+end
+
 ----------------------------------------
 -- The following creates the callback function for the dissector.
 -- It's the same as doing "b2d.dissector = function (tvbuf,pkt,root)"
@@ -218,55 +350,46 @@ function b2d.dissector(tvbuf,pktinfo,root)
     tree:add(pf_unity_hdr, tvbuf:range(pos,10))
     pos = pos + 10
 
-    if pktlen < b2d_HDR_LEN + 4 then
+    if pktlen < b2d_HDR_LEN + 2 then
         -- Some unity internal message, ignore it
         return pos
     end
     
     -- Now let's add our transaction id under our b2d protocol tree we just created.
     -- The transaction id starts at offset 0, for 2 bytes length.
-    tree:add_le(pf_msg_id, tvbuf:range(pos,4))
+    tree:add_le(pf_msg_id, tvbuf:range(pos,2))
 
     -- We'd like to put the transaction id number in the GUI row for this packet, in its
     -- INFO column/cell.  First we need the transaction id value, though.  Since we just
     -- dissected it with the previous code line, we could now get it using a Field's
     -- FieldInfo extractor, but instead we'll get it directly from the TvbRange just
     -- to show how to do that.  We'll use Field/FieldInfo extractors later on...
-    local msg_id = tvbuf:range(pos,4):le_uint()
-    pos = pos + 4
+    local msg_id = tvbuf:range(pos,2):le_uint()
+    pos = pos + 2
 
     if msg_id == 1 then
-        -- Save player msg
+        -- Msg 1 is Save Player Cmd
 
-        -- first field is round no
-        tree:add_le(pf_round, tvbuf:range(pos,4))
-        local round = tvbuf:range(pos,4):le_uint()
-        pos = pos + 4
-
-        -- second field is data length
-        tree:add_le(pf_data_len, tvbuf:range(pos,4))
-        local data_len = tvbuf:range(pos,4):le_uint()
-        pos = pos + 4
-
-        -- last field is data
-        tree:add(pf_data, tvbuf:range(pos,data_len))
-        pos = pos + data_len
+        -- Contains the player data to be saved
+        pos = disect_player(tvbuf, pktinfo, tree, pos)
 
         -- info colum
-        pktinfo.cols.info:set("Save Player Cmd for round ".. round ..", saving ".. data_len.."B of player data")
+        pktinfo.cols.info:set("Save Player Cmd")
     end
 
     if msg_id == 2 then
-        -- Save player reply
-        -- only contains msg id
+        -- Msg 2 is Save Player Reply
+
+        -- Only contains msg id (for now, should probably add some error field)
+
         -- info colum
         pktinfo.cols.info:set("Save Player Reply ")
     end
 
     if msg_id == 3 then
-        -- Load player msg
+        -- Msg 3 is Load Player Cmd
 
-        -- only field is round no
+        -- The only field is round no to load from
         tree:add_le(pf_round, tvbuf:range(pos,4))
         local round = tvbuf:range(pos,4):le_uint()
         pos = pos + 4
@@ -276,19 +399,13 @@ function b2d.dissector(tvbuf,pktinfo,root)
     end
 
     if msg_id == 4 then
-        -- Load player reply
+        -- Msg 4 is Load Player Reply
 
-        -- first field is data length
-        tree:add_le(pf_data_len, tvbuf:range(pos,4))
-        local data_len = tvbuf:range(pos,4):le_uint()
-        pos = pos + 4
-
-        -- last field is data
-        tree:add(pf_data, tvbuf:range(pos,data_len))
-        pos = pos + data_len
+        -- Contains the player data for loaded player:
+        pos = disect_player(tvbuf, pktinfo, tree, pos)
 
         -- info colum
-        pktinfo.cols.info:set("Load Player Reply, ".. data_len .."B of player data returned")
+        pktinfo.cols.info:set("Load Player Reply")
     end
 
     dprint2("b2d.dissector returning",pos)

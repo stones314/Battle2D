@@ -14,6 +14,9 @@ public class SaveSystem : MonoBehaviour
 
     Client client;
 
+    [SerializeField] ShopPool shipPool;
+    [SerializeField] ShopPool equipmentPool;
+
     private void Awake()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag(this.gameObject.tag);
@@ -29,6 +32,7 @@ public class SaveSystem : MonoBehaviour
     private void Start()
     {
         client = GetComponent<Client>();
+
     }
 
     public void SavePlayer(Player player)
@@ -77,7 +81,7 @@ public class SaveSystem : MonoBehaviour
         //data.health;
         player.tag = "Opponent";
 
-        AddShips(player, data.fleet.ships);
+        AddShips(player, data.ships);
 
         //player.transform.rotation = new Quaternion(0, 0, 180, 0);
 
@@ -92,14 +96,14 @@ public class SaveSystem : MonoBehaviour
 
         foreach (var shipData in ships)
         {
-            Slot slot = GetSlotByName(shipData.slotName, shipSlots);
+            Slot slot = GetSlotById(shipData.slotId, shipSlots);
             if (!slot)
             {
-                Debug.LogError("No slot named " + shipData.slotName);
+                Debug.LogError("No slot with Id " + shipData.slotId);
                 continue;
             }
 
-            GameObject go = Instantiate(Resources.Load<GameObject>(shipData.prefabName));
+            GameObject go = Instantiate(Resources.Load<GameObject>(shipPool.GetPrefabPathFromId(shipData.prefabId)));
             go.transform.localScale *= Constants.ShipScale;
             go.transform.parent = slot.transform;
             go.transform.position = slot.transform.position;
@@ -121,14 +125,14 @@ public class SaveSystem : MonoBehaviour
 
         foreach (var techData in tiles)
         {
-            Slot slot = GetSlotByName(techData.slotName, techSlots);
+            Slot slot = GetSlotById(techData.slotId, techSlots);
             if (!slot)
             {
-                Debug.LogError("No slot named " + techData.slotName);
+                Debug.LogError("No slot with Id " + techData.slotId);
                 continue;
             }
 
-            GameObject go = Instantiate(Resources.Load<GameObject>(techData.prefabName));
+            GameObject go = Instantiate(Resources.Load<GameObject>(equipmentPool.GetPrefabPathFromId(techData.prefabId)));
             go.transform.parent = slot.transform;
             go.transform.position = slot.transform.position;
             go.transform.localScale *= Constants.EquipmentScale;
@@ -150,11 +154,11 @@ public class SaveSystem : MonoBehaviour
         }
     }
 
-    Slot GetSlotByName(string name, Slot[] slots)
+    Slot GetSlotById(ushort id, Slot[] slots)
     {
         foreach(var slot in slots)
         {
-            if (slot.name == name) return slot;
+            if (slot.slotId == id) return slot;
         }
         return null;
     }

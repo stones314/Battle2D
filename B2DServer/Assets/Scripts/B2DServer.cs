@@ -1,30 +1,34 @@
 using UnityEngine;
-using UnityEngine.Assertions;
 using Unity.Collections;
 using Unity.Networking.Transport;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Text;
 
 public class B2DServer : MonoBehaviour
 {
-    string address = "127.0.0.1";
     ushort port = 50123;
 
     public NetworkDriver m_Driver;
     private NativeList<NetworkConnection> m_Connections;
 
     const string PLAYER_PREFIX = "/p";
+    const string PLAYER_POSTIX = ".json";
     const string COUNT_FILE = "/count";
-    string storeDir = "players/";
+    string storeDir = "./players/";
 
     private void Awake()
     {
+        // Had trouble with running server on lightsail, it was using 130% cpu
+        // Seems it tries to maximize framerate, and can go pretty fast when the server has no UI-stuff
+        // Explicit set target framerate to 60 => it uses about 2% cpu
+        // 60 frames per second might be a bit slow(?), will have to evaluate
+        Application.targetFrameRate = 60;
+
         string[] args = System.Environment.GetCommandLineArgs();
         for (int i = 0; i < args.Length; i++)
         {
-            if (args[i] == "-b2d-address")
-                address = args[i + 1];
-            else if (args[i] == "-b2d-port")
+            if (args[i] == "-b2d-port")
                 port = ushort.Parse(args[i + 1]);
             else if (args[i] == "-b2d-store-dir")
                 storeDir = args[i + 1];
@@ -35,15 +39,16 @@ public class B2DServer : MonoBehaviour
     void Start()
     {
         m_Driver = NetworkDriver.Create();
-        var endpoint = NetworkEndPoint.Parse(address, port);
+        var endpoint = NetworkEndPoint.AnyIpv4;
+        endpoint.Port = port;
         if (m_Driver.Bind(endpoint) != 0)
         {
-            Debug.Log("Failed to bind port " + endpoint.Port + " at " + address);
+            Debug.Log("Failed to bind port " + endpoint.Port + " at " + endpoint.Address);
         }
         else
         {
             m_Driver.Listen();
-            Debug.Log("B2DServer listening on " + endpoint.Port + " at " + address);
+            Debug.Log("B2DServer listening on " + endpoint.Port + " at " + endpoint.Address);
         }
 
         m_Connections = new NativeList<NetworkConnection>(16, Allocator.Persistent);
@@ -101,7 +106,7 @@ public class B2DServer : MonoBehaviour
 
     void HandleMessage(NetworkConnection connection, DataStreamReader stream)
     {
-        uint msgId = stream.ReadUInt();
+        ushort msgId = stream.ReadUShort();
         Debug.Log("Server got Msg with ID " + msgId);
         if(msgId == B2DNetData.MSG_ID_SAVE_PLAYER_CMD) {
             SavePlayer(stream);
@@ -109,18 +114,18 @@ public class B2DServer : MonoBehaviour
         }
         else if(msgId == B2DNetData.MSG_ID_LOAD_PLAYER_CMD)
         {
-            byte[] data = LoadPlayer(stream);
+            uint round = stream.ReadUInt();
+            PlayerData data = LoadPlayer(round);
+            //Debug.Log("Loaded player from file, playerData = \n" + data.GetString());
             SendPlayerToClient(data, connection);
         }
     }
 
     void SavePlayer(DataStreamReader stream) {
-        uint round = stream.ReadUInt();
-        Debug.Log("Save player for round " + round);
 
-        int n_bytes = stream.ReadInt();
-        NativeArray<byte> data = new NativeArray<byte>(n_bytes, Allocator.Temp);
-        stream.ReadBytes(data);
+        PlayerData playerData = new PlayerData(ref stream);
+        ushort round = playerData.roundsPlayed;
+        //Debug.Log("Save player for round " + round + ", playerData = \n" + playerData.GetString());
 
         string dir = GetDir(round);
 
@@ -130,6 +135,8 @@ public class B2DServer : MonoBehaviour
         }
 
         BinaryFormatter formatter = new BinaryFormatter();
+        string json = JsonUtility.ToJson(playerData);
+        
         string path = dir + PLAYER_PREFIX;
         string countPath = dir + COUNT_FILE;
 
@@ -139,55 +146,52 @@ public class B2DServer : MonoBehaviour
         formatter.Serialize(countStream, savedPlayers + 1);
         countStream.Close();
 
-        FileStream fileStream = new FileStream(path + savedPlayers, FileMode.Create);
-        fileStream.Write(data.ToArray(), 0, n_bytes);
+        FileStream fileStream = new FileStream(path + savedPlayers + PLAYER_POSTIX, FileMode.Create);
+        byte[] text = new UTF8Encoding(true).GetBytes(json);
+        fileStream.Write(text, 0, text.Length);
         fileStream.Close();
-
     }
 
     void SendSaveReply(NetworkConnection connection)
     {
         m_Driver.BeginSend(connection, out var writer);
-        writer.WriteUInt(B2DNetData.MSG_ID_SAVE_PLAYER_REP);
+        writer.WriteUShort(B2DNetData.MSG_ID_SAVE_PLAYER_REP);
         m_Driver.EndSend(writer);
     }
 
-    byte[] LoadPlayer(DataStreamReader inStream)
+    PlayerData LoadPlayer(uint round)
     {
-        uint round = inStream.ReadUInt();
-
-        BinaryFormatter formatter = new BinaryFormatter();
         string path = GetDir(round) + PLAYER_PREFIX;
 
         int savedPlayers = LoadPlayerCount(round);
 
-        if (savedPlayers < 1) return new byte[0];
+        if (savedPlayers < 1) return null;
 
         int triesLeft = 10;
         while (triesLeft > 0)
         {
             int x = (int)Random.Range(0, savedPlayers - 0.00001f);
 
-            Debug.Log("Loading player " + x + " from round " + round);
+            //Debug.Log("Loading player " + x + " from round " + round);
+            string fileName = path + x + PLAYER_POSTIX;
 
-            if (File.Exists(path + x))
+            if (File.Exists(fileName))
             {
-                return File.ReadAllBytes(path + x);
+                string json = File.ReadAllText(fileName);
+                PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+
+                return data;
             }
             triesLeft--;
         }
-        return new byte[0];
+        return null;
     }
 
-    void SendPlayerToClient(byte[] playerData, NetworkConnection connection)
+    void SendPlayerToClient(PlayerData playerData, NetworkConnection connection)
     {
         m_Driver.BeginSend(connection, out var writer);
-        writer.WriteUInt(B2DNetData.MSG_ID_LOAD_PLAYER_REP);
-        writer.WriteInt(playerData.Length);
-        foreach (var b in playerData)
-        {
-            writer.WriteByte(b);
-        }
+        writer.WriteUShort(B2DNetData.MSG_ID_LOAD_PLAYER_REP);
+        playerData.WriteTo(ref writer);
         m_Driver.EndSend(writer);
     }
 
@@ -209,7 +213,7 @@ public class B2DServer : MonoBehaviour
             countStream.Close();
         }
 
-        Debug.Log("Found " + savedPlayers + " saved players at round " + round);
+        //Debug.Log("Found " + savedPlayers + " saved players at round " + round);
 
         return savedPlayers;
     }

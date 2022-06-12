@@ -9,12 +9,14 @@ public class PoolItem
     public int level;
     public SlotType type;
     public string path;
+    public ushort id;
 
-    public PoolItem(int _level, SlotType _slotType, string _path)
+    public PoolItem(int _level, SlotType _slotType, string _path, ushort _id)
     {
         level = _level;
         type = _slotType;
         path = _path;
+        id = _id;
     }
 }
 
@@ -36,9 +38,12 @@ public class ShopPool : MonoBehaviour
 
     List<List<PoolItem>> itemPool = new List<List<PoolItem>>();
 
+    Dictionary<ushort, string> prefabIdToPath = new Dictionary<ushort, string>();
+
     // Start is called before the first frame update
     void Start()
     {
+        ushort itemId = 0;
         for(int level = 1; level < 7; level++)
         {
             List<PoolItem> items = new List<PoolItem>();
@@ -53,8 +58,12 @@ public class ShopPool : MonoBehaviour
                     PoolItem item = new PoolItem(
                         level,
                         GetSlotType(),
-                        GetSubDir() + "/Level" + level + "/" + file.Name.Substring(0, file.Name.Length - 7));
+                        GetSubDir() + "/Level" + level + "/" + file.Name.Substring(0, file.Name.Length - 7),
+                        itemId);
+                    
                     items.Add(item);
+                    prefabIdToPath.Add(item.id, item.path);
+                    itemId++;
                 }
             }
 
@@ -125,6 +134,15 @@ public class ShopPool : MonoBehaviour
     {
         int x = (int)Random.Range(0f, pool[level].Count - 0.000001f);
         return pool[level][x];
+    }
+
+    public string GetPrefabPathFromId(ushort id)
+    {
+        if(prefabIdToPath.TryGetValue(id, out var path))
+        {
+            return path;
+        }
+        return "";
     }
 
 }

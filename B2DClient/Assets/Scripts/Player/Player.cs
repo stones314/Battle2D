@@ -124,4 +124,23 @@ public class Player : MonoBehaviour
         LevelUpCostText.text = "Level Up\n$" + levelUpCost;
         LevelText.text = "Level " + level;
     }
+
+    public PlayerData ToPlayerData()
+    {
+        PlayerData pd = new PlayerData();
+        pd.roundsPlayed = (ushort)round;
+        pd.level = (ushort)level;
+        pd.money = (ushort)money;
+        pd.health = (short)health;
+        
+        Ship[] ships_ = GetComponentInChildren<Fleet>().GetComponentsInChildren<Ship>();
+        pd.numShips = (ushort)ships_.Length;
+        pd.ships = new ShipData[pd.numShips];
+        for (int s = 0; s < pd.numShips; s++)
+        {
+            pd.ships[s] = ships_[s].ToShipData();
+        }
+
+        return pd;
+    }
 }
