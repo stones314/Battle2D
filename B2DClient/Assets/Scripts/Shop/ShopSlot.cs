@@ -6,6 +6,7 @@ public class ShopSlot : Slot
 {
 
     ShopPool pool;
+    public ItemType itemType;
     int pendingFetch = 0;
 
     bool frozen = false;
@@ -19,7 +20,13 @@ public class ShopSlot : Slot
     {
         base.BaseStart();
 
-        pool = GetComponent<ShopPool>();
+        if(itemType == ItemType.Ships)
+            pool = GameObject.FindGameObjectWithTag("Ship Pool").GetComponent<ShopPool>();
+        else if(itemType == ItemType.Equipments)
+            pool = GameObject.FindGameObjectWithTag("Equipment Pool").GetComponent<ShopPool>();
+        else if(itemType == ItemType.Upgrades)
+            pool = GameObject.FindGameObjectWithTag("Equipment Pool").GetComponent<ShopPool>();
+
         originalDefault = defaultColor;
 
         maxItems = pool.GetShopSize(1);

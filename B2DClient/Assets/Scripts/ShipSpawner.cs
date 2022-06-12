@@ -19,16 +19,14 @@ public class ShipSpawner : MonoBehaviour
     {
         slot = GetComponent<Slot>();
         Player owner = GetComponentInParent<Player>();
+        shipPool = GameObject.FindGameObjectWithTag("Ship Pool").GetComponent<ShopPool>();
+        equipmentPool = GameObject.FindGameObjectWithTag("Equipment Pool").GetComponent<ShopPool>();
         if (owner.tag == "Opponent")
         {
-            shipPool = owner.GetEnemy().GetShipPool();
-            shipPool = owner.GetEnemy().GetEquipPool();
             enemyTag = "Player";
         }
         else
         {
-            shipPool = GameObject.FindGameObjectWithTag("ShipShopSlot").GetComponent<ShopPool>();
-            equipmentPool = GameObject.FindGameObjectWithTag("EquipShopSlot").GetComponent<ShopPool>();
             enemyTag = "Opponent";
         }
     }

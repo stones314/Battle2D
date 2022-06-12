@@ -14,8 +14,8 @@ public class SaveSystem : MonoBehaviour
 
     Client client;
 
-    [SerializeField] ShopPool shipPool;
-    [SerializeField] ShopPool equipmentPool;
+    ShopPool shipPool;
+    ShopPool equipmentPool;
 
     private void Awake()
     {
@@ -32,6 +32,9 @@ public class SaveSystem : MonoBehaviour
     private void Start()
     {
         client = GetComponent<Client>();
+        shipPool = GameObject.FindGameObjectWithTag("Ship Pool").GetComponent<ShopPool>();
+        equipmentPool = GameObject.FindGameObjectWithTag("Equipment Pool").GetComponent<ShopPool>();
+
 
     }
 

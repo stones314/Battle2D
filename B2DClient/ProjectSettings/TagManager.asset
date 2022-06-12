@@ -29,6 +29,9 @@ TagManager:
   - ShipShopSlot
   - EquipShopSlot
   - UpgradeShopSlot
+  - Ship Pool
+  - Equipment Pool
+  - Upgrade Pool
   layers:
   - Default
   - TransparentFX

@@ -510,7 +510,6 @@ GameObject:
   m_Component:
   - component: {fileID: 330789303}
   - component: {fileID: 330789306}
-  - component: {fileID: 330789305}
   - component: {fileID: 330789304}
   - component: {fileID: 330789308}
   - component: {fileID: 330789307}
@@ -553,19 +552,6 @@ MonoBehaviour:
   slotType: 4
   itemCount: 0
   alignVertical: 0
---- !u!114 &330789305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330789302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb2c503ad47f2b249b484a35f62e3f1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemsPerLevel: 020000000200000003000000030000000300000004000000
   itemType: 0
 --- !u!212 &330789306
 SpriteRenderer:
@@ -666,6 +652,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &369302937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 369302938}
+  - component: {fileID: 369302939}
+  m_Layer: 0
+  m_Name: ShipPool
+  m_TagString: Ship Pool
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &369302938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369302937}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 704533080}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &369302939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369302937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb2c503ad47f2b249b484a35f62e3f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsPerLevel: 020000000200000002000000020000000200000002000000
+  itemType: 1
 --- !u!1 &389693134
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,8 +729,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 8811755526398069197, guid: f113de8f8e2b06e4db7021f011ebe0ed, type: 3}
-  shipPool: {fileID: 1117930077}
-  equipmentPool: {fileID: 882053285}
+  shipPool: {fileID: 0}
+  equipmentPool: {fileID: 0}
 --- !u!4 &389693136
 Transform:
   m_ObjectHideFlags: 0
@@ -938,7 +970,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 369302938}
+  - {fileID: 924151483}
+  - {fileID: 1001316086}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -952,7 +987,6 @@ GameObject:
   m_Component:
   - component: {fileID: 882053283}
   - component: {fileID: 882053286}
-  - component: {fileID: 882053285}
   - component: {fileID: 882053284}
   - component: {fileID: 882053288}
   - component: {fileID: 882053287}
@@ -995,19 +1029,6 @@ MonoBehaviour:
   slotType: 4
   itemCount: 0
   alignVertical: 0
---- !u!114 &882053285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882053282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb2c503ad47f2b249b484a35f62e3f1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemsPerLevel: 020000000200000002000000020000000200000003000000
   itemType: 2
 --- !u!212 &882053286
 SpriteRenderer:
@@ -1108,6 +1129,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &924151482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 924151483}
+  - component: {fileID: 924151484}
+  m_Layer: 0
+  m_Name: EquipmentPool
+  m_TagString: Equipment Pool
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &924151483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924151482}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 704533080}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &924151484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924151482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb2c503ad47f2b249b484a35f62e3f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsPerLevel: 020000000200000002000000020000000200000003000000
+  itemType: 2
 --- !u!1 &943825860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,6 +1391,52 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 7
   m_TargetDisplay: 0
+--- !u!1 &1001316085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1001316086}
+  - component: {fileID: 1001316087}
+  m_Layer: 0
+  m_Name: UpgradePool
+  m_TagString: Upgrade Pool
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1001316086
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001316085}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 704533080}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1001316087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001316085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb2c503ad47f2b249b484a35f62e3f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsPerLevel: 020000000200000003000000030000000300000004000000
+  itemType: 0
 --- !u!1 &1033056510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,7 +1548,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1117930075}
   - component: {fileID: 1117930078}
-  - component: {fileID: 1117930077}
   - component: {fileID: 1117930076}
   - component: {fileID: 1117930080}
   - component: {fileID: 1117930079}
@@ -1478,19 +1590,6 @@ MonoBehaviour:
   slotType: 4
   itemCount: 0
   alignVertical: 0
---- !u!114 &1117930077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1117930074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb2c503ad47f2b249b484a35f62e3f1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemsPerLevel: 020000000200000002000000020000000200000002000000
   itemType: 1
 --- !u!212 &1117930078
 SpriteRenderer:
@@ -2047,11 +2146,11 @@ PrefabInstance:
     - target: {fileID: 1415771016638919119, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
       propertyPath: shipPool
       value: 
-      objectReference: {fileID: 1117930077}
+      objectReference: {fileID: 0}
     - target: {fileID: 1415771016638919119, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
       propertyPath: equipmentPool
       value: 
-      objectReference: {fileID: 882053285}
+      objectReference: {fileID: 0}
     - target: {fileID: 8811755526070094481, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
       propertyPath: m_Camera
       value: 
