@@ -25,6 +25,7 @@ TagManager:
   - Opponent
   - Shield
   - Level Up
+  - Save System
   layers:
   - Default
   - TransparentFX

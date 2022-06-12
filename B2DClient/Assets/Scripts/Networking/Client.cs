@@ -9,12 +9,12 @@ public class Client : MonoBehaviour
 {
     public NetworkDriver m_Driver;
     public NetworkConnection m_Connection = default(NetworkConnection);
-    public bool Done;
 
     enum LoadState {LOAD_COMMANDED, AWAITING_SERVER, LOAD_COMPLETE, NO_LOAD};
 
     private void Awake()
     {
+        
     }
 
     // Start is called before the first frame update
@@ -26,7 +26,7 @@ public class Client : MonoBehaviour
         var endpoint = NetworkEndPoint.LoopbackIpv4;
         endpoint.Port = 50123;
         m_Connection = m_Driver.Connect(endpoint);
-        Debug.Log("Client.Awake()");
+        
     }
 
     // Update is called once per frame
@@ -48,8 +48,7 @@ public class Client : MonoBehaviour
     {
         if (!m_Connection.IsCreated)
         {
-            if (!Done)
-                Debug.Log("Something went wrong during connect");
+            Debug.Log("Something went wrong during connect");
             return false;
         }
         return true;
@@ -130,9 +129,10 @@ public class Client : MonoBehaviour
         {
             writer.WriteByte(b);
         } 
-        m_Driver.EndSend(writer);
+        var x = m_Driver.EndSend(writer);
 
         stream.Close();
+        Debug.Log("Client.SavePlayer() completed " + x + " bytes sent");
     }
 
     public bool BeginLoadPlayer(uint round)
@@ -144,6 +144,7 @@ public class Client : MonoBehaviour
         writer.WriteUInt(round);
         m_Driver.EndSend(writer);
 
+        Debug.Log("Client.BeginLoadPlayer() completed!");
         return true;
     }
 
