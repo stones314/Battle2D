@@ -11,6 +11,8 @@ public class Ship : Draggable
     
     public int Initiative = 1;
 
+    bool combatGenerated = false;
+
     [SerializeField]
     GameObject explosionPrefab;
     [SerializeField]
@@ -50,7 +52,14 @@ public class Ship : Draggable
 
     public void BattleEnded()
     {
+        if (combatGenerated)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
         this.gameObject.SetActive(true);
+
         GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.white;
         TechTile[] techs = GetComponentsInChildren<TechTile>(true);
         foreach (var tech in techs)
@@ -111,7 +120,16 @@ public class Ship : Draggable
 
     public void DestroyShip()
     {
-        this.gameObject.SetActive(false);
+        EventManager.NotifyShipDestroyed(this);
+
+        if (combatGenerated)
+        {
+            Destroy(this.gameObject);
+            GetComponentInParent<Slot>().RemovedDraggable(this);
+        }
+        else
+            this.gameObject.SetActive(false);
+
         GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.white;
 
         if (!explosionPrefab) return;
@@ -129,10 +147,11 @@ public class Ship : Draggable
         }
     }
 
-    public void Initialize()
+    public void Initialize(bool inCombat = false)
     {
         GenerateHullMeter();
         GenerateInitiativeMeter();
+        combatGenerated = inCombat;
     }
 
     public void AddBonusLayers(int numLayers)

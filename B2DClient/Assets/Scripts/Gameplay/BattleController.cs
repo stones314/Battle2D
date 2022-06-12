@@ -13,6 +13,7 @@ public class BattleController
     public BattleController()
     {
         attackOrder = new List<Ship>(20);
+        EventManager.OnShipSpawned += OnShipSpawned;
     }
 
     public void StartBattle(ref Player _player, ref Player _opponent)
@@ -84,7 +85,7 @@ public class BattleController
     private void FindFirstAttacker()
     {
         IncreaseNextAttacker();
-        while (!attackOrder[nextAttacker].gameObject.activeInHierarchy)
+        while (!attackOrder[nextAttacker] || !attackOrder[nextAttacker].gameObject.activeInHierarchy)
         {
             IncreaseNextAttacker();
         }
@@ -93,8 +94,15 @@ public class BattleController
 
     public void AttackNext()
     {
+        if (!attackOrder[nextAttacker]) return;
         attackOrder[nextAttacker].Attack();
         FindFirstAttacker();
         MarkSecondAttacker();
+    }
+
+    private void OnShipSpawned(Ship ship)
+    {
+        if (ship.HasCombatAction())
+            InsertIntoAttackOrder(ship);
     }
 }

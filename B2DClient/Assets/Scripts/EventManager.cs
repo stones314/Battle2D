@@ -13,6 +13,12 @@ public class EventManager : MonoBehaviour
     public delegate void PlayerSaved();
     public static event PlayerSaved OnPlayerSaved;
 
+    public delegate void ShipDestroyed(Ship ship);
+    public static event ShipDestroyed OnShipDestroyed;
+
+    public delegate void ShipSpawned(Ship ship);
+    public static event ShipSpawned OnShipSpawned;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,5 +47,17 @@ public class EventManager : MonoBehaviour
     {
         if (OnPlayerSaved != null)
             OnPlayerSaved();
+    }
+
+    public static void NotifyShipDestroyed(Ship ship)
+    {
+        if (OnShipDestroyed != null)
+            OnShipDestroyed(ship);
+    }
+
+    public static void NotifyShipSpawned(Ship ship)
+    {
+        if (OnShipSpawned != null)
+            OnShipSpawned(ship);
     }
 }

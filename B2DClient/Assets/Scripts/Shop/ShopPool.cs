@@ -113,6 +113,13 @@ public class ShopPool : MonoBehaviour
         return items;
     }
 
+    public PoolItem GetRandomItemAtLevel(int minLevel, int maxLevel)
+    {
+        int l = Random.Range(minLevel, maxLevel);
+        int x = Random.Range(0, itemPool[l].Count - 1);
+        return itemPool[l][x];
+    }
+
     private int GetRandomLevel(int maxLevel, List<List<PoolItem>> pool)
     {
         int opts = 0;
@@ -132,7 +139,7 @@ public class ShopPool : MonoBehaviour
 
     private PoolItem GetRandomItemAtLevel(int level, List<List<PoolItem>> pool)
     {
-        int x = (int)Random.Range(0f, pool[level].Count - 0.000001f);
+        int x = Random.Range(0, pool[level].Count - 1);
         return pool[level][x];
     }
 

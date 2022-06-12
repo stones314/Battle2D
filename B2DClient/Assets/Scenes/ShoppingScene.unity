@@ -516,7 +516,7 @@ GameObject:
   - component: {fileID: 330789307}
   m_Layer: 6
   m_Name: UpgradeSlot
-  m_TagString: Untagged
+  m_TagString: UpgradeShopSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -958,7 +958,7 @@ GameObject:
   - component: {fileID: 882053287}
   m_Layer: 6
   m_Name: EquipmentSlot
-  m_TagString: Untagged
+  m_TagString: EquipShopSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1441,7 +1441,7 @@ GameObject:
   - component: {fileID: 1117930079}
   m_Layer: 6
   m_Name: ShipSlot
-  m_TagString: Untagged
+  m_TagString: ShipShopSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2044,10 +2044,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1415771016638919119, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
+      propertyPath: shipPool
+      value: 
+      objectReference: {fileID: 1117930077}
+    - target: {fileID: 1415771016638919119, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
+      propertyPath: equipmentPool
+      value: 
+      objectReference: {fileID: 882053285}
     - target: {fileID: 8811755526070094481, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 8811755526398069197, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
+      propertyPath: money
+      value: 50000
+      objectReference: {fileID: 0}
     - target: {fileID: 8811755526398069197, guid: e50cbac5f19c57d45b36197d95d37030, type: 3}
       propertyPath: LevelText
       value: 

@@ -26,6 +26,9 @@ TagManager:
   - Shield
   - Level Up
   - Save System
+  - ShipShopSlot
+  - EquipShopSlot
+  - UpgradeShopSlot
   layers:
   - Default
   - TransparentFX

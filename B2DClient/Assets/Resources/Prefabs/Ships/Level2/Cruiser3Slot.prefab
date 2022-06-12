@@ -90,12 +90,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: description
-      value: A slow but durable Cruiser with extra upgrade potential, but weaker
-        hull
+      value: Reasembles to a fully equipped level 1 ship when destroyed
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: displayName
-      value: Cruiser V1
+      value: Reasemble Cruiser
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: prefabInfo.path
@@ -203,6 +202,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+--- !u!1 &1164147951604618340 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 631664595609270601, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+  m_PrefabInstance: {fileID: 1793556347193617709}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &621486501913648837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164147951604618340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11e2ddc184b53194286345a0d141579d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipLevel: 1
+  maxEquipCount: 2
+  equipLevel: 2
 --- !u!4 &1164147951604618341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 631664595609270600, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}

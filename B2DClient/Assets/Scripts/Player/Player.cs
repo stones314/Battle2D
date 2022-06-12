@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     UnityEngine.UI.Text LevelText;
 
+    Player enemy;
+
     private void Awake()
     {
 
@@ -79,6 +81,7 @@ public class Player : MonoBehaviour
 
     public void BattleStarted(Player opponent)
     {
+        enemy = opponent;
         Ship[] ships = GetComponentsInChildren<Ship>();
         foreach(var ship in ships)
         {
@@ -88,7 +91,15 @@ public class Player : MonoBehaviour
 
     public bool HasShipsLeft()
     {
-        return GetComponentInChildren<Fleet>().GetComponentsInChildren<FireUnit>().Length > 0;
+        if (GetComponentInChildren<Fleet>().GetComponentsInChildren<FireUnit>().Length > 0) return true;
+
+        ShipSpawner[] spawners = GetComponentsInChildren<ShipSpawner>();
+        foreach (var spawner in spawners)
+        {
+            if (spawner.IsSpawning()) return true;
+        }
+
+        return false;
     }
 
     public void BattleEnded()
@@ -142,5 +153,18 @@ public class Player : MonoBehaviour
         }
 
         return pd;
+    }
+
+    public ShopPool GetShipPool()
+    {
+        return GetComponentInChildren<ShipSpawner>().GetShipPool();
+    }
+    public ShopPool GetEquipPool()
+    {
+        return GetComponentInChildren<ShipSpawner>().GetEquipPool();
+    }
+    public Player GetEnemy()
+    {
+        return enemy;
     }
 }
