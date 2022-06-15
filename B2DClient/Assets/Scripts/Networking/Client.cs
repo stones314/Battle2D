@@ -19,7 +19,7 @@ public class Client : MonoBehaviour
         if (m_Connection.IsCreated) return;
 
         m_Driver = NetworkDriver.Create();
-        var endpoint = NetworkEndPoint.Parse("16.170.74.73", 50123);
+        var endpoint = NetworkEndPoint.Parse(Constants.ServerAddress, Constants.ServerPort);
         m_Connection = m_Driver.Connect(endpoint);
         
     }
