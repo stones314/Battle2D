@@ -68,7 +68,7 @@ public class BurstBonus : TechTile
 
     }
 
-    public override void ExecuteCombatAction()
+    public override void ExecuteCombatAction(Ship target)
     {
 
     }

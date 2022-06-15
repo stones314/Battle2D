@@ -9,6 +9,11 @@ public class BattleController
     private List<Ship> attackOrder;
     private int nextAttacker;
     private int numActive;
+    private bool shipBasedAttacks = false;
+
+
+    enum Attacker { PLAYER = 0, OPPONENT = 1 }
+    private Attacker attacker;
 
     public BattleController()
     {
@@ -20,11 +25,20 @@ public class BattleController
     {
         player = _player;
         opponent = _opponent;
+
+        if (shipBasedAttacks)
+            InitShipBasedAttacks();
+        else
+            InitSlotBasedAttacks();
+
+    }
+    void InitShipBasedAttacks()
+    {
         attackOrder.Clear();
         nextAttacker = 0;
         foreach (var ship in player.GetComponentsInChildren<Ship>())
         {
-            if(ship.HasCombatAction())
+            if (ship.HasCombatAction())
                 InsertIntoAttackOrder(ship);
         }
         foreach (var ship in opponent.GetComponentsInChildren<Ship>())
@@ -33,8 +47,16 @@ public class BattleController
                 InsertIntoAttackOrder(ship);
         }
         numActive = attackOrder.Count;
-        if(numActive > 0)
+        if (numActive > 0)
             attackOrder[nextAttacker].PrepareAttack();
+    }
+
+    void InitSlotBasedAttacks()
+    {
+        if (Random.Range(0, 1) == 0)
+            attacker = Attacker.OPPONENT;
+        else
+            attacker = Attacker.PLAYER;
     }
 
     private void InsertIntoAttackOrder(Ship newShip)
@@ -71,7 +93,7 @@ public class BattleController
     {
         int secondAttacker = nextAttacker + 1;
         secondAttacker %= attackOrder.Count;
-        while (!attackOrder[secondAttacker].gameObject.activeInHierarchy && secondAttacker != nextAttacker)
+        while (!attackOrder[secondAttacker] || (!attackOrder[secondAttacker].gameObject.activeInHierarchy && secondAttacker != nextAttacker))
         {
             secondAttacker++;
             secondAttacker %= attackOrder.Count;
@@ -94,15 +116,34 @@ public class BattleController
 
     public void AttackNext()
     {
-        if (!attackOrder[nextAttacker]) return;
-        attackOrder[nextAttacker].Attack();
-        FindFirstAttacker();
-        MarkSecondAttacker();
+        if (shipBasedAttacks)
+        {
+            if (!attackOrder[nextAttacker]) return;
+            attackOrder[nextAttacker].Attack(null);
+            FindFirstAttacker();
+            MarkSecondAttacker();
+        }
+        else
+        {
+            if (attacker == Attacker.PLAYER)
+            {
+                player.GetComponentInChildren<Fleet>().Attack();
+                attacker = Attacker.OPPONENT;
+            }
+            else
+            {
+                opponent.GetComponentInChildren<Fleet>().Attack();
+                attacker = Attacker.PLAYER;
+            }
+        }
     }
 
     private void OnShipSpawned(Ship ship)
     {
-        if (ship.HasCombatAction())
-            InsertIntoAttackOrder(ship);
+        if (shipBasedAttacks)
+        {
+            if (ship.HasCombatAction())
+                InsertIntoAttackOrder(ship);
+        }
     }
 }

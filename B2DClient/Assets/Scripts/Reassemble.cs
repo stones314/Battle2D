@@ -28,11 +28,18 @@ public class Reassemble : MonoBehaviour
         if (!GetComponentInParent<Player>()) return;
 
         Ship myShip = GetComponentInParent<Ship>();
-        if (!myShip) return;
-        if (myShip != destroyedShip) return;
+        if (!myShip) {
+            return;
+        }
+        if (myShip != destroyedShip) {
+            return;
+        }
 
-        Slot slot = myShip.GetCurrentSlot();
-        if (!slot) return;
+        Slot slot = myShip.GetComponentInParent<Slot>();
+        if (!slot) {
+            Debug.Log("Reassemble: No slot"); 
+            return;
+        }
         slot.GetComponent<ShipSpawner>().Activate(shipLevel, equipLevel, maxEquipCount, 1);
     }
 }

@@ -10,8 +10,7 @@ public class FireUnit : MonoBehaviour
     [SerializeField]
     Transform muzzel;
 
-    [Tooltip("Degees turned per second")]
-    public float rotationSpeed = 40f;
+    private float rotationSpeed = 80f;
 
     [Tooltip("The munition fired")]
     [SerializeField]
@@ -58,13 +57,13 @@ public class FireUnit : MonoBehaviour
         if (!battle) return;
         if (!enemyPlayer) return;
 
-        if (!prepareAttack) return;
+        //if (!prepareAttack) return;
 
-        GetTarget();
-        RotateTowardsTarget();
 
         if (!attack) return;
 
+        GetTarget();
+        RotateTowardsTarget();
         FireWhenReady();
     }
 
@@ -224,6 +223,12 @@ public class FireUnit : MonoBehaviour
 
     public void Attack()
     {
+        attack = true;
+    }
+
+    public void Attack(Ship target)
+    {
+        SetShipTarget(target);
         attack = true;
     }
 

@@ -87,6 +87,8 @@ public class Player : MonoBehaviour
         {
             ship.BattleStarted(opponent);
         }
+
+        GetComponentInChildren<Fleet>().InitCombat(opponent);
     }
 
     public bool HasShipsLeft()

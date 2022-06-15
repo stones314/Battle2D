@@ -8,7 +8,7 @@ public class Decoy : TechTile
     {
     }
 
-    public override void ExecuteCombatAction()
+    public override void ExecuteCombatAction(Ship target)
     {
     }
 

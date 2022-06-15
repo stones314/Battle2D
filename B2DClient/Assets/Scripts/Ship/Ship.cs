@@ -90,12 +90,12 @@ public class Ship : Draggable
         GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.green;
     }
 
-    public void Attack()
+    public void Attack(Ship target)
     {
         TechTile[] techs = GetComponentsInChildren<TechTile>();
         foreach (var tech in techs)
         {
-            tech.ExecuteCombatAction();
+            tech.ExecuteCombatAction(target);
         }
         GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.white;
     }

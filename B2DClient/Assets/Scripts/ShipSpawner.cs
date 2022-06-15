@@ -75,6 +75,9 @@ public class ShipSpawner : MonoBehaviour
 
         AddEquipment(ship);
 
+        if(enemyTag == "Player")
+            go.transform.rotation = new Quaternion(0, 0, 180, 0);
+
         ship.BattleStarted(GameObject.FindGameObjectWithTag(enemyTag).GetComponent<Player>());
         EventManager.NotifyShipSpawned(ship);
     }

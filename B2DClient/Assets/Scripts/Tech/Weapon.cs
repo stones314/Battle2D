@@ -86,12 +86,12 @@ public class Weapon : TechTile
         }
     }
 
-    public override void ExecuteCombatAction()
+    public override void ExecuteCombatAction(Ship target)
     {
         FireUnit[] fireUnits = GetComponentsInChildren<FireUnit>();
         foreach (var fireUnit in fireUnits)
         {
-            fireUnit.Attack();
+            fireUnit.Attack(target);
         }
     }
 }

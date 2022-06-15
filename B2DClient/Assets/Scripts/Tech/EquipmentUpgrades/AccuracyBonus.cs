@@ -66,7 +66,7 @@ public class AccuracyBonus : TechTile
     {
 
     }
-    public override void ExecuteCombatAction()
+    public override void ExecuteCombatAction(Ship target)
     {
 
     }

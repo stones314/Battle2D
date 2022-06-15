@@ -25,7 +25,7 @@ public class ShopSlot : Slot
         else if(itemType == ItemType.Equipments)
             pool = GameObject.FindGameObjectWithTag("Equipment Pool").GetComponent<ShopPool>();
         else if(itemType == ItemType.Upgrades)
-            pool = GameObject.FindGameObjectWithTag("Equipment Pool").GetComponent<ShopPool>();
+            pool = GameObject.FindGameObjectWithTag("Upgrade Pool").GetComponent<ShopPool>();
 
         originalDefault = defaultColor;
 

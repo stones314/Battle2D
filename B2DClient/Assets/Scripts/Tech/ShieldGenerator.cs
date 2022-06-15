@@ -159,7 +159,7 @@ public class ShieldGenerator : TechTile
 
     }
 
-    public override void ExecuteCombatAction()
+    public override void ExecuteCombatAction(Ship target)
     {
 
     }

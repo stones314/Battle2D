@@ -45,7 +45,7 @@ public abstract class TechTile : Draggable
 
     public virtual bool HasCombatAction() { return false; }
     public abstract void PrepareCombatAction();
-    public abstract void ExecuteCombatAction();
+    public abstract void ExecuteCombatAction(Ship target);
 
     public virtual TechTileData ToTechTileData()
     {
