@@ -84,6 +84,6 @@ crashlytics-build.properties
 *~
 *.kra
 *.kra.meta
-
+*NaughtyAttributes*
 #Python
 *__pycache__*
