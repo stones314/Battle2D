@@ -17,12 +17,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: description
-      value: A small ship with room for a single equipment, but starts with extra
-        initiative
+      value: When this dies, give your other ships one extra hull permanently
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: displayName
-      value: Fast Interceptor
+      value: Fix Interceptor
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: prefabInfo.path
@@ -114,3 +113,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+--- !u!1 &4236915479006145998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 631664595609270601, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
+  m_PrefabInstance: {fileID: 3605293904288076935}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6442749703420708636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4236915479006145998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2e129083e3400b488fb34f4e456b622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathAction: 3
+  shipLevel: 0
+  equipLevel: 0
+  equipCount: 0
+  hullCount: 1

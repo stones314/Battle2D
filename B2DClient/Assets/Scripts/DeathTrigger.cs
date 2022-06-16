@@ -1,6 +1,4 @@
 using NaughtyAttributes;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DeathTrigger : ShipAbility
@@ -9,7 +7,8 @@ public class DeathTrigger : ShipAbility
     {
         GiveReassemble,
         SelfReassemble,
-        GiveHull
+        GiveHullOne,
+        GiveHullAll,
     }
     public DeathAction deathAction = DeathAction.SelfReassemble;
 
@@ -25,7 +24,12 @@ public class DeathTrigger : ShipAbility
     [ShowIf("IsReassemble")]
     public ushort equipCount;
 
-    [ShowIf("deathAction", DeathAction.GiveHull)]
+    private bool IsGiveHull()
+    {
+        return deathAction == DeathAction.GiveHullOne
+            || deathAction == DeathAction.GiveHullAll;
+    }
+    [ShowIf("IsGiveHull")]
     public ushort hullCount;
 
 
@@ -51,32 +55,62 @@ public class DeathTrigger : ShipAbility
             case DeathAction.SelfReassemble:
                 DoSelfReassemble();
                 break;
+            case DeathAction.GiveHullOne:
+                DoGiveHullOne();
+                break;
+            case DeathAction.GiveHullAll:
+                DoGiveHullAll();
+                break;
         }
     }
 
-    private void DoGiveReassemble()
+    private Ship GetRandomOtherShip()
     {
         Fleet fleet = GetComponentInParent<Fleet>();
-        if (!fleet) return;
-
-        Ship myShip = GetComponent<Ship>();
-        if (!myShip)
-        {
-            return;
-        }
+        if (!fleet) return null;
 
         Ship[] targets = fleet.GetComponentsInChildren<Ship>();
 
 
-        if (targets.Length == 0) return;
+        if (targets.Length == 0) return null;
 
         int x = Random.Range(0, targets.Length - 1);
 
-        DeathTrigger nt = targets[x].gameObject.AddComponent<DeathTrigger>();
+        return targets[x];
+    }
+
+    private void DoGiveReassemble()
+    {
+        Ship target = GetRandomOtherShip();
+        if (!target) return;
+
+        DeathTrigger nt = target.gameObject.AddComponent<DeathTrigger>();
         nt.deathAction = DeathAction.SelfReassemble;
         nt.shipLevel = shipLevel;
         nt.equipLevel = equipLevel;
         nt.equipCount = equipCount;
+    }
+
+
+    private void DoGiveHullOne()
+    {
+        Ship target = GetRandomOtherShip();
+        if (!target) return;
+
+        target.AddBonusLayers(hullCount);
+    }
+
+    private void DoGiveHullAll()
+    {
+        Fleet fleet = GetComponentInParent<Fleet>();
+        if (!fleet) return;
+
+        Ship[] targets = fleet.GetComponentsInChildren<Ship>();
+
+        foreach (var target in targets)
+        {
+            target.AddBonusLayers(hullCount);
+        }
     }
 
     private void DoSelfReassemble()
