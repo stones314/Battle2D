@@ -40,6 +40,6 @@ public class Reassemble : MonoBehaviour
             Debug.Log("Reassemble: No slot"); 
             return;
         }
-        slot.GetComponent<ShipSpawner>().Activate(shipLevel, equipLevel, maxEquipCount, 1);
+        slot.GetComponent<ShipSpawner>().AddSpawn(shipLevel, equipLevel, maxEquipCount);
     }
 }

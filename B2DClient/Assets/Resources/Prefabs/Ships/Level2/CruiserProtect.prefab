@@ -1,74 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &692679923752177313
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1164147951604618341}
-    m_Modifications:
-    - target: {fileID: 1767725220581875011, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: slotId
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875012, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_Name
-      value: TechSlot1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.32
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
 --- !u!1001 &1793556347193617709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90,11 +21,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: description
-      value: Reasembles to a fully equipped level 1 ship when destroyed
+      value: When this dies, another ship you control gains Reassemble 2 (it reassembles
+        into a random level 2 ship with random level 2 equipments)
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: displayName
-      value: Reasemble Cruiser
+      value: Cruiser Protector
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270595, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: prefabInfo.path
@@ -170,15 +102,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 631664595609270601, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_Name
-      value: Cruiser3Slot
+      value: CruiserProtect
       objectReference: {fileID: 0}
     - target: {fileID: 893814676147808103, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2410272139250872764, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2797976146208821623, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_RootOrder
@@ -186,11 +118,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4915441837646150386, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.59
+      value: -2.14
       objectReference: {fileID: 0}
     - target: {fileID: 4915441837646150386, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.55
+      value: 2.39
       objectReference: {fileID: 0}
     - target: {fileID: 5618543421441002290, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -207,7 +139,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 631664595609270601, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
   m_PrefabInstance: {fileID: 1793556347193617709}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-7399288243498992276
+--- !u!114 &8978091037762139156
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -219,17 +151,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e129083e3400b488fb34f4e456b622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathAction: 1
-  shipLevel: 1
+  deathAction: 0
+  shipLevel: 2
   equipLevel: 2
   equipCount: 2
-  hullCount: 0
 --- !u!4 &1164147951604618341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 631664595609270600, guid: fb9e682f06b7bee41a97af4e2871f00c, type: 3}
   m_PrefabInstance: {fileID: 1793556347193617709}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &3487160989144599763
+--- !u!1001 &6860574447100530602
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -238,15 +169,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1767725220581875011, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
       propertyPath: slotId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1767725220581875012, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
       propertyPath: m_Name
-      value: TechSlot2
+      value: TechSlot1
       objectReference: {fileID: 0}
     - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
       propertyPath: m_LocalScale.x
@@ -258,11 +189,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.81
+      value: -2.12
       objectReference: {fileID: 0}
     - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.05
+      value: -1.94
       objectReference: {fileID: 0}
     - target: {fileID: 1767725220581875015, guid: da80a38ac5ba2604282f09b14ce6db28, type: 3}
       propertyPath: m_LocalPosition.z

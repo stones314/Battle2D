@@ -156,7 +156,7 @@ public class ShopSlot : Slot
             itemInfo.transform.position = dragged.transform.position;
             itemInfo.SetCost(dragged.cost);
             itemInfo.SetDisplayName(dragged.displayName);
-            dragged.itemInfoObj = itemInfo;
+            dragged.SetShopInfo(itemInfo);
         }
         AlignItems();
     }

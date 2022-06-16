@@ -19,9 +19,12 @@ public class Ship : Draggable
     Transform hullArea;
     [SerializeField]
     Transform initiativeArea;
+    [SerializeField]
+    Transform indicatorArea;
 
     List<HullElement> hullElements = new List<HullElement>();
     List<GameObject> initiativeElements = new List<GameObject>();
+    List<Sprite> indicators = new List<Sprite>();
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +35,13 @@ public class Ship : Draggable
     void Update()
     {
         
+    }
+
+    public void Initialize(bool inCombat = false)
+    {
+        GenerateHullMeter();
+        GenerateInitiativeMeter();
+        combatGenerated = inCombat;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -47,7 +57,14 @@ public class Ship : Draggable
             tech.BattleStarted(opponent);
         }
 
+        ShipAbility[] abilities = GetComponents<ShipAbility>();
+        foreach (var ability in abilities)
+        {
+            ability.BattleStarted();
+        }
+
         GetComponent<CapsuleCollider>().radius /= 3f;
+
     }
 
     public void BattleEnded()
@@ -61,11 +78,19 @@ public class Ship : Draggable
         this.gameObject.SetActive(true);
 
         GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.white;
+        
         TechTile[] techs = GetComponentsInChildren<TechTile>(true);
         foreach (var tech in techs)
         {
             tech.BattleEnded();
         }
+
+        ShipAbility[] abilities = GetComponents<ShipAbility>();
+        foreach (var ability in abilities)
+        {
+            ability.BattleEnded();
+        }
+
         RestoreHull();
 
         GetComponent<CapsuleCollider>().radius *= 3f;
@@ -130,13 +155,19 @@ public class Ship : Draggable
         else
             this.gameObject.SetActive(false);
 
-        GetComponentInParent<Slot>().GetComponent<SpriteRenderer>().color = Color.white;
+        DeathTrigger[] dts = GetComponents<DeathTrigger>();
+        foreach (var dt in dts)
+        {
+            dt.Activate();
+        }
 
-        if (!explosionPrefab) return;
+        if (explosionPrefab)
+        {
+            GameObject explosion = Instantiate(explosionPrefab);
+            explosion.transform.position = this.transform.position;
+            explosion.transform.localScale *= 4;
+        }
 
-        GameObject explosion = Instantiate(explosionPrefab);
-        explosion.transform.position = this.transform.position;
-        explosion.transform.localScale *= 4;
     }
 
     public void GenerateHullMeter()
@@ -145,13 +176,6 @@ public class Ship : Draggable
         {
             AddHullLayer(l);
         }
-    }
-
-    public void Initialize(bool inCombat = false)
-    {
-        GenerateHullMeter();
-        GenerateInitiativeMeter();
-        combatGenerated = inCombat;
     }
 
     public void AddBonusLayers(int numLayers)
@@ -238,6 +262,10 @@ public class Ship : Draggable
         initiativeElements.Add(initiativeElement);
     }
 
+    public void AddIndicator(Sprite sprite)
+    {
+        indicators.Add(sprite);
+    }
 
     public float GetDamagePerAttack()
     {
@@ -266,6 +294,12 @@ public class Ship : Draggable
         if (dmg > 0) str += "\nDamage/attack: " + dmg;
 
         str += "\nSell Value:  " + c / 3;
+
+        DeathTrigger[] dts = GetComponents<DeathTrigger>();
+        foreach (var dt in dts)
+        {
+            str += "\nDeath Trigger: " + dt.deathAction.ToString();
+        }
         
         return str;
     }

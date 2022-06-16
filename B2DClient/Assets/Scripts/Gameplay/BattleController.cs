@@ -127,13 +127,13 @@ public class BattleController
         {
             if (attacker == Attacker.PLAYER)
             {
-                player.GetComponentInChildren<Fleet>().Attack();
-                attacker = Attacker.OPPONENT;
+                if(player.GetComponentInChildren<Fleet>().Attack())
+                    attacker = Attacker.OPPONENT;
             }
             else
             {
-                opponent.GetComponentInChildren<Fleet>().Attack();
-                attacker = Attacker.PLAYER;
+                if(opponent.GetComponentInChildren<Fleet>().Attack())
+                    attacker = Attacker.PLAYER;
             }
         }
     }
