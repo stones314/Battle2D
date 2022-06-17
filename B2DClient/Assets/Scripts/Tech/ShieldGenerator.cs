@@ -15,7 +15,6 @@ public class ShieldGenerator : TechTile
     private float rechargeStartTime;
 
     Animator reloadAnimator;
-    private float rescaleFactor = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -36,14 +35,20 @@ public class ShieldGenerator : TechTile
     public override void Clicked(Vector2 offset)
     {
         base.Clicked(offset);
-        shield.transform.localScale /= 3;
+        //shield.transform.localScale /= 3;
         shield.transform.position = this.transform.position;
     }
 
     public override int Dropped(int playerMoney)
     {
-        shield.transform.localScale *= 3;
-        return base.Dropped(playerMoney);
+        int cost = base.Dropped(playerMoney);
+        //shield.transform.localScale *= 3;
+
+        Ship ship = GetComponentInParent<Ship>();
+        if (ship)
+            shield.transform.position = ship.transform.position;
+
+        return cost;
     }
 
     public float ScaleStrengthLeft()
@@ -81,17 +86,6 @@ public class ShieldGenerator : TechTile
         }
     }
 
-    public override void ApplyBonusesToTarget(Slot slot)
-    {
-        Ship ship = GetComponentInParent<Ship>();
-        ship.shieldCount++;
-        shield.transform.position = ship.transform.position;
-        rescaleFactor = 1.0f + 0.1f*(ship.shieldCount - 1);
-        shield.transform.localScale *= rescaleFactor;
-        shield.gameObject.SetActive(true);
-
-    }
-
     public override void BattleEnded()
     {
         battle = false;
@@ -120,11 +114,31 @@ public class ShieldGenerator : TechTile
         
     }
 
+    public override void ApplyBonusesToTarget(Slot slot)
+    {
+        Ship ship = GetComponentInParent<Ship>();
+        ship.shieldCount++;
+        shield.gameObject.SetActive(true);
+        shield.transform.position = ship.transform.position;
+        RescaleShipShields(ship);
+    }
+
     public override void RemovedFromShip(Ship oldParent)
     {
         shield.gameObject.SetActive(false);
-        shield.transform.localScale /= rescaleFactor;
+        RescaleShipShields(oldParent);
         oldParent.shieldCount--;
+    }
+
+    private void RescaleShipShields(Ship ship)
+    {
+        Shield[] shipShields = ship.GetComponentsInChildren<Shield>();
+        float scale = 1;
+        foreach (var shipShield in shipShields)
+        {
+            shipShield.Rescale(scale);
+            scale += 0.04f;
+        }
     }
 
     public override string GetHoverOverStats()
