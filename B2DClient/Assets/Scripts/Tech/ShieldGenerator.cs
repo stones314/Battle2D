@@ -137,7 +137,7 @@ public class ShieldGenerator : TechTile
         foreach (var shipShield in shipShields)
         {
             shipShield.Rescale(scale);
-            scale += 0.04f;
+            scale += 0.035f;
         }
     }
 

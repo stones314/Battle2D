@@ -9,6 +9,7 @@ public class Munition : MonoBehaviour
     
     private Player owningPlayer;
     private bool isBattle = false;
+    private bool hitShield = false;
     private Quaternion initialRotation;
 
     [SerializeField]
@@ -31,6 +32,7 @@ public class Munition : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (IgnoreThisCollision(other)) return;
+        if (hitShield) return;
 
 
         if (other.gameObject.tag == "Shield")
@@ -68,6 +70,8 @@ public class Munition : MonoBehaviour
 
     private void HitShield(Collider other)
     {
+        hitShield = true;
+
         Shield target = other.gameObject.GetComponent<Shield>();
 
         target.HitByProjectile(damage);
