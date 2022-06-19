@@ -150,9 +150,9 @@ public class SaveSystem : MonoBehaviour
             ShieldGenerator sg = go.GetComponentInChildren<ShieldGenerator>();
             if (sg)
             {
-                sg.shieldStrength = techData.shieldStrength;
                 sg.rechargeTime = techData.rechargeTime;
                 sg.PlacedOnTarget(slot, true);
+                sg.InitSG();
             }
         }
     }

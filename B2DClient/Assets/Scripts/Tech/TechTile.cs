@@ -63,7 +63,7 @@ public abstract class TechTile : Draggable
         ShieldGenerator sg = GetComponentInChildren<ShieldGenerator>();
         if (sg)
         {
-            ttd.shieldStrength = sg.shieldStrength;
+            ttd.shieldStrength = 0;
             ttd.rechargeTime = sg.rechargeTime;
         }
 
