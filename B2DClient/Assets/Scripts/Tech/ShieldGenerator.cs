@@ -133,11 +133,11 @@ public class ShieldGenerator : TechTile
     private void RescaleShipShields(Ship ship)
     {
         Shield[] shipShields = ship.GetComponentsInChildren<Shield>();
-        float scale = 1;
+        float scale = Constants.ShieldScale;
         foreach (var shipShield in shipShields)
         {
             shipShield.Rescale(scale);
-            scale += 0.035f;
+            scale += Constants.ShieldDeltaScale;
         }
     }
 
