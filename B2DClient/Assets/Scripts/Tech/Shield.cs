@@ -23,12 +23,9 @@ public class Shield : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void RechargeIfNeeded()
     {
-        if (!battle) return;
-
-        if (recharge)
-            Recharge();
+        if (recharge) Recharge();
     }
 
     public void HitByProjectile(float damage)

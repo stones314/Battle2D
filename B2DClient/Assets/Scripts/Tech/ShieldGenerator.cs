@@ -8,6 +8,7 @@ public class ShieldGenerator : TechTile
     private GameSpeed.TimeInterval rechargeTimeGS;
 
     Shield[] shields;
+    bool battle = false;
 
     private void Awake()
     {
@@ -23,7 +24,12 @@ public class ShieldGenerator : TechTile
     // Update is called once per frame
     void Update()
     {
+        if (!battle) return;
 
+        foreach (var shield in shields)
+        {
+            shield.RechargeIfNeeded();
+        }
     }
 
     public override void Clicked(Vector2 offset)
@@ -65,6 +71,8 @@ public class ShieldGenerator : TechTile
 
     public override void BattleEnded()
     {
+        battle = false;
+
         foreach (var shield in shields)
         {
             shield.BattleEnded();
@@ -73,6 +81,8 @@ public class ShieldGenerator : TechTile
 
     public override void BattleStarted(Player opponent)
     {
+        battle = true;
+
         foreach (var shield in shields)
         {
             shield.BattleStarted();
