@@ -87,3 +87,4 @@ crashlytics-build.properties
 *NaughtyAttributes*
 #Python
 *__pycache__*
+WireSharkDisector/dissector.lua
