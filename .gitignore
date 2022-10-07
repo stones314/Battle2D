@@ -88,3 +88,6 @@ crashlytics-build.properties
 #Python
 *__pycache__*
 WireSharkDisector/dissector.lua
+
+#doc
+/Doc/generated

@@ -1,0 +1,24 @@
+/*! \page main Introduction
+
+## Idea
+This game is an asynchronous <b>autobattler</b>. An autobattler is typically a game played over several \ref Round "Rounds", where each round consists of at least these two \ref Phase "Phases":
+
+1. Shop - buy/upgrade your <b>army</b>, and position the <b>units</b> in the army
+
+2. Battle - automatic based on rules and random chance
+
+Normally you play live against other players, performing the rounds synchronously.
+
+The synchronous nature leads to some required features:
+1. The game requires a timer, players must perform their moves within a given time.
+2. The game requires that you are available for its duration.
+
+Some players dislike these features (including me). That is why I want to make an asynchronous autobattler!
+
+## How?
+
+After the shop phase your army is saved on a server, and then you load an opponent from that server based on how many rounds you have played. Round 1 you play against a stored round-1 opponent, round 2 agains a round-2 opponent and so on. 
+
+\image html game-flow.png
+
+ */
