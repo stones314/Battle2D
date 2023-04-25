@@ -1,0 +1,7 @@
+/*! \page ideas Brainstorming
+
+## Auto soccer
+
+
+
+*/

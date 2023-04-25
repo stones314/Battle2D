@@ -20,5 +20,6 @@ Some ideas:
 - evolution
 - quantum randomnes
 - mutations caused by radiation
+- sport team player stats
 
 */
