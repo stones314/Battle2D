@@ -12,7 +12,7 @@ public class Shield : MonoBehaviour
 
     float currentRescale = 1;
     bool recharge = false;
-    private bool battle = false;
+    //private bool battle = false;
     private float rechargeStartTime;
 
     Animator reloadAnimator;
@@ -77,7 +77,7 @@ public class Shield : MonoBehaviour
 
     public void BattleEnded()
     {
-        battle = false;
+        //battle = false;
         gameObject.SetActive(true);
 
         reloadAnimator.SetBool("reloading", false);
@@ -86,7 +86,7 @@ public class Shield : MonoBehaviour
 
     public void BattleStarted()
     {
-        battle = true;
+        //battle = true;
 
         InitilaizeShield(rechargeTime); //in case this is the opponent it seems to not be initialized, so do it here
         InitilaizeReloadAnimator(); //in case this is the opponent it seems to not be initialized, so do it here

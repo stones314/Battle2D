@@ -34,8 +34,6 @@ public class SaveSystem : MonoBehaviour
         client = GetComponent<Client>();
         shipPool = GameObject.FindGameObjectWithTag("Ship Pool").GetComponent<ShopPool>();
         equipmentPool = GameObject.FindGameObjectWithTag("Equipment Pool").GetComponent<ShopPool>();
-
-
     }
 
     public void SavePlayer(Player player)
