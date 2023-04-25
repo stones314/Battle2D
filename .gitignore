@@ -86,6 +86,7 @@ crashlytics-build.properties
 *.kra.meta
 *NaughtyAttributes*
 *.DS_Store
+*.bkp
 
 #Python
 *__pycache__*

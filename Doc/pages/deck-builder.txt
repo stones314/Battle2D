@@ -1,4 +1,4 @@
-/*! \page main Introduction
+/*! \page card Deck Builder
 
 ## Idea
 This game is an asynchronous <b>autobattler</b>. An autobattler is typically a game played over several \ref Round "Rounds", where each round consists of at least these two \ref Phase "Phases":
